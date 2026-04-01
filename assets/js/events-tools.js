@@ -23,8 +23,49 @@ function renderRsvps() {
 function initEventsTools() {
   const form = document.querySelector("[data-rsvp-form]");
   const qrNode = document.querySelector("[data-qr-preview]");
+  const qrFallback = document.querySelector("[data-qr-fallback]");
   if (!form) {
     return;
+  }
+
+  function setQrPreview(code, eventName) {
+    if (!qrNode) {
+      return;
+    }
+    const payloadRaw = code + "|" + eventName;
+    const payload = encodeURIComponent(payloadRaw);
+    const providers = [
+      "https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=" + payload,
+      "https://quickchart.io/qr?size=180&text=" + payload
+    ];
+    let index = 0;
+
+    function showFallback() {
+      qrNode.removeAttribute("src");
+      if (qrFallback) {
+        qrFallback.hidden = false;
+        qrFallback.textContent = "QR unavailable. Use code: " + code;
+      }
+    }
+
+    qrNode.onerror = function onError() {
+      index += 1;
+      if (index < providers.length) {
+        qrNode.src = providers[index];
+      } else {
+        showFallback();
+      }
+    };
+
+    qrNode.onload = function onLoad() {
+      if (qrFallback) {
+        qrFallback.hidden = false;
+        qrFallback.textContent = "Check-in code: " + code;
+      }
+    };
+
+    qrNode.alt = "Check-in QR for " + code;
+    qrNode.src = providers[index];
   }
 
   form.addEventListener("submit", (event) => {
@@ -45,11 +86,7 @@ function initEventsTools() {
     saveRsvps(items);
     form.reset();
     renderRsvps();
-    if (qrNode) {
-      const payload = encodeURIComponent(code + "|" + eventName);
-      qrNode.src = "https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=" + payload;
-      qrNode.alt = "Check-in QR for " + code;
-    }
+    setQrPreview(code, eventName);
   });
 
   renderRsvps();
