@@ -1,0 +1,166 @@
+{
+  "church": {
+    "name": "New Community Church",
+    "city": "Suffolk, Virginia",
+    "address": "5112 Godwin Blvd, Suffolk, VA 23434",
+    "phone": "(757) 434-6231",
+    "serviceTimes": [
+      "Sunday at 11:00 AM (Zoom)",
+      "Wednesday at 7:00 PM (Zoom)"
+    ]
+  },
+  "placeholders": {
+    "branding": {
+      "shortName": "NCC Family",
+      "fullName": "New Community Church"
+    },
+    "contact": {
+      "cityState": "Suffolk, Virginia",
+      "address": "5112 Godwin Blvd, Suffolk, VA 23434",
+      "phone": "(757) 434-6231"
+    },
+    "links": {
+      "youtube": "https://www.youtube.com/",
+      "zoom": "https://zoom.us/",
+      "give": "https://www.nccfamily.us/",
+      "map": "https://maps.google.com/?q=5112+Godwin+Blvd+Suffolk+VA+23434"
+    },
+    "home": {
+      "heroTitle": "We Are Building Faith + Community In Suffolk",
+      "heroCopy": "New Community Church exists to serve people at every stage of faith with Christ-centered teaching, care, and digital access to worship throughout the week.",
+      "heroTimes": "Join us on Sunday at 11:00 AM and Wednesday at 7:00 PM via Zoom.",
+      "ctaWatch": "Watch Latest Message",
+      "ctaVisit": "Plan Your Visit",
+      "ministryTitle": "Ministry Priorities",
+      "teachingTitle": "Biblical Teaching",
+      "teachingCopy": "Teaching rooted in scripture, practical for everyday life, and centered on Jesus.",
+      "sharedLifeTitle": "Shared Life",
+      "sharedLifeCopy": "A community where we celebrate victories and carry one another through difficult seasons.",
+      "digitalReachTitle": "Digital Reach",
+      "digitalReachCopy": "Live and on-demand media experiences that extend ministry beyond Sunday gatherings."
+    },
+    "messages": {
+      "pageTitle": "Live Feed + Recent Teachings",
+      "liveCardTitle": "Join The Worship Stream",
+      "liveCardCopy": "Stream through YouTube or join the Zoom room for direct participation.",
+      "archiveTitle": "Archive",
+      "overlayTitle": "Program Runtime Overlay"
+    },
+    "events": {
+      "pageTitle": "Upcoming Church Gatherings",
+      "sundayTitle": "Sunday Worship",
+      "sundayTime": "Every Sunday at 11:00 AM",
+      "sundayCopy": "Primary gathering with in-person and Zoom participation options.",
+      "wednesdayTitle": "Wednesday Midweek",
+      "wednesdayTime": "Every Wednesday at 7:00 PM",
+      "wednesdayCopy": "A focused Bible teaching and prayer experience."
+    },
+    "give": {
+      "pageTitle": "Fuel Ministry Impact",
+      "heroCopy": "Your generosity supports worship, discipleship, outreach, and digital ministry experiences that reach beyond one location."
+    },
+    "about": {
+      "title": "A Community Of Faith Since 1996",
+      "intro": "New Community Church was established in Suffolk, Virginia in 1996. We exist to help people know Jesus, grow in faith, and build meaningful Christ-centered relationships throughout the week.",
+      "identityTitle": "Our Identity",
+      "identityCopy": "We are followers of Jesus who are committed to biblical teaching, worship, and practical love for our neighbors.",
+      "rhythmTitle": "Our Rhythm",
+      "rhythmCopy": "Sunday worship and midweek connection create a steady rhythm for spiritual growth and shared life.",
+      "quote": "Our common faith in Jesus shapes how we do life together through every season."
+    },
+    "ministries": {
+      "title": "Grow, Serve, And Lead Together",
+      "discipleshipTitle": "Discipleship",
+      "discipleshipCopy": "Bible-centered growth pathways for new believers and mature disciples.",
+      "familyTitle": "Family Support",
+      "familyCopy": "Resources and relational support to strengthen homes and individuals.",
+      "leadershipTitle": "Leadership",
+      "leadershipCopy": "Training and opportunities for ministry leaders to develop gifts and calling."
+    },
+    "contactPage": {
+      "title": "We Would Love To Connect",
+      "locationTitle": "Location",
+      "phoneTitle": "Phone + Service Times"
+    },
+    "gallery": {
+      "title": "Church Life In Motion",
+      "intro": "Photo and video highlights are curated here, with future admin-managed uploads planned in phase 2."
+    },
+    "brand": {
+      "title": "NCC Digital Identity",
+      "tone": "Reliability through innovation: stable, welcoming, and digitally forward."
+    },
+    "adminPage": {
+      "title": "Secure Media Management Panel",
+      "intro": "Use the custom backend service to authenticate staff and manage gallery/message media."
+    }
+  },
+  "live": {
+    "youtubeEmbedUrl": "https://www.youtube.com/embed/live_stream?channel=UC_x5XG1OV2P6uZZ5FSM9Ttw",
+    "zoomUrl": "https://zoom.us/",
+    "status": "starting_soon",
+    "ticker": [
+      "LiveServiceStatus: Starting Soon",
+      "SundayWorship: 11:00AM",
+      "WednesdayMidweek: 7:00PM",
+      "PrayerLine: Always Open",
+      "DigitalCampus: YouTube + Zoom Enabled"
+    ]
+  },
+  "mediaArchive": [
+    {
+      "title": "Anchored In Hope",
+      "date": "Mar 29, 2026",
+      "speaker": "Pastor",
+      "platform": "YouTube",
+      "url": "https://www.youtube.com/",
+      "thumbnail": "https://images.unsplash.com/photo-1504052434569-70ad5836ab65?auto=format&fit=crop&w=960&q=80",
+      "series": "Hope Series",
+      "scripture": "Philippians 4:13",
+      "tags": ["hope", "sunday", "faith"],
+      "duration": "42:10"
+    },
+    {
+      "title": "Faith Through Every Season",
+      "date": "Mar 22, 2026",
+      "speaker": "NCC Teaching Team",
+      "platform": "YouTube",
+      "url": "https://www.youtube.com/",
+      "thumbnail": "https://images.unsplash.com/photo-1438232992991-995b7058bbb3?auto=format&fit=crop&w=960&q=80",
+      "series": "Faith Forward",
+      "scripture": "Hebrews 11:1",
+      "tags": ["faith", "teaching", "growth"],
+      "duration": "38:44"
+    },
+    {
+      "title": "Wednesday Midweek Live",
+      "date": "Mar 18, 2026",
+      "speaker": "NCC Community",
+      "platform": "Zoom Recording",
+      "url": "https://zoom.us/",
+      "thumbnail": "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=960&q=80",
+      "series": "Midweek Focus",
+      "scripture": "Psalm 46:10",
+      "tags": ["midweek", "prayer", "zoom"],
+      "duration": "55:20"
+    }
+  ],
+  "sermonNotes": [
+    {
+      "timestamp": "00:02",
+      "point": "Opening prayer and call to worship"
+    },
+    {
+      "timestamp": "09:15",
+      "point": "Main scripture context and historical framing"
+    },
+    {
+      "timestamp": "21:40",
+      "point": "Practical application for family and work life"
+    },
+    {
+      "timestamp": "34:55",
+      "point": "Invitation to faith and community response"
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+<svg width="460" height="96" viewBox="0 0 460 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="460" height="96" rx="14" fill="#0B0B0C"/>
+  <g transform="translate(14, 14)">
+    <rect width="68" height="68" rx="12" fill="#0B0B0C"/>
+    <path d="M15 56L34 18L53 56H45L34 33L23 56H15Z" fill="#2E42FF"/>
+    <path d="M34 33L40 45H28L34 33Z" fill="#00F5D4"/>
+    <circle cx="34" cy="56" r="5" fill="#3A1078"/>
+  </g>
+  <text x="98" y="38" fill="#F8F9FA" font-size="18" font-family="Montserrat, Inter, sans-serif" font-weight="700" letter-spacing="2.2">NEW COMMUNITY</text>
+  <text x="98" y="63" fill="#00F5D4" font-size="18" font-family="Montserrat, Inter, sans-serif" font-weight="700" letter-spacing="2.2">CHURCH SUFFOLK</text>
+</svg>

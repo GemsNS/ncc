@@ -1,0 +1,6 @@
+backend/node_modules/
+backend/uploads/*
+!backend/uploads/.gitkeep
+backend/data/users.json
+backend/data/media.json
+backend/data/audit.json

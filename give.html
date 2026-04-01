@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Give | New Community Church</title>
+    <meta name="description" content="Support New Community Church in Suffolk, VA through secure online giving and generosity initiatives.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/css/styles.css">
+  </head>
+  <body>
+    <header class="site-header"><div class="container"><a class="brand" href="./index.html"><img src="./assets/images/logo-mark.svg" alt="NCC logo"><div><strong data-ph="branding.shortName">NCC Family</strong><span data-ph="contact.cityState">Suffolk, Virginia</span></div></a><button class="nav-toggle" data-nav-toggle aria-expanded="false" aria-label="Toggle site menu">☰</button><nav class="main-nav" data-main-nav><ul><li><a href="./index.html">Home</a></li><li><a href="./about.html">About</a></li><li><a href="./ministries.html">Ministries</a></li><li><a href="./events.html">Events</a></li><li><a href="./messages.html">Messages</a></li><li><a href="./gallery.html">Gallery</a></li><li><a href="./contact.html">Contact</a></li><li><a href="./give.html" aria-current="page">Give</a></li><li><a href="./admin.html">Admin</a></li></ul></nav></div></header>
+    <main class="section">
+      <div class="container">
+        <p class="eyebrow">Give</p>
+        <h1 data-ph="give.pageTitle">Fuel Ministry Impact</h1>
+        <p data-ph="give.heroCopy">Your generosity supports worship, discipleship, outreach, and digital ministry experiences that reach beyond one location.</p>
+        <div class="card">
+          <h3>Online Giving</h3>
+          <p>Secure giving destination is configurable and can be updated as dedicated hosting is launched.</p>
+          <a class="button primary" href="https://www.nccfamily.us/" data-ph="links.give" data-ph-prop="href" target="_blank" rel="noopener noreferrer">Give Now</a>
+        </div>
+
+        <section class="section">
+          <div class="section-title-row">
+            <h2>Donor Experience Layer</h2>
+            <span class="pill">Campaign + History</span>
+          </div>
+          <div class="grid-2">
+            <article class="card">
+              <h3>Campaign Progress</h3>
+              <progress max="100" value="0" data-campaign-progress></progress>
+              <p class="muted" data-campaign-amount>$0 raised of $50,000</p>
+            </article>
+            <article class="card">
+              <h3>Log A Demo Gift</h3>
+              <form class="form-grid" data-donation-form>
+                <label>Name <input type="text" name="name" placeholder="Donor name"></label>
+                <label>Amount <input type="number" name="amount" min="1" required></label>
+                <label>Purpose
+                  <select name="purpose">
+                    <option>General</option>
+                    <option>Outreach</option>
+                    <option>Media Ministry</option>
+                    <option>Youth Ministry</option>
+                  </select>
+                </label>
+                <button class="button primary" type="submit">Add Donation Entry</button>
+              </form>
+            </article>
+          </div>
+          <article class="card">
+            <h3>Recent Donor Activity</h3>
+            <ul class="meta-list" data-donation-history></ul>
+          </article>
+        </section>
+      </div>
+    </main>
+    <footer class="site-footer"><div class="container row"><p class="muted"><span data-ph="branding.fullName">New Community Church</span>, <span data-ph="contact.cityState">Suffolk VA</span></p><p class="muted">Copyright <span data-year></span> NCC Family</p></div></footer>
+    <script src="./assets/js/site.js"></script>
+    <script src="./assets/js/placeholders.js"></script>
+    <script src="./assets/js/give-tools.js"></script>
+  </body>
+</html>
