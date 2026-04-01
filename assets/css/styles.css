@@ -618,11 +618,45 @@ th {
 }
 
 .ticker-runner span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: var(--soft-white);
+  border: 1px solid var(--surface-border);
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 999px;
+  padding: 0.34rem 0.62rem;
+  font-size: 0.8rem;
+  white-space: nowrap;
+}
+
+.ticker-runner .k {
   color: var(--neon-cyan);
   font-family: "Montserrat", "Inter", sans-serif;
-  font-size: 0.83rem;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
+  font-size: 0.73rem;
+}
+
+.ticker-runner .v {
+  color: var(--soft-white);
+  font-weight: 600;
+}
+
+.ticker-runner span[data-kind="status"] .k {
+  color: #76ffe4;
+}
+
+.ticker-runner span[data-kind="announcement"] .k {
+  color: #ffd88a;
+}
+
+.ticker-runner span[data-kind="prayer"] .k {
+  color: #ffb5cf;
+}
+
+.ticker-runner span[data-kind="giving"] .k {
+  color: #95c0ff;
 }
 
 @keyframes tickerScroll {

@@ -8,7 +8,9 @@ async function initLiveControlCenter() {
 
   let liveConfig = {
     status: "offline",
-    ticker: ["LiveControl: Offline"]
+    tickerItems: [
+      { type: "status", label: "Service", value: "Offline" }
+    ]
   };
 
   try {
@@ -41,10 +43,31 @@ async function initLiveControlCenter() {
 
   if (tickerNode) {
     const statusText = statusNode ? statusNode.textContent : dynamicStatus.toUpperCase();
-    const items = (liveConfig.ticker || []).concat([
-      "ControlCenter: " + statusText
+    const configItems = Array.isArray(liveConfig.tickerItems) && liveConfig.tickerItems.length
+      ? liveConfig.tickerItems
+      : (liveConfig.ticker || []).map(function legacyToItem(entry) {
+          const parts = String(entry).split(":");
+          return {
+            type: "announcement",
+            label: parts[0] || "Update",
+            value: parts.slice(1).join(":").trim() || "N/A"
+          };
+        });
+
+    const items = configItems.concat([
+      { type: "status", label: "Control Center", value: statusText }
     ]);
-    const row = items.map((item) => "<span>" + item + "</span>").join("");
+
+    const row = items
+      .map(function renderItem(item) {
+        return (
+          '<span data-kind="' + (item.type || "announcement") + '">' +
+          '<i class="k">' + (item.label || "Update") + "</i>" +
+          '<i class="v">' + (item.value || "") + "</i>" +
+          "</span>"
+        );
+      })
+      .join("");
     tickerNode.innerHTML = row + row;
   }
 
