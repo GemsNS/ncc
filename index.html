@@ -164,6 +164,57 @@
 
       <section class="section">
         <div class="container">
+          <div class="section-title-row">
+            <h2>Facebook Featured Video</h2>
+            <span class="pill">Social Media Spotlight</span>
+          </div>
+          <p class="muted"><strong>Video Block C:</strong> Featured from New Community Christian Center Church Facebook media.</p>
+          <div class="live-shell">
+            <iframe
+              class="embed-frame"
+              data-facebook-feature-embed
+              title="Featured Facebook video embed"
+              loading="lazy"
+              allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+              allowfullscreen>
+            </iframe>
+            <aside class="card">
+              <h3>Watch On Facebook</h3>
+              <p>Direct link to the featured church video post.</p>
+              <p><a class="button primary" data-facebook-feature-link href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer">Open Facebook Video</a></p>
+              <p class="muted">If embedding is blocked by Facebook privacy settings, use the direct link button.</p>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="section-title-row">
+            <h2>Pastor Inspiration Feed</h2>
+            <span class="pill">Live Blog Panel</span>
+          </div>
+          <div class="grid-2">
+            <article class="card">
+              <iframe
+                class="embed-frame"
+                data-pastor-blog-embed
+                title="Pastor personal blog live feed"
+                loading="lazy"
+                referrerpolicy="no-referrer">
+              </iframe>
+            </article>
+            <article class="card">
+              <h3>Feed Status</h3>
+              <p data-pastor-blog-status class="muted">Loading pastor blog status...</p>
+              <p><a class="button secondary" href="https://anthonyinspiration.com/" target="_blank" rel="noopener noreferrer">Open Pastor Blog</a></p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
           <div class="card">
             <h2>Notification Center</h2>
             <p>Enable browser alerts for live service reminders and event updates.</p>
@@ -192,6 +243,7 @@
     <script src="./assets/js/placeholders.js"></script>
     <script src="./assets/js/live-control.js"></script>
     <script src="./assets/js/media.js"></script>
+    <script src="./assets/js/social-feed.js"></script>
     <script src="./assets/js/notifications.js"></script>
   </body>
 </html>

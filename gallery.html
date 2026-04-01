@@ -33,6 +33,28 @@
             <button class="button secondary" type="submit">Filter Media</button>
           </form>
         </article>
+
+        <section class="section">
+          <div class="section-title-row">
+            <h2>Facebook Media Gallery</h2>
+            <span class="pill">NCC Social Highlights</span>
+          </div>
+          <div class="grid-2">
+            <article class="card">
+              <iframe
+                class="embed-frame tall"
+                data-facebook-feed-embed
+                title="Facebook timeline feed"
+                loading="lazy"
+                allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+                referrerpolicy="no-referrer">
+              </iframe>
+              <p class="muted">Live feed plugin may be constrained by Facebook permissions.</p>
+            </article>
+            <div class="grid-2" data-facebook-highlights></div>
+          </div>
+        </section>
+
         <div class="grid-3" data-media-grid></div>
       </div>
     </main>
@@ -40,5 +62,6 @@
     <script src="./assets/js/site.js"></script>
     <script src="./assets/js/placeholders.js"></script>
     <script src="./assets/js/media.js"></script>
+    <script src="./assets/js/social-feed.js"></script>
   </body>
 </html>

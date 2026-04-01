@@ -23,7 +23,10 @@
       "youtube": "https://www.youtube.com/",
       "zoom": "https://zoom.us/",
       "give": "https://www.nccfamily.us/",
-      "map": "https://maps.google.com/?q=5112+Godwin+Blvd+Suffolk+VA+23434"
+      "map": "https://maps.google.com/?q=5112+Godwin+Blvd+Suffolk+VA+23434",
+      "facebookPost": "https://www.facebook.com/anthony.vandyke.3/videos/3285521744795879/",
+      "facebookGroup": "https://www.facebook.com/groups/280795183113/",
+      "pastorBlog": "https://anthonyinspiration.com/"
     },
     "home": {
       "heroTitle": "We Are Building Faith + Community In Suffolk",
@@ -108,6 +111,34 @@
       "PrayerLine: Always Open",
       "DigitalCampus: YouTube + Zoom Enabled"
     ]
+  },
+  "socialFeeds": {
+    "facebookFeatured": {
+      "title": "Join us this Sunday 11:00 AM Facebook Live",
+      "author": "Anthony Vandyke",
+      "published": "Mar 21, 2020",
+      "videoUrl": "https://www.facebook.com/anthony.vandyke.3/videos/3285521744795879/",
+      "thumbnail": "https://scontent-ord5-2.xx.fbcdn.net/v/t15.5256-10/75538217_3285523498129037_2059265608150679552_n.jpg?stp=dst-jpg_s960x960_tt6&_nc_cat=102&ccb=1-7&_nc_sid=117846&_nc_ohc=CsQnVSKfmVIQ7kNvwGMGtJ7&_nc_oc=AdofDZcqRX83b2ivrkWox0XV0-3bDTNB8PNzVelFyw1BPJhgysM4y-4ooJ-RiWz3yoY&_nc_zt=23&_nc_ht=scontent-ord5-2.xx&_nc_gid=X3XrEWO9uioY9n1A5ufHWw&_nc_ss=7a389&oh=00_Af3lKcrKbpHuqdv5orEd-WPk_7Ps0XVusnaSxmmNEdRQ0A&oe=69D38103"
+    },
+    "facebookHighlights": [
+      {
+        "title": "Sunday Facebook Live Invite",
+        "url": "https://www.facebook.com/anthony.vandyke.3/videos/3285521744795879/",
+        "platform": "Facebook Video",
+        "date": "Mar 21, 2020"
+      },
+      {
+        "title": "NCC Church Group Feed",
+        "url": "https://www.facebook.com/groups/280795183113/",
+        "platform": "Facebook Group",
+        "date": "Live Timeline"
+      }
+    ],
+    "pastorBlog": {
+      "title": "Pastor Anthony Live Blog Feed",
+      "url": "https://anthonyinspiration.com/",
+      "statusNote": "Domain renewal pending. Feed panel is connected as a placeholder and will go live once DNS resolves."
+    }
   },
   "mediaArchive": [
     {

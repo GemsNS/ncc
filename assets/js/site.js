@@ -119,6 +119,37 @@
     });
   }
 
+  function setupAmbientBackground() {
+    const currentPath = window.location.pathname || "";
+    const isConstruction = currentPath.toLowerCase().endsWith("/" + lockRoute) || currentPath.toLowerCase().endsWith(lockRoute);
+    if (isConstruction || document.querySelector(".site-ambient")) {
+      return;
+    }
+
+    const ambient = document.createElement("div");
+    ambient.className = "site-ambient";
+    ambient.setAttribute("aria-hidden", "true");
+    ambient.innerHTML =
+      '<span class="ambient-blob a" data-ambient="a"></span>' +
+      '<span class="ambient-blob b" data-ambient="b"></span>' +
+      '<span class="ambient-blob c" data-ambient="c"></span>' +
+      '<span class="ambient-grid"></span>' +
+      '<span class="ambient-vignette"></span>';
+    document.body.prepend(ambient);
+
+    const blobA = ambient.querySelector('[data-ambient="a"]');
+    const blobB = ambient.querySelector('[data-ambient="b"]');
+    const blobC = ambient.querySelector('[data-ambient="c"]');
+
+    window.addEventListener("mousemove", function onAmbientMove(event) {
+      const x = event.clientX / window.innerWidth - 0.5;
+      const y = event.clientY / window.innerHeight - 0.5;
+      if (blobA) blobA.style.transform = "translate(" + (x * 36) + "px," + (y * 22) + "px)";
+      if (blobB) blobB.style.transform = "translate(" + (x * -30) + "px," + (y * -26) + "px)";
+      if (blobC) blobC.style.transform = "translate(" + (x * 18) + "px," + (y * -14) + "px)";
+    });
+  }
+
   if (navToggle && nav) {
     navToggle.addEventListener("click", function onToggle() {
       const isOpen = nav.classList.toggle("open");
@@ -132,6 +163,7 @@
   }
 
   enforceSiteGate();
+  setupAmbientBackground();
   setupThemeToggle();
   setupLockToggle();
   setupAdminTree();
