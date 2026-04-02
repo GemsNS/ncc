@@ -36,15 +36,16 @@ function initEventsTools() {
     const payload = encodeURIComponent(payloadRaw);
     const providers = [
       "https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=" + payload,
-      "https://quickchart.io/qr?size=180&text=" + payload
+      "https://quickchart.io/qr?size=180&text=" + payload,
+      "https://chart.googleapis.com/chart?cht=qr&chs=180x180&chl=" + payload
     ];
     let index = 0;
 
     function showFallback() {
       qrNode.removeAttribute("src");
+      qrNode.hidden = true;
       if (qrFallback) {
-        qrFallback.hidden = false;
-        qrFallback.textContent = "QR unavailable. Use code: " + code;
+        qrFallback.textContent = "Check-in code: " + code + " (QR preview unavailable on this network)";
       }
     }
 
@@ -58,13 +59,14 @@ function initEventsTools() {
     };
 
     qrNode.onload = function onLoad() {
+      qrNode.hidden = false;
       if (qrFallback) {
-        qrFallback.hidden = false;
         qrFallback.textContent = "Check-in code: " + code;
       }
     };
 
     qrNode.alt = "Check-in QR for " + code;
+    qrNode.hidden = true;
     qrNode.src = providers[index];
   }
 
