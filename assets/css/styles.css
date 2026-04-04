@@ -366,6 +366,69 @@ a {
   text-transform: uppercase;
 }
 
+.inspiration-hero-cinematic {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--surface-border);
+  border-radius: var(--radius);
+  min-height: 280px;
+  background:
+    radial-gradient(circle at 18% 28%, rgba(0, 245, 212, 0.22), transparent 42%),
+    radial-gradient(circle at 82% 20%, rgba(46, 66, 255, 0.28), transparent 40%),
+    linear-gradient(145deg, rgba(10, 14, 30, 0.92), rgba(16, 20, 42, 0.96));
+}
+
+.inspiration-hero-cinematic::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.03) 0 2px,
+    transparent 2px 26px
+  );
+  opacity: 0.35;
+}
+
+.inspiration-hero-cinematic::after {
+  content: "";
+  position: absolute;
+  inset: -40% -30%;
+  background: conic-gradient(from 120deg, transparent, rgba(138, 210, 255, 0.2), transparent 55%);
+  animation: cinematicSpin 16s linear infinite;
+}
+
+.inspiration-hero-glow {
+  position: absolute;
+  width: min(45vw, 360px);
+  height: min(45vw, 360px);
+  border-radius: 50%;
+  top: -12%;
+  left: -8%;
+  filter: blur(26px);
+  background: radial-gradient(circle, rgba(128, 201, 255, 0.42), rgba(128, 201, 255, 0));
+  transition: transform 150ms ease;
+}
+
+.inspiration-hero-overlay {
+  position: relative;
+  z-index: 1;
+  padding: 1rem;
+}
+
+.inspiration-hero-overlay h2 {
+  margin: 0.65rem 0 0.5rem;
+}
+
+@keyframes cinematicSpin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 .faith-banner {
   border: 1px solid var(--surface-border);
   border-radius: var(--radius);
@@ -482,6 +545,10 @@ p {
 
 .embed-frame.tall {
   min-height: 620px;
+}
+
+.embed-frame.xl {
+  min-height: 820px;
 }
 
 .embed-shell {

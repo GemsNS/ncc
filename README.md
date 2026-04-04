@@ -91,3 +91,116 @@ Backend default local URL: `http://localhost:4000`
 - This backend is for dedicated hosting environments (not GitHub Pages-only hosting).
 - Uploaded files are served from `backend/uploads`.
 - Runtime data files are in `backend/data`.
+
+---
+
+## 7. Complete Changelog
+
+This changelog summarizes all major implementation work completed for the NCC rebrand and digital platform.
+
+### Phase 1 - Foundation and Brand System
+
+- Established the core brand palette, typography, tone, and component rules.
+- Built responsive global layout and base navigation across all public pages.
+- Added reusable styling tokens and glass/gradient UI treatment.
+
+### Phase 2 - Site Build and Page Expansion
+
+- Implemented/expanded key pages: `index.html`, `about.html`, `ministries.html`, `messages.html`, `gallery.html`, `events.html`, `contact.html`, `give.html`, `brand.html`, `colors.html`, `admin.html`.
+- Added stronger section architecture and richer content blocks across the site.
+- Converted multiple "empty" sections into narrative, media-supported experiences.
+
+### Phase 3 - Live Media and Dynamic Content
+
+- Added "Live Control Center" ticker system with structured label/value chips.
+- Added "Program Runtime Overlay" and dynamic live status behavior.
+- Added robust media archive rendering and filtering by search/tag/speaker.
+- Added sermon notes support and richer media metadata display.
+
+### Phase 4 - Admin Experience and Backend
+
+- Created backend service in `backend/` with:
+  - Auth routes (`/api/auth/login`, `/api/auth/me`)
+  - Media lifecycle routes (`/api/media/*`)
+  - Admin audit routes (`/api/admin/audit`)
+- Added file-based persistence and upload storage.
+- Added frontend admin panel with:
+  - Login
+  - Upload pipeline
+  - Media status controls (`draft`, `pending_review`, `published`, `archived`)
+  - Audit trail rendering
+  - Demo-mode data fallback
+
+### Phase 5 - GitHub Pages and Static Compatibility
+
+- Added GitHub Pages deployment workflow in `.github/workflows/deploy-gh-pages.yml`.
+- Kept static deployment compatibility for demos while preserving backend migration path.
+- Added static API-like endpoints under `api/sharefaith/` for giving integrations.
+
+### Phase 6 - UX / Visual Upgrades
+
+- Added global light/dark mode toggle with persistent theme state.
+- Added lock/unlock preview gate flow and protected landing page (`under-construction.html`).
+- Added "Lock Site" action for demo sessions.
+- Added responsive ambient background system with mouse-reactive blobs.
+- Improved light mode contrast and overall visual polish.
+
+### Phase 7 - Navigation and Information Architecture
+
+- Added collapsible "More" navigation tree for admin/brand utilities.
+- Moved `Give` to the highlighted 4th nav position with elevated styling.
+- Added dynamic nav link insertion for new Inspiration pathways.
+
+### Phase 8 - Social, Embed, and Feed Reliability
+
+- Reworked social implementations to use resilient link/image + controlled embeds.
+- Added Anthony Facebook feed integration and wellness stream wiring.
+- Added dedicated `anthony-inspiration.html` page for pastoral digital content.
+- Added global embed reliability layer:
+  - Timed load checks
+  - Error handling
+  - Professional offline overlays
+  - Retry controls
+
+### Phase 9 - Anthony Inspiration Content and Experience
+
+- Added large Anthony website feed panel on `anthony-inspiration.html`.
+- Added curated scraped content blocks from Anthony's Inspiration:
+  - About summary
+  - Signature quote
+  - Featured book summary
+  - Latest blog spotlight
+  - Website section map
+- Added cinematic motion header inspired by landing-page visual language.
+- Updated social data model in `assets/data/site-content.json` to include:
+  - `socialFeeds.anthonyWebsite`
+  - `socialFeeds.anthonyFacebook`
+  - `socialFeeds.wednesdayWellnessWalk`
+  - live `pastorBlog` status/URL fields
+
+### Phase 10 - Content Governance and Placeholder System
+
+- Added centralized placeholder binding system (`assets/js/placeholders.js`).
+- Expanded `assets/data/site-content.json` to act as a primary content source.
+- Added placeholder key documentation in `docs/placeholder-keys.md`.
+
+### Phase 11 - Give Page and Legacy Archive
+
+- Recreated giving experience and integrated static Sharefaith information endpoints.
+- Added `legacy-content.html` for historic/reference content from older sources.
+- Added stronger calls-to-action and media context around giving and archives.
+
+### Phase 12 - Reliability and Bug Fixes
+
+- Fixed broken QR generation with multi-provider fallback and resilient text fallback.
+- Removed/updated unstable embeds across pages with safer alternatives.
+- Improved Facebook/video panel handling for network/privacy restrictions.
+- Fixed command palette visibility bug (`.command-palette[hidden] { display:none; }`).
+- Iteratively refined logo asset handling and SVG/PNG consistency.
+
+### Current Status
+
+- Frontend: GitHub Pages-ready static deployment.
+- Backend: Available for dedicated hosting environments.
+- Admin: Demo mode + backend mode supported.
+- Social/Media: Multi-layer fallback strategy implemented.

@@ -172,7 +172,8 @@
     "pastorBlog": {
       "title": "Pastor Anthony Live Blog Feed",
       "url": "https://anthonyinspiration.com/",
-      "statusNote": "Domain renewal pending. Feed panel is connected as a placeholder and will go live once DNS resolves."
+      "embedUrl": "https://anthonyinspiration.com/",
+      "statusNote": "Anthony's Inspiration is live. Website feed is active and ready."
     },
     "anthonyFacebook": {
       "pageUrl": "https://www.facebook.com/anthony.vandyke.3",
@@ -181,6 +182,40 @@
     "wednesdayWellnessWalk": {
       "streamUrl": "https://www.facebook.com/anthony.vandyke.3/videos/3285521744795879/",
       "embedUrl": "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Fanthony.vandyke.3%2Fvideos%2F3285521744795879%2F&show_text=false&width=560"
+    },
+    "anthonyWebsite": {
+      "title": "Anthony's Inspiration",
+      "tagline": "The place to be inspired to change your life",
+      "aboutName": "Anthony M. VanDyke",
+      "aboutSummary": "Pastor, Entrepreneur, and Speaker delivering clear and practical messages that help people navigate change, build resilience, and move forward with purpose.",
+      "quote": "Making a difference in the world is not something you do, it is who you are.",
+      "bookTitle": "The Power of Words",
+      "bookSummary": "A practical guide on how communication shapes relationships, growth, and success in everyday life.",
+      "latestBlogTitle": "Happiness Is A Choice",
+      "latestBlogSnippet": "A reflection on true happiness through the guidance of the Holy Spirit beyond wealth, fame, or recognition.",
+      "booksUrl": "https://anthonyinspiration.com/",
+      "blogUrl": "https://anthonyinspiration.com/",
+      "sections": ["Home", "About", "Books", "Speaking", "Inspiration", "Shop", "Contact"],
+      "latestPosts": [
+        {
+          "title": "Happiness Is A Choice",
+          "summary": "A reflection on choosing joy through spiritual alignment rather than external success markers.",
+          "url": "https://anthonyinspiration.com/",
+          "type": "Blog"
+        },
+        {
+          "title": "The Power of Words",
+          "summary": "Communication-centered teaching on how language impacts growth, leadership, and relationships.",
+          "url": "https://anthonyinspiration.com/",
+          "type": "Book Feature"
+        },
+        {
+          "title": "Latest Podcasts: Coming Soon",
+          "summary": "Podcast channel updates are in development and will be published on Anthony's Inspiration.",
+          "url": "https://anthonyinspiration.com/",
+          "type": "Podcast Update"
+        }
+      ]
     }
   },
   "mediaArchive": [

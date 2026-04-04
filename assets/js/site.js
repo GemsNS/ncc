@@ -175,6 +175,29 @@
     });
   }
 
+  function setupCinematicHeader() {
+    const panel = document.querySelector("[data-cinematic-header]");
+    if (!panel) {
+      return;
+    }
+    const glow = panel.querySelector(".inspiration-hero-glow");
+    panel.addEventListener("mousemove", function onCinematicMove(event) {
+      const rect = panel.getBoundingClientRect();
+      const x = (event.clientX - rect.left) / rect.width - 0.5;
+      const y = (event.clientY - rect.top) / rect.height - 0.5;
+      panel.style.transform = "perspective(900px) rotateX(" + (y * -5) + "deg) rotateY(" + (x * 6) + "deg)";
+      if (glow) {
+        glow.style.transform = "translate(" + (x * 34) + "px," + (y * 22) + "px)";
+      }
+    });
+    panel.addEventListener("mouseleave", function onCinematicLeave() {
+      panel.style.transform = "perspective(900px) rotateX(0deg) rotateY(0deg)";
+      if (glow) {
+        glow.style.transform = "translate(0px,0px)";
+      }
+    });
+  }
+
   function setupAmbientBackground() {
     const currentPath = window.location.pathname || "";
     const isConstruction = currentPath.toLowerCase().endsWith("/" + lockRoute) || currentPath.toLowerCase().endsWith(lockRoute);
@@ -434,8 +457,13 @@
       if (frame.classList.contains("tall")) {
         wrapper.classList.add("tall");
       }
+      if (frame.classList.contains("xl")) {
+        wrapper.classList.add("xl");
+      }
 
-      const preferredMinHeight = frame.classList.contains("tall")
+      const preferredMinHeight = frame.classList.contains("xl")
+        ? "820px"
+        : frame.classList.contains("tall")
         ? "620px"
         : frame.classList.contains("video-frame")
           ? "365px"
@@ -538,6 +566,7 @@
   setupGiveNavEnhancement();
   setupAdminTree();
   setupInteractiveHero();
+  setupCinematicHeader();
   setupScrollProgress();
   setupRevealAnimations();
   setupQuickActions();
