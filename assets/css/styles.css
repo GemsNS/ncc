@@ -889,6 +889,10 @@ progress {
   backdrop-filter: blur(6px);
 }
 
+.command-palette[hidden] {
+  display: none;
+}
+
 .command-shell {
   width: min(94vw, 620px);
   border-radius: 16px;
