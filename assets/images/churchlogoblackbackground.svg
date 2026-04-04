@@ -1,0 +1,19 @@
+<svg width="600" height="681" viewBox="0 0 600 681" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="glow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(300 130) rotate(90) scale(170 150)">
+      <stop offset="0%" stop-color="#62D5FF" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#62D5FF" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="shieldGlowGrad" x1="116" y1="72" x2="462" y2="434" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#A2DDFF"/>
+      <stop offset="50%" stop-color="#5CA1E8"/>
+      <stop offset="100%" stop-color="#2F5FAB"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="681" fill="#01050C"/>
+  <circle cx="300" cy="130" r="175" fill="url(#glow)"/>
+  <path d="M300 435C226 398 174 336 174 250V133L300 94L426 133V250C426 336 374 398 300 435Z" stroke="url(#shieldGlowGrad)" stroke-width="14" fill="none" stroke-linejoin="round"/>
+  <text x="300" y="224" text-anchor="middle" fill="#D7EEFF" font-family="Montserrat, Inter, sans-serif" font-size="96" font-weight="800">N</text>
+  <text x="300" y="311" text-anchor="middle" fill="#D7EEFF" font-family="Montserrat, Inter, sans-serif" font-size="96" font-weight="800">C</text>
+  <text x="300" y="398" text-anchor="middle" fill="#D7EEFF" font-family="Montserrat, Inter, sans-serif" font-size="96" font-weight="800">C</text>
+</svg>

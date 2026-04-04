@@ -1,6 +1,13 @@
 <svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <rect width="128" height="128" rx="24" fill="#0B0B0C"/>
-  <path d="M30 94L64 28L98 94H84L64 54L44 94H30Z" fill="#2E42FF"/>
-  <path d="M64 54L74 74H54L64 54Z" fill="#00F5D4"/>
-  <circle cx="64" cy="94" r="8" fill="#3A1078"/>
+  <defs>
+    <linearGradient id="nccShieldGrad" x1="20" y1="18" x2="108" y2="112" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#6EB7FF"/>
+      <stop offset="55%" stop-color="#3D7FD4"/>
+      <stop offset="100%" stop-color="#234D96"/>
+    </linearGradient>
+  </defs>
+  <path d="M64 120C42 109 27 92 27 68V34L64 20L101 34V68C101 92 86 109 64 120Z" stroke="url(#nccShieldGrad)" stroke-width="7" fill="none" stroke-linejoin="round"/>
+  <text x="64" y="58" text-anchor="middle" fill="#2E66B4" font-family="Montserrat, Inter, sans-serif" font-size="24" font-weight="800">N</text>
+  <text x="64" y="82" text-anchor="middle" fill="#2E66B4" font-family="Montserrat, Inter, sans-serif" font-size="24" font-weight="800">C</text>
+  <text x="64" y="106" text-anchor="middle" fill="#2E66B4" font-family="Montserrat, Inter, sans-serif" font-size="24" font-weight="800">C</text>
 </svg>

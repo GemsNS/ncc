@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anthony Inspiration | New Community Church</title>
+    <meta name="description" content="Anthony Inspiration live updates, Wednesday Wellness Walk stream, and Facebook feed access for the NCC community.">
+    <meta property="og:title" content="Anthony Inspiration | New Community Church">
+    <meta property="og:description" content="Follow Pastor Anthony's inspiration feed and Wednesday Wellness Walk stream.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="./assets/images/churchlogoblackbackground.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/css/styles.css">
+    <link rel="icon" href="./assets/images/logo-mark.svg" type="image/svg+xml">
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container">
+        <a class="brand" href="./index.html">
+          <img src="./assets/images/logo-mark.svg" alt="NCC logo">
+          <div>
+            <strong data-ph="branding.shortName">NCC Family</strong>
+            <span data-ph="contact.cityState">Suffolk, Virginia</span>
+          </div>
+        </a>
+        <button class="nav-toggle" data-nav-toggle aria-expanded="false" aria-label="Toggle site menu">☰</button>
+        <nav class="main-nav" data-main-nav>
+          <ul>
+            <li><a href="./index.html">Home</a></li>
+            <li><a href="./about.html">About</a></li>
+            <li><a href="./ministries.html">Ministries</a></li>
+            <li><a href="./events.html">Events</a></li>
+            <li><a href="./messages.html">Messages</a></li>
+            <li><a href="./gallery.html">Gallery</a></li>
+            <li><a href="./contact.html">Contact</a></li>
+            <li><a href="./give.html">Give</a></li>
+            <li><a href="./admin.html">Admin</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="container hero-grid">
+          <div>
+            <p class="eyebrow">Pastoral Digital Feed</p>
+            <h1>Anthony Inspiration</h1>
+            <p>Dedicated page for inspiration posts, live social moments, and ministry encouragement from Pastor Anthony.</p>
+            <div class="faith-banner">
+              <p><strong>Wednesday Wellness Walk:</strong> Midweek encouragement stream hosted from Pastor Anthony's Facebook page.</p>
+              <p class="muted">Use the live feed panel below. If Facebook blocks the embed on your device, use the direct page button.</p>
+            </div>
+            <p>
+              <a class="button primary" data-anthony-page-link href="https://www.facebook.com/anthony.vandyke.3" target="_blank" rel="noopener noreferrer">Open Pastor Anthony Facebook</a>
+              <a class="button secondary" data-wellness-stream-link href="https://www.facebook.com/anthony.vandyke.3" target="_blank" rel="noopener noreferrer">Open Wednesday Wellness Walk</a>
+            </p>
+          </div>
+          <div class="hero-card">
+            <h2>Live Status</h2>
+            <p class="muted" data-pastor-blog-status>Loading stream status...</p>
+            <ul class="meta-list">
+              <li><strong>Primary Source:</strong> Facebook page timeline</li>
+              <li><strong>Special Segment:</strong> Wednesday Wellness Walk</li>
+              <li><strong>Fallback:</strong> Direct page and post links</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="section-title-row">
+            <h2>Pastor Anthony Live Feed</h2>
+            <span class="pill">Facebook Timeline Embed</span>
+          </div>
+          <div class="live-shell">
+            <iframe
+              class="embed-frame tall"
+              data-anthony-live-embed
+              src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fanthony.vandyke.3&tabs=timeline&width=500&height=680&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId"
+              title="Pastor Anthony Facebook live timeline feed"
+              loading="lazy"
+              allowfullscreen>
+            </iframe>
+            <aside class="card">
+              <h3>Feed Access</h3>
+              <p>Live videos and updates publish directly on this page timeline.</p>
+              <p><a class="button primary" data-anthony-page-link href="https://www.facebook.com/anthony.vandyke.3" target="_blank" rel="noopener noreferrer">Open Timeline In Facebook</a></p>
+              <p class="muted">If this panel shows offline, Facebook likely blocked embedded view in your network or browser privacy mode.</p>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="section-title-row">
+            <h2>Wednesday Wellness Walk Stream</h2>
+            <span class="pill">Featured Midweek Stream</span>
+          </div>
+          <p class="muted">Dedicated stream window for the Wednesday Wellness Walk segment. This uses Facebook's video embed endpoint and will automatically show an offline overlay when unavailable.</p>
+          <div class="grid-2">
+            <iframe
+              class="embed-frame"
+              data-wellness-embed
+              src="https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Fanthony.vandyke.3%2Fvideos%2F3285521744795879%2F&show_text=false&width=560"
+              title="Wednesday Wellness Walk stream"
+              loading="lazy"
+              allowfullscreen>
+            </iframe>
+            <article class="card">
+              <h3>Wellness Walk Notes</h3>
+              <p>Midweek stream focused on practical faith, healthy habits, and walking encouragement.</p>
+              <ul class="meta-list">
+                <li><strong>When:</strong> Wednesdays</li>
+                <li><strong>Platform:</strong> Pastor Anthony Facebook</li>
+                <li><strong>Fallback:</strong> Open stream directly in Facebook</li>
+              </ul>
+              <p><a class="button secondary" data-wellness-stream-link href="https://www.facebook.com/anthony.vandyke.3" target="_blank" rel="noopener noreferrer">Open Stream Directly</a></p>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container row">
+        <div>
+          <strong data-ph="branding.fullName">New Community Church</strong>
+          <p class="muted" data-ph="contact.address">5112 Godwin Blvd, Suffolk, VA 23434</p>
+        </div>
+        <div>
+          <p class="muted">Phone: <span data-ph="contact.phone">(757) 434-6231</span></p>
+          <p class="muted"><a href="./brand.html">Brand Guide</a></p>
+          <p class="muted">Copyright <span data-year></span> NCC Family</p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="./assets/js/site.js"></script>
+    <script src="./assets/js/placeholders.js"></script>
+    <script src="./assets/js/social-feed.js"></script>
+  </body>
+</html>

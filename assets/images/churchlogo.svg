@@ -1,0 +1,13 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="crestStroke" x1="122" y1="66" x2="395" y2="355" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#86C7FF"/>
+      <stop offset="48%" stop-color="#4A8DDE"/>
+      <stop offset="100%" stop-color="#2A5EAE"/>
+    </linearGradient>
+  </defs>
+  <path d="M256 404C187 368 142 314 142 242V127L256 91L370 127V242C370 314 325 368 256 404Z" stroke="url(#crestStroke)" stroke-width="16" stroke-linejoin="round"/>
+  <text x="256" y="210" text-anchor="middle" fill="#2F66B3" font-family="Montserrat, Inter, sans-serif" font-size="90" font-weight="800">N</text>
+  <text x="256" y="286" text-anchor="middle" fill="#2F66B3" font-family="Montserrat, Inter, sans-serif" font-size="90" font-weight="800">C</text>
+  <text x="256" y="360" text-anchor="middle" fill="#2F66B3" font-family="Montserrat, Inter, sans-serif" font-size="90" font-weight="800">C</text>
+</svg>

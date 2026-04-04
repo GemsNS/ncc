@@ -135,6 +135,17 @@ main,
   z-index: 1;
 }
 
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: 0%;
+  z-index: 80;
+  background: linear-gradient(90deg, var(--neon-cyan), #7fd2ff, var(--electric-cobalt));
+  box-shadow: 0 0 14px rgba(0, 245, 212, 0.45);
+}
+
 a {
   color: inherit;
 }
@@ -473,6 +484,69 @@ p {
   min-height: 620px;
 }
 
+.embed-shell {
+  position: relative;
+  width: 100%;
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid var(--surface-border);
+  background: rgba(0, 0, 0, 0.28);
+}
+
+.embed-shell iframe {
+  width: 100%;
+  min-height: inherit;
+  border: 0;
+  display: block;
+}
+
+.embed-offline {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background:
+    linear-gradient(160deg, rgba(6, 10, 22, 0.86), rgba(10, 16, 32, 0.92)),
+    repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.02) 0 12px, rgba(255, 255, 255, 0.01) 12px 24px);
+  z-index: 2;
+}
+
+.embed-offline-card {
+  text-align: center;
+  border: 1px solid var(--surface-border);
+  border-radius: 14px;
+  padding: 1rem 1.1rem;
+  width: min(92%, 380px);
+  background: rgba(4, 8, 18, 0.75);
+  backdrop-filter: blur(8px);
+}
+
+.embed-offline-card strong {
+  display: block;
+  font-size: 1.15rem;
+  margin-bottom: 0.35rem;
+  color: #ffd7d7;
+}
+
+.embed-offline-card p {
+  margin-bottom: 0.8rem;
+  color: #d5dceb;
+}
+
+.embed-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-bottom: 0.55rem;
+  background: #ff5d6e;
+  box-shadow: 0 0 10px rgba(255, 93, 110, 0.55);
+}
+
+.embed-shell.is-online .embed-offline {
+  display: none;
+}
+
 .meta-list {
   display: grid;
   gap: 0.55rem;
@@ -762,6 +836,144 @@ progress {
   box-shadow: var(--shadow-glow);
 }
 
+.quick-actions {
+  position: fixed;
+  right: 1rem;
+  bottom: 4.6rem;
+  z-index: 55;
+  display: grid;
+  gap: 0.55rem;
+  justify-items: end;
+}
+
+.qa-trigger {
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  border: 1px solid var(--surface-border);
+  background: linear-gradient(135deg, var(--electric-cobalt), #3a1078);
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: 700;
+  box-shadow: 0 0 20px rgba(46, 66, 255, 0.35);
+}
+
+.qa-menu {
+  display: grid;
+  gap: 0.45rem;
+  justify-items: end;
+}
+
+.qa-item {
+  border: 1px solid var(--surface-border);
+  border-radius: 999px;
+  background: rgba(5, 8, 20, 0.86);
+  color: var(--soft-white);
+  font-size: 0.78rem;
+  text-decoration: none;
+  padding: 0.35rem 0.7rem;
+}
+
+.qa-item:hover {
+  border-color: rgba(0, 245, 212, 0.6);
+}
+
+.command-palette {
+  position: fixed;
+  inset: 0;
+  z-index: 85;
+  display: grid;
+  place-items: start center;
+  padding-top: 14vh;
+  background: rgba(2, 5, 17, 0.6);
+  backdrop-filter: blur(6px);
+}
+
+.command-shell {
+  width: min(94vw, 620px);
+  border-radius: 16px;
+  border: 1px solid var(--surface-border);
+  background: rgba(8, 11, 26, 0.94);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.48);
+  overflow: hidden;
+}
+
+.command-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.8rem 1rem;
+  border-bottom: 1px solid var(--surface-border);
+}
+
+.command-input {
+  border: 0;
+  border-bottom: 1px solid var(--surface-border);
+  border-radius: 0;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.command-list {
+  display: grid;
+  max-height: 48vh;
+  overflow: auto;
+}
+
+.command-item {
+  padding: 0.75rem 1rem;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  color: var(--soft-white);
+}
+
+.command-item:hover {
+  background: rgba(0, 245, 212, 0.08);
+}
+
+.faith-widget {
+  position: fixed;
+  left: 1rem;
+  bottom: 1rem;
+  z-index: 45;
+  width: min(360px, calc(100vw - 5.2rem));
+  border: 1px solid var(--surface-border);
+  border-radius: 12px;
+  background: rgba(6, 9, 22, 0.84);
+  backdrop-filter: blur(8px);
+  padding: 0.65rem 0.78rem;
+}
+
+.faith-widget strong {
+  color: #d5ecff;
+  display: block;
+  margin-bottom: 0.2rem;
+}
+
+.faith-widget p {
+  margin-bottom: 0.35rem;
+  font-size: 0.8rem;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(16px) scale(0.99);
+  transition: opacity 420ms ease, transform 460ms ease;
+}
+
+.reveal.in-view {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+body.focus-mode .site-header,
+body.focus-mode .site-footer,
+body.focus-mode .quick-actions,
+body.focus-mode .faith-widget,
+body.focus-mode .ticker-shell {
+  opacity: 0.25;
+  transition: opacity 180ms ease;
+}
+
 .ph-label {
   position: absolute;
   top: -0.62rem;
@@ -812,6 +1024,12 @@ body.show-placeholder-labels .ph-label {
 
   .theme-toggle {
     margin-left: auto;
+  }
+
+  .faith-widget {
+    width: calc(100vw - 1.9rem);
+    left: 0.95rem;
+    bottom: 0.75rem;
   }
 
   .nav-toggle {

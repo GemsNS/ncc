@@ -130,6 +130,31 @@
     }
   }
 
+  function setupInspirationNavLink() {
+    if (!nav) {
+      return;
+    }
+    const navList = nav.querySelector("ul");
+    if (!navList) {
+      return;
+    }
+
+    const existing = navList.querySelector('a[href$="anthony-inspiration.html"]');
+    if (existing) {
+      return;
+    }
+
+    const li = document.createElement("li");
+    li.innerHTML = '<a href="./anthony-inspiration.html">Inspiration</a>';
+
+    const galleryLi = navList.querySelector('a[href$="gallery.html"]');
+    if (galleryLi && galleryLi.closest("li")) {
+      navList.insertBefore(li, galleryLi.closest("li"));
+    } else {
+      navList.appendChild(li);
+    }
+  }
+
   function setupInteractiveHero() {
     const card = document.querySelector("[data-interactive-hero]");
     if (!card) {
@@ -181,6 +206,318 @@
     });
   }
 
+  function setupScrollProgress() {
+    if (document.querySelector(".scroll-progress")) {
+      return;
+    }
+    const bar = document.createElement("div");
+    bar.className = "scroll-progress";
+    document.body.appendChild(bar);
+
+    function paintProgress() {
+      const doc = document.documentElement;
+      const max = doc.scrollHeight - doc.clientHeight;
+      const pct = max > 0 ? (window.scrollY / max) * 100 : 0;
+      bar.style.width = Math.max(0, Math.min(100, pct)) + "%";
+    }
+
+    window.addEventListener("scroll", paintProgress, { passive: true });
+    window.addEventListener("resize", paintProgress);
+    paintProgress();
+  }
+
+  function setupRevealAnimations() {
+    const revealables = document.querySelectorAll(".section, .card, .media-card, .hero-card, .story-chapter");
+    if (!revealables.length) {
+      return;
+    }
+    revealables.forEach(function (node, index) {
+      node.classList.add("reveal");
+      node.style.transitionDelay = Math.min(index * 40, 320) + "ms";
+    });
+
+    if (!("IntersectionObserver" in window)) {
+      revealables.forEach(function (node) {
+        node.classList.add("in-view");
+      });
+      return;
+    }
+
+    const io = new IntersectionObserver(
+      function onReveal(entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("in-view");
+            io.unobserve(entry.target);
+          }
+        });
+      },
+      { rootMargin: "0px 0px -8% 0px", threshold: 0.15 }
+    );
+    revealables.forEach(function (node) {
+      io.observe(node);
+    });
+  }
+
+  function setupQuickActions() {
+    if (document.querySelector(".quick-actions")) {
+      return;
+    }
+
+    const dock = document.createElement("aside");
+    dock.className = "quick-actions";
+    dock.innerHTML =
+      '<button type="button" class="qa-trigger" data-qa-trigger aria-expanded="false" aria-label="Open quick actions">+</button>' +
+      '<div class="qa-menu" data-qa-menu hidden>' +
+      '<a class="qa-item" href="./messages.html" title="Messages">Watch</a>' +
+      '<a class="qa-item" href="./give.html" title="Give">Give</a>' +
+      '<button type="button" class="qa-item" data-qa-top title="Scroll to top">Top</button>' +
+      '<button type="button" class="qa-item" data-qa-focus title="Focus mode">Focus</button>' +
+      "</div>";
+    document.body.appendChild(dock);
+
+    const trigger = dock.querySelector("[data-qa-trigger]");
+    const menu = dock.querySelector("[data-qa-menu]");
+    const topBtn = dock.querySelector("[data-qa-top]");
+    const focusBtn = dock.querySelector("[data-qa-focus]");
+
+    if (trigger && menu) {
+      trigger.addEventListener("click", function onToggleQa() {
+        const isOpen = !menu.hidden;
+        menu.hidden = isOpen;
+        trigger.setAttribute("aria-expanded", String(!isOpen));
+        trigger.textContent = isOpen ? "+" : "x";
+      });
+    }
+
+    if (topBtn) {
+      topBtn.addEventListener("click", function onTop() {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+    }
+
+    if (focusBtn) {
+      focusBtn.addEventListener("click", function onFocus() {
+        document.body.classList.toggle("focus-mode");
+      });
+    }
+  }
+
+  function setupCommandPalette() {
+    if (document.querySelector(".command-palette")) {
+      return;
+    }
+
+    const navLinks = nav ? Array.from(nav.querySelectorAll("a")) : [];
+    const links = navLinks.map(function (a) {
+      return {
+        href: a.getAttribute("href") || "./index.html",
+        label: (a.textContent || "").trim() || "Page"
+      };
+    });
+    links.push({ href: "./brand.html", label: "Brand Guide" });
+    links.push({ href: "./colors.html", label: "Brand Hub" });
+
+    const palette = document.createElement("div");
+    palette.className = "command-palette";
+    palette.setAttribute("hidden", "");
+    palette.innerHTML =
+      '<div class="command-shell">' +
+      '<div class="command-head"><strong>Command Center</strong><span>Ctrl/Cmd + K</span></div>' +
+      '<input class="command-input" data-command-input type="text" placeholder="Type a page name..." />' +
+      '<div class="command-list" data-command-list></div>' +
+      "</div>";
+    document.body.appendChild(palette);
+
+    const input = palette.querySelector("[data-command-input]");
+    const list = palette.querySelector("[data-command-list]");
+
+    function render(filterText) {
+      if (!list) return;
+      const query = (filterText || "").toLowerCase();
+      const matching = links.filter(function (item) {
+        return item.label.toLowerCase().indexOf(query) !== -1;
+      });
+      list.innerHTML = matching
+        .map(function (item) {
+          return '<a class="command-item" href="' + item.href + '">' + item.label + "</a>";
+        })
+        .join("");
+    }
+
+    function openPalette() {
+      palette.removeAttribute("hidden");
+      render("");
+      if (input) {
+        input.value = "";
+        input.focus();
+      }
+    }
+
+    function closePalette() {
+      palette.setAttribute("hidden", "");
+    }
+
+    document.addEventListener("keydown", function onCommand(event) {
+      const key = (event.key || "").toLowerCase();
+      if ((event.ctrlKey || event.metaKey) && key === "k") {
+        event.preventDefault();
+        if (palette.hasAttribute("hidden")) {
+          openPalette();
+        } else {
+          closePalette();
+        }
+      }
+      if (key === "escape" && !palette.hasAttribute("hidden")) {
+        closePalette();
+      }
+    });
+
+    palette.addEventListener("click", function onBackdropClick(event) {
+      if (event.target === palette) {
+        closePalette();
+      }
+    });
+
+    if (input) {
+      input.addEventListener("input", function onSearch() {
+        render(input.value);
+      });
+    }
+  }
+
+  function setupFaithWidget() {
+    if (document.querySelector(".faith-widget")) {
+      return;
+    }
+    const verses = [
+      '"The joy of the Lord is your strength." - Nehemiah 8:10',
+      '"Let all that you do be done in love." - 1 Corinthians 16:14',
+      '"Be strong and courageous. Do not be afraid." - Joshua 1:9',
+      '"Faith comes by hearing the word of Christ." - Romans 10:17'
+    ];
+    const dayIndex = new Date().getDate() % verses.length;
+    const dateText = new Date().toLocaleDateString(undefined, {
+      weekday: "long",
+      month: "short",
+      day: "numeric"
+    });
+
+    const widget = document.createElement("aside");
+    widget.className = "faith-widget";
+    widget.innerHTML =
+      "<strong>Today at NCC</strong>" +
+      '<p class="muted">' + dateText + "</p>" +
+      "<p>" + verses[dayIndex] + "</p>";
+    document.body.appendChild(widget);
+  }
+
+  function setupEmbedReliability() {
+    const embeds = Array.from(document.querySelectorAll("iframe"));
+    if (!embeds.length) {
+      return;
+    }
+
+    embeds.forEach(function (frame) {
+      if (frame.closest(".embed-shell")) {
+        return;
+      }
+
+      const src = frame.getAttribute("src") || "";
+      frame.setAttribute("data-embed-src-base", src);
+      const wrapper = document.createElement("div");
+      wrapper.className = "embed-shell";
+
+      if (frame.classList.contains("video-frame")) {
+        wrapper.classList.add("video");
+      }
+      if (frame.classList.contains("tall")) {
+        wrapper.classList.add("tall");
+      }
+
+      const preferredMinHeight = frame.classList.contains("tall")
+        ? "620px"
+        : frame.classList.contains("video-frame")
+          ? "365px"
+          : "340px";
+      wrapper.style.minHeight = preferredMinHeight;
+
+      const cover = document.createElement("div");
+      cover.className = "embed-offline";
+      cover.setAttribute("hidden", "");
+      cover.innerHTML =
+        '<div class="embed-offline-card">' +
+        '<span class="embed-dot"></span>' +
+        "<strong>Offline</strong>" +
+        "<p>This media embed is currently unavailable.</p>" +
+        '<button type="button" class="button secondary" data-embed-retry>Retry Connection</button>' +
+        "</div>";
+
+      frame.parentNode.insertBefore(wrapper, frame);
+      wrapper.appendChild(frame);
+      wrapper.appendChild(cover);
+
+      const retryButton = cover.querySelector("[data-embed-retry]");
+      let timeoutId = null;
+      let loaded = false;
+
+      function showOffline() {
+        wrapper.classList.remove("is-online");
+        wrapper.classList.add("is-offline");
+        cover.removeAttribute("hidden");
+      }
+
+      function showOnline() {
+        loaded = true;
+        wrapper.classList.remove("is-offline");
+        wrapper.classList.add("is-online");
+        cover.setAttribute("hidden", "");
+      }
+
+      function startTimeout() {
+        if (timeoutId) {
+          window.clearTimeout(timeoutId);
+        }
+        timeoutId = window.setTimeout(function onEmbedTimeout() {
+          if (!loaded) {
+            showOffline();
+          }
+        }, 9000);
+      }
+
+      frame.addEventListener("load", function onFrameLoad() {
+        if (timeoutId) {
+          window.clearTimeout(timeoutId);
+        }
+        showOnline();
+      });
+
+      frame.addEventListener("error", function onFrameError() {
+        if (timeoutId) {
+          window.clearTimeout(timeoutId);
+        }
+        showOffline();
+      });
+
+      if (!src) {
+        showOffline();
+      } else {
+        startTimeout();
+      }
+
+      if (retryButton) {
+        retryButton.addEventListener("click", function onRetry() {
+          loaded = false;
+          showOffline();
+          const originalSrc = frame.getAttribute("data-embed-src-base") || src;
+          const bust = originalSrc.indexOf("?") === -1 ? "?" : "&";
+          frame.setAttribute("src", originalSrc + bust + "retry=" + Date.now());
+          startTimeout();
+        });
+      }
+    });
+  }
+
   if (navToggle && nav) {
     navToggle.addEventListener("click", function onToggle() {
       const isOpen = nav.classList.toggle("open");
@@ -197,7 +534,14 @@
   setupAmbientBackground();
   setupThemeToggle();
   setupLockToggle();
+  setupInspirationNavLink();
   setupGiveNavEnhancement();
   setupAdminTree();
   setupInteractiveHero();
+  setupScrollProgress();
+  setupRevealAnimations();
+  setupQuickActions();
+  setupCommandPalette();
+  setupFaithWidget();
+  setupEmbedReliability();
 })();

@@ -173,6 +173,14 @@
       "title": "Pastor Anthony Live Blog Feed",
       "url": "https://anthonyinspiration.com/",
       "statusNote": "Domain renewal pending. Feed panel is connected as a placeholder and will go live once DNS resolves."
+    },
+    "anthonyFacebook": {
+      "pageUrl": "https://www.facebook.com/anthony.vandyke.3",
+      "pageEmbedUrl": "https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fanthony.vandyke.3&tabs=timeline&width=500&height=680&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId"
+    },
+    "wednesdayWellnessWalk": {
+      "streamUrl": "https://www.facebook.com/anthony.vandyke.3/videos/3285521744795879/",
+      "embedUrl": "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Fanthony.vandyke.3%2Fvideos%2F3285521744795879%2F&show_text=false&width=560"
     }
   },
   "mediaArchive": [
