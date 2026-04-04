@@ -79,24 +79,55 @@
     }
 
     const adminAnchor = navList.querySelector('a[href$="admin.html"]');
-    if (!adminAnchor) {
-      return;
-    }
+    const colorsAnchor = navList.querySelector('a[href$="colors.html"]');
 
-    const adminText = adminAnchor.textContent || "Admin";
-    const adminHref = adminAnchor.getAttribute("href") || "./admin.html";
-    const adminLi = adminAnchor.closest("li");
-    if (adminLi) {
-      adminLi.remove();
-    }
+    const adminText = adminAnchor ? (adminAnchor.textContent || "Admin") : "Admin";
+    const adminHref = adminAnchor ? (adminAnchor.getAttribute("href") || "./admin.html") : "./admin.html";
+    const colorsText = colorsAnchor ? (colorsAnchor.textContent || "Colors") : "Colors";
+    const colorsHref = colorsAnchor ? (colorsAnchor.getAttribute("href") || "./colors.html") : "./colors.html";
+
+    const adminLi = adminAnchor ? adminAnchor.closest("li") : null;
+    if (adminLi) adminLi.remove();
+    const colorsLi = colorsAnchor ? colorsAnchor.closest("li") : null;
+    if (colorsLi) colorsLi.remove();
 
     const wrapper = document.createElement("li");
     wrapper.className = "nav-tree";
     wrapper.innerHTML =
       '<details><summary>More</summary><div class="nav-tree-menu">' +
+      '<a href="' + colorsHref + '">' + colorsText + "</a>" +
       '<a href="' + adminHref + '">' + adminText + "</a>" +
       "</div></details>";
     navList.appendChild(wrapper);
+  }
+
+  function setupGiveNavEnhancement() {
+    if (!nav) {
+      return;
+    }
+    const navList = nav.querySelector("ul");
+    if (!navList) {
+      return;
+    }
+    const giveAnchor = navList.querySelector('a[href$="give.html"]');
+    if (!giveAnchor) {
+      return;
+    }
+
+    giveAnchor.classList.add("nav-give-link");
+    const giveLi = giveAnchor.closest("li");
+    if (!giveLi) {
+      return;
+    }
+
+    const listItems = Array.from(navList.children);
+    const currentIndex = listItems.indexOf(giveLi);
+    const targetIndex = 3;
+    if (currentIndex !== targetIndex && targetIndex >= 0) {
+      navList.removeChild(giveLi);
+      const updatedItems = Array.from(navList.children);
+      navList.insertBefore(giveLi, updatedItems[targetIndex] || null);
+    }
   }
 
   function setupInteractiveHero() {
@@ -166,6 +197,7 @@
   setupAmbientBackground();
   setupThemeToggle();
   setupLockToggle();
+  setupGiveNavEnhancement();
   setupAdminTree();
   setupInteractiveHero();
 })();

@@ -1,0 +1,462 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NCC Brand Hub | Colors and Assets</title>
+    <meta name="description" content="NCC Brand Hub with palette, logos, icon kit, and brand textures.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/css/styles.css">
+    <style>
+      .hub-main {
+        padding-top: 5.5rem;
+      }
+      .hub-title {
+        font-size: clamp(2rem, 6vw, 3.7rem);
+        margin-bottom: 0.9rem;
+      }
+      .hub-sub {
+        max-width: 860px;
+      }
+      .hub-section {
+        margin: 2.3rem 0 3.2rem;
+      }
+      .hub-grid-6 {
+        display: grid;
+        grid-template-columns: repeat(6, minmax(0, 1fr));
+        gap: 0.9rem;
+      }
+      .hub-grid-5 {
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        gap: 0.9rem;
+      }
+      .hub-grid-3 {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 0.9rem;
+      }
+      .hub-color {
+        border: 1px solid var(--surface-border);
+        border-radius: 12px;
+        overflow: hidden;
+      }
+      .hub-color-top {
+        height: 100px;
+      }
+      .hub-color-meta {
+        padding: 0.8rem;
+        background: rgba(0, 0, 0, 0.26);
+      }
+      .hub-asset {
+        border: 1px solid var(--surface-border);
+        border-radius: 14px;
+        background: rgba(255, 255, 255, 0.04);
+        padding: 1rem;
+      }
+      .hub-asset-preview {
+        min-height: 180px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 12px;
+        border: 1px solid var(--surface-border);
+        background: rgba(0, 0, 0, 0.25);
+        margin-bottom: 0.8rem;
+      }
+      .hub-row-2 {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1rem;
+      }
+      .hub-toast {
+        position: fixed;
+        top: 6rem;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 70;
+        border-radius: 999px;
+        border: 1px solid rgba(0, 245, 212, 0.5);
+        background: rgba(0, 245, 212, 0.14);
+        color: #8cfde9;
+        padding: 0.55rem 0.9rem;
+        display: none;
+      }
+      .hub-toast.show {
+        display: inline-flex;
+      }
+      .mesh-preview {
+        min-height: 300px;
+        border: 1px solid var(--surface-border);
+        border-radius: 14px;
+      }
+      .hub-note {
+        font-size: 0.82rem;
+        color: var(--muted-text);
+      }
+      .showcase-wrap {
+        position: relative;
+        border: 1px solid var(--surface-border);
+        border-radius: 16px;
+        overflow: hidden;
+        background: rgba(0, 0, 0, 0.25);
+      }
+      .showcase-wrap img {
+        width: 100%;
+        display: block;
+        object-fit: cover;
+      }
+      .showcase-overlay {
+        position: absolute;
+        inset: auto 0 0 0;
+        background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.72) 100%);
+        padding: 1rem;
+      }
+      .showcase-chips {
+        display: flex;
+        gap: 0.45rem;
+        flex-wrap: wrap;
+      }
+      .showcase-chips span {
+        border: 1px solid var(--surface-border);
+        border-radius: 999px;
+        padding: 0.25rem 0.55rem;
+        font-size: 0.75rem;
+        background: rgba(255, 255, 255, 0.06);
+      }
+      @media (max-width: 1100px) {
+        .hub-grid-6 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+        .hub-grid-5 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+        .hub-grid-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      }
+      @media (max-width: 760px) {
+        .hub-grid-6, .hub-grid-5, .hub-grid-3, .hub-row-2 { grid-template-columns: 1fr; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="hub-toast" data-hub-toast>SVG Copied to Clipboard!</div>
+
+    <header class="site-header">
+      <div class="container">
+        <a class="brand" href="./index.html">
+          <img src="./assets/images/logo-mark.svg" alt="NCC logo">
+          <div>
+            <strong data-ph="branding.shortName">NCC Family</strong>
+            <span data-ph="contact.cityState">Suffolk, Virginia</span>
+          </div>
+        </a>
+        <button class="nav-toggle" data-nav-toggle aria-expanded="false" aria-label="Toggle site menu">☰</button>
+        <nav class="main-nav" data-main-nav>
+          <ul>
+            <li><a href="./index.html">Home</a></li>
+            <li><a href="./brand.html">Brand</a></li>
+            <li><a href="./colors.html" aria-current="page">Brand Hub</a></li>
+            <li><a href="./gallery.html">Gallery</a></li>
+            <li><a href="./contact.html">Contact</a></li>
+            <li><a href="./admin.html">Admin</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container hub-main">
+      <section class="hub-section center">
+        <p class="eyebrow">NCC Brand Hub</p>
+        <h1 class="hub-title">Reliability Through Innovation</h1>
+        <p class="hub-sub muted">
+          Central asset page for core palette, logo marks, iconography, and export-ready SVG resources.
+          Click any copy button to capture SVG code.
+        </p>
+      </section>
+
+      <section class="hub-section">
+        <div class="section-title-row">
+          <h2>00. Proposed Asset Showcase</h2>
+          <span class="pill">Live Concept Board</span>
+        </div>
+        <div class="showcase-wrap">
+          <img src="./assets/images/logodraft.png" alt="NCC proposed logo concept board">
+          <div class="showcase-overlay">
+            <h3>Curated Proposed Marks</h3>
+            <p class="muted">Fluid presentation of current concept options, including primary lockups, stacked variants, monochrome marks, and circular emblems.</p>
+            <div class="showcase-chips">
+              <span>Primary Lockups</span>
+              <span>Stacked Variants</span>
+              <span>Monochrome Set</span>
+              <span>Circular Emblems</span>
+              <span>Cross-Centered Concepts</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="hub-section">
+        <div class="section-title-row">
+          <h2>01. Core Palette</h2>
+          <span class="pill">Click to copy hex</span>
+        </div>
+        <div class="hub-grid-6">
+          <button class="hub-color" data-copy="#0B0B0C">
+            <div class="hub-color-top" style="background:#0B0B0C"></div>
+            <div class="hub-color-meta"><strong>Midnight</strong><p>#0B0B0C</p></div>
+          </button>
+          <button class="hub-color" data-copy="#2E42FF">
+            <div class="hub-color-top" style="background:#2E42FF"></div>
+            <div class="hub-color-meta"><strong>Electric Cobalt</strong><p>#2E42FF</p></div>
+          </button>
+          <button class="hub-color" data-copy="#00F5D4">
+            <div class="hub-color-top" style="background:#00F5D4"></div>
+            <div class="hub-color-meta"><strong>Neon Cyan</strong><p>#00F5D4</p></div>
+          </button>
+          <button class="hub-color" data-copy="#3A1078">
+            <div class="hub-color-top" style="background:#3A1078"></div>
+            <div class="hub-color-meta"><strong>Deep Indigo</strong><p>#3A1078</p></div>
+          </button>
+          <button class="hub-color" data-copy="#F8F9FA">
+            <div class="hub-color-top" style="background:#F8F9FA"></div>
+            <div class="hub-color-meta"><strong>Soft White</strong><p>#F8F9FA</p></div>
+          </button>
+          <button class="hub-color" data-copy="#D1D1D1">
+            <div class="hub-color-top" style="background:#D1D1D1"></div>
+            <div class="hub-color-meta"><strong>Light Grey</strong><p>#D1D1D1</p></div>
+          </button>
+        </div>
+      </section>
+
+      <section class="hub-section" id="assets">
+        <div class="section-title-row">
+          <h2>02. Master Logos</h2>
+          <span class="pill">SVG Ready</span>
+        </div>
+        <p class="hub-note">Merged set: fluid and shield family from the newer version, plus legacy square-cross family from the older version.</p>
+        <div class="hub-row-2">
+          <article class="hub-asset">
+            <div class="hub-asset-preview" data-svg-preview="fluid-primary"></div>
+            <h3>Primary Header Logo</h3>
+            <p class="muted">Fluid Glow version for desktop and hero headers.</p>
+            <p><button class="button secondary" data-copy-template="fluid-primary">Copy SVG</button></p>
+          </article>
+          <article class="hub-asset">
+            <div class="hub-asset-preview" data-svg-preview="shield-stacked"></div>
+            <h3>Secondary Stacked Logo</h3>
+            <p class="muted">Shield-centered stacked lockup for square spaces.</p>
+            <p><button class="button secondary" data-copy-template="shield-stacked">Copy SVG</button></p>
+          </article>
+        </div>
+
+        <div class="hub-row-2" style="margin-top:1rem;">
+          <article class="hub-asset">
+            <div class="hub-asset-preview" data-svg-preview="legacy-primary"></div>
+            <h3>Legacy Primary (Square Cross)</h3>
+            <p class="muted">Original horizontal identity variant from the older draft.</p>
+            <p><button class="button secondary" data-copy-template="legacy-primary">Copy SVG</button></p>
+          </article>
+          <article class="hub-asset">
+            <div class="hub-asset-preview" data-svg-preview="legacy-stacked"></div>
+            <h3>Legacy Secondary (Stacked)</h3>
+            <p class="muted">Square context lockup from earlier brand exploration.</p>
+            <p><button class="button secondary" data-copy-template="legacy-stacked">Copy SVG</button></p>
+          </article>
+        </div>
+
+        <div class="hub-grid-3" style="margin-top:1rem;">
+          <article class="hub-asset center">
+            <div class="hub-asset-preview" data-svg-preview="legacy-mark"></div>
+            <h3>Legacy Mark</h3>
+            <p><button class="button secondary" data-copy-template="legacy-mark">Copy SVG</button></p>
+          </article>
+          <article class="hub-asset center">
+            <div class="hub-asset-preview" data-svg-preview="legacy-mono"></div>
+            <h3>Monochrome Legacy Mark</h3>
+            <p><button class="button secondary" data-copy-template="legacy-mono">Copy SVG</button></p>
+          </article>
+          <article class="hub-asset center">
+            <div class="hub-asset-preview" data-svg-preview="fluid-mark"></div>
+            <h3>Fluid Mark</h3>
+            <p><button class="button secondary" data-copy-template="fluid-mark">Copy SVG</button></p>
+          </article>
+        </div>
+      </section>
+
+      <section class="hub-section">
+        <div class="section-title-row">
+          <h2>02.5 Advanced Concepts</h2>
+          <span class="pill">Exploration Pack</span>
+        </div>
+        <div class="hub-grid-3">
+          <article class="hub-asset">
+            <div class="hub-asset-preview" data-svg-preview="concept-pulse"></div>
+            <h3>Concept A: The Pulse</h3>
+            <p class="muted">Digital equalizer bars intersecting to form a high-tech cross.</p>
+            <p><button class="button secondary" data-copy-template="concept-pulse">Copy SVG</button></p>
+          </article>
+          <article class="hub-asset">
+            <div class="hub-asset-preview" data-svg-preview="concept-mosaic"></div>
+            <h3>Concept B: The Mosaic</h3>
+            <p class="muted">Overlapping glass forms with cross silhouette in negative space.</p>
+            <p><button class="button secondary" data-copy-template="concept-mosaic">Copy SVG</button></p>
+          </article>
+          <article class="hub-asset">
+            <div class="hub-asset-preview" data-svg-preview="concept-nodes"></div>
+            <h3>Concept C: The Network</h3>
+            <p class="muted">Interconnected node system around a central cross point.</p>
+            <p><button class="button secondary" data-copy-template="concept-nodes">Copy SVG</button></p>
+          </article>
+        </div>
+      </section>
+
+      <section class="hub-section">
+        <div class="section-title-row">
+          <h2>02.6 Explicit NCC Monograms</h2>
+          <span class="pill">Draft-Inspired Revisions</span>
+        </div>
+        <p class="hub-note">Directly based on your uploaded draft style, engineered to read clearly left-to-right as NCC with a cross integration.</p>
+        <div class="hub-grid-3">
+          <article class="hub-asset">
+            <div class="hub-asset-preview" data-svg-preview="explicit-nested"></div>
+            <h3>Revision A: Nested Match</h3>
+            <p class="muted">Outer C protecting inner C, with a distinct N and cross spine.</p>
+            <p><button class="button secondary" data-copy-template="explicit-nested">Copy SVG</button></p>
+          </article>
+          <article class="hub-asset">
+            <div class="hub-asset-preview" data-svg-preview="explicit-offset"></div>
+            <h3>Revision B: Offset Interlock</h3>
+            <p class="muted">Interconnected linework with safe downward-right progression.</p>
+            <p><button class="button secondary" data-copy-template="explicit-offset">Copy SVG</button></p>
+          </article>
+          <article class="hub-asset">
+            <div class="hub-asset-preview" data-svg-preview="explicit-arch"></div>
+            <h3>Revision C: Blueprint</h3>
+            <p class="muted">Structured architectural letter blocks with luminous cross axis.</p>
+            <p><button class="button secondary" data-copy-template="explicit-arch">Copy SVG</button></p>
+          </article>
+        </div>
+      </section>
+
+      <section class="hub-section">
+        <div class="section-title-row">
+          <h2>03. Ministry Icon Kit</h2>
+          <span class="pill">Copy SVG</span>
+        </div>
+        <div class="hub-grid-5">
+          <article class="hub-asset center">
+            <div class="hub-asset-preview" data-svg-preview="icon-kids"></div>
+            <h3>Kids / NextGen</h3>
+            <p><button class="button secondary" data-copy-template="icon-kids">Copy SVG</button></p>
+          </article>
+          <article class="hub-asset center">
+            <div class="hub-asset-preview" data-svg-preview="icon-worship"></div>
+            <h3>Worship / Spirit</h3>
+            <p><button class="button secondary" data-copy-template="icon-worship">Copy SVG</button></p>
+          </article>
+          <article class="hub-asset center">
+            <div class="hub-asset-preview" data-svg-preview="icon-community"></div>
+            <h3>Community Groups</h3>
+            <p><button class="button secondary" data-copy-template="icon-community">Copy SVG</button></p>
+          </article>
+          <article class="hub-asset center">
+            <div class="hub-asset-preview" data-svg-preview="icon-message"></div>
+            <h3>Messages / Sermon</h3>
+            <p><button class="button secondary" data-copy-template="icon-message">Copy SVG</button></p>
+          </article>
+          <article class="hub-asset center">
+            <div class="hub-asset-preview" data-svg-preview="icon-media"></div>
+            <h3>Media / Livestream</h3>
+            <p><button class="button secondary" data-copy-template="icon-media">Copy SVG</button></p>
+          </article>
+        </div>
+      </section>
+
+      <section class="hub-section">
+        <div class="section-title-row">
+          <h2>04. Brand Texture</h2>
+          <span class="pill">Mesh Background SVG</span>
+        </div>
+        <div class="mesh-preview" data-svg-bg="mesh-bg"></div>
+        <p><button class="button primary" data-copy-template="mesh-bg">Export SVG Code</button></p>
+      </section>
+    </main>
+
+    <template id="tpl-fluid-primary"><svg viewBox="0 0 450 120" fill="none" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="fluidGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#00F5D4"/><stop offset="100%" stop-color="#2E42FF"/></linearGradient><filter id="fluidGlow" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="3" result="blur"/><feComposite in="SourceGraphic" in2="blur" operator="over"/></filter></defs><g transform="translate(10, 20) scale(0.8)"><path d="M 25 75 A 35 35 0 1 1 75 75" stroke="url(#fluidGrad)" stroke-width="6" stroke-linecap="round" opacity="0.6"/><path d="M30 65 V35 L48 65 V20 M35 32 H60" stroke="#00F5D4" stroke-width="6" stroke-linejoin="round" stroke-linecap="round" filter="url(#fluidGlow)"/><path d="M 75 35 A 20 20 0 0 1 50 75" stroke="#F8F9FA" stroke-width="6" stroke-linecap="round"/></g><text x="110" y="58" style="font-family:Inter,sans-serif;font-weight:800;font-size:32px;fill:#F8F9FA;letter-spacing:0.02em;">NEW COMMUNITY</text><text x="112" y="86" style="font-family:Montserrat,sans-serif;font-weight:600;font-size:16px;fill:#00F5D4;letter-spacing:0.35em;">CHURCH</text></svg></template>
+    <template id="tpl-shield-stacked"><svg viewBox="0 0 300 240" fill="none" xmlns="http://www.w3.org/2000/svg"><defs><filter id="shieldGlow" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="2.5" result="blur"/><feComposite in="SourceGraphic" in2="blur" operator="over"/></filter></defs><g transform="translate(100, 20) scale(1)"><path d="M50 10 L53 25 L68 28 L53 31 L50 46 L47 31 L32 28 L47 25 Z" fill="#2E42FF" opacity="0.4" filter="url(#shieldGlow)"/><path d="M50 12 V45 M38 28 H62" stroke="#F8F9FA" stroke-width="5" stroke-linecap="round" filter="url(#shieldGlow)"/><path d="M25 70 V45 L45 55 V80" stroke="#00F5D4" stroke-width="5" stroke-linejoin="round"/><path d="M75 45 L55 55 V80 L75 70" stroke="#2E42FF" stroke-width="5" stroke-linejoin="round"/></g><text x="150" y="160" style="font-family:Inter,sans-serif;font-weight:800;font-size:24px;fill:#F8F9FA;letter-spacing:0.02em;text-anchor:middle;">NEW COMMUNITY</text><text x="152" y="190" style="font-family:Montserrat,sans-serif;font-weight:600;font-size:14px;fill:#00F5D4;letter-spacing:0.35em;text-anchor:middle;">CHURCH</text></svg></template>
+    <template id="tpl-fluid-mark"><svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="fluidGradMark" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#00F5D4"/><stop offset="100%" stop-color="#2E42FF"/></linearGradient><filter id="fluidGlowMark" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="3" result="blur"/><feComposite in="SourceGraphic" in2="blur" operator="over"/></filter></defs><path d="M 25 75 A 35 35 0 1 1 75 75" stroke="url(#fluidGradMark)" stroke-width="6" stroke-linecap="round" opacity="0.6"/><path d="M30 65 V35 L48 65 V20 M35 32 H60" stroke="#00F5D4" stroke-width="6" stroke-linejoin="round" stroke-linecap="round" filter="url(#fluidGlowMark)"/><path d="M 75 35 A 20 20 0 0 1 50 75" stroke="#F8F9FA" stroke-width="6" stroke-linecap="round"/></svg></template>
+    <template id="tpl-legacy-mark"><svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="markGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#00F5D4"/><stop offset="100%" stop-color="#2E42FF"/></linearGradient><filter id="markGlow" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="3" result="blur"/><feComposite in="SourceGraphic" in2="blur" operator="over"/></filter></defs><rect x="16" y="16" width="68" height="68" rx="20" stroke="url(#markGrad)" stroke-width="8" opacity="0.9"/><path d="M50 28 V72 M28 50 H72" stroke="#00F5D4" stroke-width="8" stroke-linecap="round" filter="url(#markGlow)"/></svg></template>
+    <template id="tpl-legacy-primary"><svg viewBox="0 0 450 120" fill="none" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="primGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#00F5D4"/><stop offset="100%" stop-color="#2E42FF"/></linearGradient><filter id="primGlow" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="3" result="blur"/><feComposite in="SourceGraphic" in2="blur" operator="over"/></filter></defs><g transform="translate(10, 20) scale(0.8)"><rect x="16" y="16" width="68" height="68" rx="20" stroke="url(#primGrad)" stroke-width="8" opacity="0.9"/><path d="M50 28 V72 M28 50 H72" stroke="#00F5D4" stroke-width="8" stroke-linecap="round" filter="url(#primGlow)"/></g><text x="110" y="58" style="font-family:Inter,sans-serif;font-weight:800;font-size:32px;fill:#F8F9FA;letter-spacing:0.02em;">NEW COMMUNITY</text><text x="112" y="86" style="font-family:Montserrat,sans-serif;font-weight:600;font-size:16px;fill:#00F5D4;letter-spacing:0.35em;">CHURCH</text></svg></template>
+    <template id="tpl-legacy-stacked"><svg viewBox="0 0 300 240" fill="none" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="stGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#00F5D4"/><stop offset="100%" stop-color="#2E42FF"/></linearGradient></defs><g transform="translate(100, 20) scale(1)"><rect x="16" y="16" width="68" height="68" rx="20" stroke="url(#stGrad)" stroke-width="8" opacity="0.9"/><path d="M50 28 V72 M28 50 H72" stroke="#00F5D4" stroke-width="8" stroke-linecap="round"/></g><text x="150" y="160" style="font-family:Inter,sans-serif;font-weight:800;font-size:24px;fill:#F8F9FA;letter-spacing:0.02em;text-anchor:middle;">NEW COMMUNITY</text><text x="152" y="190" style="font-family:Montserrat,sans-serif;font-weight:600;font-size:14px;fill:#00F5D4;letter-spacing:0.35em;text-anchor:middle;">CHURCH</text></svg></template>
+    <template id="tpl-legacy-mono"><svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="16" y="16" width="68" height="68" rx="20" stroke="#F8F9FA" stroke-width="8"/><path d="M50 28 V72 M28 50 H72" stroke="#F8F9FA" stroke-width="8" stroke-linecap="round"/></svg></template>
+    <template id="tpl-concept-pulse"><svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="pulseGrad" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#00F5D4"/><stop offset="100%" stop-color="#2E42FF"/></linearGradient><filter id="pulseGlow" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="2" result="blur"/><feComposite in="SourceGraphic" in2="blur" operator="over"/></filter></defs><rect x="44" y="16" width="12" height="68" rx="6" fill="url(#pulseGrad)"/><rect x="28" y="32" width="8" height="36" rx="4" fill="url(#pulseGrad)" opacity="0.7"/><rect x="64" y="32" width="8" height="36" rx="4" fill="url(#pulseGrad)" opacity="0.7"/><rect x="16" y="44" width="68" height="12" rx="6" fill="#00F5D4" filter="url(#pulseGlow)"/><circle cx="50" cy="50" r="4" fill="#0B0B0C"/></svg></template>
+    <template id="tpl-concept-mosaic"><svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><defs><filter id="mosaicGlow" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="3" result="blur"/><feComposite in="SourceGraphic" in2="blur" operator="over"/></filter></defs><rect x="16" y="16" width="32" height="32" rx="12" fill="#2E42FF" opacity="0.8"/><rect x="52" y="16" width="32" height="32" rx="12" fill="#00F5D4" opacity="0.6"/><rect x="16" y="52" width="32" height="32" rx="12" fill="#3A1078" opacity="0.8"/><rect x="52" y="52" width="32" height="32" rx="12" fill="#2E42FF" opacity="0.8"/><path d="M50 24 V76 M24 50 H76" stroke="#F8F9FA" stroke-width="6" stroke-linecap="round" filter="url(#mosaicGlow)"/></svg></template>
+    <template id="tpl-concept-nodes"><svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="nodeGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#00F5D4"/><stop offset="100%" stop-color="#3A1078"/></linearGradient><filter id="nodeGlow" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="2" result="blur"/><feComposite in="SourceGraphic" in2="blur" operator="over"/></filter></defs><path d="M50 20 L80 50 L50 80 L20 50 Z" stroke="url(#nodeGrad)" stroke-width="4" stroke-linejoin="round" opacity="0.8"/><path d="M50 20 V80 M20 50 H80" stroke="#2E42FF" stroke-width="4"/><circle cx="50" cy="20" r="6" fill="#00F5D4" filter="url(#nodeGlow)"/><circle cx="50" cy="80" r="6" fill="#00F5D4"/><circle cx="20" cy="50" r="6" fill="#00F5D4"/><circle cx="80" cy="50" r="6" fill="#00F5D4"/><circle cx="50" cy="50" r="10" fill="#F8F9FA"/><circle cx="50" cy="50" r="4" fill="#0B0B0C"/></svg></template>
+    <template id="tpl-explicit-nested"><svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="nestedGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#00F5D4"/><stop offset="100%" stop-color="#2E42FF"/></linearGradient><filter id="nestedGlow" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="2" result="blur"/><feComposite in="SourceGraphic" in2="blur" operator="over"/></filter></defs><circle cx="50" cy="50" r="42" stroke="url(#nestedGrad)" stroke-width="3" opacity="0.6"/><path d="M20 70 V30 L36 70 V30" stroke="#F8F9FA" stroke-width="4" stroke-linejoin="miter"/><path d="M44 18 V46 M36 32 H52" stroke="#00F5D4" stroke-width="4" filter="url(#nestedGlow)"/><path d="M80 30 H56 V70 H80" stroke="#2E42FF" stroke-width="4" stroke-linejoin="miter"/><path d="M72 44 H64 V56 H72" stroke="#F8F9FA" stroke-width="4" stroke-linejoin="miter"/></svg></template>
+    <template id="tpl-explicit-offset"><svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><defs><filter id="offsetGlow" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="2.5" result="blur"/><feComposite in="SourceGraphic" in2="blur" operator="over"/></filter></defs><circle cx="50" cy="50" r="40" stroke="#3A1078" stroke-width="4" opacity="0.8"/><path d="M22 70 V32 L40 70 V15" stroke="#F8F9FA" stroke-width="5" stroke-linejoin="miter" filter="url(#offsetGlow)"/><path d="M30 32 H55" stroke="#00F5D4" stroke-width="5"/><path d="M70 32 H48 V52 H70" stroke="#2E42FF" stroke-width="5" stroke-linejoin="miter"/><path d="M78 48 H56 V70 H78" stroke="#00F5D4" stroke-width="5" stroke-linejoin="miter"/></svg></template>
+    <template id="tpl-explicit-arch"><svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="archGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#2E42FF"/><stop offset="100%" stop-color="#00F5D4"/></linearGradient><filter id="archGlow" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="1.5" result="blur"/><feComposite in="SourceGraphic" in2="blur" operator="over"/></filter></defs><circle cx="50" cy="50" r="44" stroke="#2E42FF" stroke-width="2" opacity="0.4"/><circle cx="50" cy="50" r="38" stroke="#00F5D4" stroke-width="1" stroke-dasharray="4 4" opacity="0.5"/><path d="M18 65 V35 L32 65 V35" stroke="#F8F9FA" stroke-width="4" stroke-linejoin="miter"/><path d="M42 15 V35 M32 25 H52" stroke="url(#archGrad)" stroke-width="4" filter="url(#archGlow)"/><path d="M54 35 H42 V65 H54" stroke="#2E42FF" stroke-width="4" stroke-linejoin="miter"/><path d="M78 35 H64 V65 H78" stroke="#00F5D4" stroke-width="4" stroke-linejoin="miter"/></svg></template>
+    <template id="tpl-icon-kids"><svg viewBox="0 0 24 24" fill="none" stroke="#00F5D4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z"/></svg></template>
+    <template id="tpl-icon-worship"><svg viewBox="0 0 24 24" fill="none" stroke="#00F5D4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><path d="M8.5 14.5A2.5 2.5 0 0011 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 11-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 002.5 2.5z"/></svg></template>
+    <template id="tpl-icon-community"><svg viewBox="0 0 24 24" fill="none" stroke="#00F5D4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 00-3-3.87"></path><path d="M16 3.13a4 4 0 010 7.75"></path></svg></template>
+    <template id="tpl-icon-message"><svg viewBox="0 0 24 24" fill="none" stroke="#00F5D4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path><path d="M12 6v6"></path><path d="M9 9h6"></path></svg></template>
+    <template id="tpl-icon-media"><svg viewBox="0 0 24 24" fill="none" stroke="#00F5D4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="4" width="20" height="16" rx="2" ry="2"></rect><polygon points="10 9 15 12 10 15 10 9"></polygon></svg></template>
+    <template id="tpl-mesh-bg"><svg width="1920" height="1080" viewBox="0 0 1920 1080" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice"><defs><radialGradient id="mesh1" cx="15%" cy="25%" r="50%"><stop offset="0%" stop-color="#2E42FF" stop-opacity="0.4"/><stop offset="100%" stop-color="#0B0B0C" stop-opacity="0"/></radialGradient><radialGradient id="mesh2" cx="85%" cy="80%" r="60%"><stop offset="0%" stop-color="#00F5D4" stop-opacity="0.25"/><stop offset="100%" stop-color="#0B0B0C" stop-opacity="0"/></radialGradient><radialGradient id="mesh3" cx="50%" cy="50%" r="70%"><stop offset="0%" stop-color="#3A1078" stop-opacity="0.5"/><stop offset="100%" stop-color="#0B0B0C" stop-opacity="0.9"/></radialGradient></defs><rect width="100%" height="100%" fill="#0B0B0C"/><rect width="100%" height="100%" fill="url(#mesh3)"/><rect width="100%" height="100%" fill="url(#mesh1)"/><rect width="100%" height="100%" fill="url(#mesh2)"/></svg></template>
+
+    <script src="./assets/js/site.js"></script>
+    <script src="./assets/js/placeholders.js"></script>
+    <script>
+      (function initBrandHub() {
+        const toast = document.querySelector("[data-hub-toast]");
+
+        function showToast(text) {
+          if (!toast) return;
+          toast.textContent = text;
+          toast.classList.add("show");
+          setTimeout(function hideToast() {
+            toast.classList.remove("show");
+          }, 2200);
+        }
+
+        function copyText(text) {
+          const area = document.createElement("textarea");
+          area.value = text;
+          document.body.appendChild(area);
+          area.select();
+          document.execCommand("copy");
+          document.body.removeChild(area);
+        }
+
+        function readTemplate(id) {
+          const tpl = document.getElementById("tpl-" + id);
+          return tpl ? tpl.innerHTML.trim() : "";
+        }
+
+        document.querySelectorAll("[data-svg-preview]").forEach(function (node) {
+          const id = node.getAttribute("data-svg-preview");
+          node.innerHTML = readTemplate(id);
+        });
+
+        document.querySelectorAll("[data-copy-template]").forEach(function (btn) {
+          btn.addEventListener("click", function () {
+            const id = btn.getAttribute("data-copy-template");
+            copyText(readTemplate(id));
+            showToast("SVG Copied to Clipboard!");
+          });
+        });
+
+        document.querySelectorAll("[data-copy]").forEach(function (btn) {
+          btn.addEventListener("click", function () {
+            copyText(btn.getAttribute("data-copy") || "");
+            showToast("Color copied!");
+          });
+        });
+
+        const meshTarget = document.querySelector("[data-svg-bg='mesh-bg']");
+        if (meshTarget) {
+          const mesh = encodeURIComponent(readTemplate("mesh-bg"));
+          meshTarget.style.backgroundImage = "url('data:image/svg+xml;utf8," + mesh + "')";
+          meshTarget.style.backgroundSize = "cover";
+          meshTarget.style.backgroundPosition = "center";
+        }
+      })();
+    </script>
+  </body>
+</html>
