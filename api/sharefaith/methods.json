@@ -1,0 +1,26 @@
+[
+  {
+    "name": "Text Giving",
+    "description": "Members can text their gift in seconds to a church number."
+  },
+  {
+    "name": "Mobile Giving",
+    "description": "Fast giving on mobile with a few taps."
+  },
+  {
+    "name": "Online Giving",
+    "description": "Website-optimized donation forms and instant receipt flow."
+  },
+  {
+    "name": "QR Scan Giving",
+    "description": "QR code scan-to-give for in-person and digital campaigns."
+  },
+  {
+    "name": "Recurring Giving",
+    "description": "Automated recurring donations for predictable generosity."
+  },
+  {
+    "name": "Reporting Dashboard",
+    "description": "Real-time giving analytics and reporting insights."
+  }
+]
