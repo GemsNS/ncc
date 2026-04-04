@@ -13,7 +13,7 @@ This file captures factual content from the current public church presence that 
 
 - Name: New Community Christian Center (NCC Family)
 - City/State: Suffolk, Virginia
-- Founding year referenced: 1996
+- Founding year referenced: 1997
 
 ## Service Schedule
 
