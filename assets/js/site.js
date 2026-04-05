@@ -435,6 +435,146 @@
     document.body.appendChild(widget);
   }
 
+  function setupPrayerChat() {
+    if (document.querySelector(".prayer-chat-launcher")) {
+      return;
+    }
+
+    const launcher = document.createElement("button");
+    launcher.type = "button";
+    launcher.className = "prayer-chat-launcher";
+    launcher.textContent = "Prayer Chat";
+    launcher.setAttribute("aria-label", "Open prayer chat");
+    document.body.appendChild(launcher);
+
+    const modal = document.createElement("div");
+    modal.className = "prayer-chat-modal";
+    modal.setAttribute("hidden", "");
+    modal.innerHTML =
+      '<div class="prayer-chat-shell">' +
+      '<div class="prayer-chat-head">' +
+      "<strong>Prayer Chat</strong>" +
+      '<button type="button" data-prayer-close aria-label="Close prayer chat">x</button>' +
+      "</div>" +
+      '<p class="muted" data-prayer-status>Checking availability...</p>' +
+      '<div class="prayer-chat-log" data-prayer-log></div>' +
+      '<form class="prayer-chat-form" data-prayer-form>' +
+      '<input data-prayer-input type="text" placeholder="Share your prayer request..." />' +
+      '<button type="submit" class="button primary">Send</button>' +
+      "</form>" +
+      '<p class="muted" data-prayer-actions></p>' +
+      "</div>";
+    document.body.appendChild(modal);
+
+    const closeBtn = modal.querySelector("[data-prayer-close]");
+    const statusNode = modal.querySelector("[data-prayer-status]");
+    const logNode = modal.querySelector("[data-prayer-log]");
+    const formNode = modal.querySelector("[data-prayer-form]");
+    const inputNode = modal.querySelector("[data-prayer-input]");
+    const actionNode = modal.querySelector("[data-prayer-actions]");
+
+    const defaultUrl = "https://www.facebook.com/anthony.vandyke.3";
+    let liveMode = false;
+    let liveUrl = defaultUrl;
+
+    function appendBubble(kind, text) {
+      if (!logNode) return;
+      const node = document.createElement("p");
+      node.className = "prayer-bubble " + kind;
+      node.textContent = text;
+      logNode.appendChild(node);
+      logNode.scrollTop = logNode.scrollHeight;
+    }
+
+    function helperReply(message) {
+      const input = String(message || "").toLowerCase();
+      if (input.indexOf("anxious") !== -1 || input.indexOf("fear") !== -1 || input.indexOf("worry") !== -1) {
+        return "You are not alone. Take a deep breath. 'Cast all your anxiety on Him because He cares for you.' (1 Peter 5:7)";
+      }
+      if (input.indexOf("family") !== -1 || input.indexOf("marriage") !== -1 || input.indexOf("children") !== -1) {
+        return "Praying for peace and unity in your home. Ask God for patience, wisdom, and healing conversations this week.";
+      }
+      if (input.indexOf("health") !== -1 || input.indexOf("sick") !== -1 || input.indexOf("pain") !== -1) {
+        return "Praying for strength and healing over your body and mind. May you receive comfort and renewed hope today.";
+      }
+      if (input.indexOf("job") !== -1 || input.indexOf("money") !== -1 || input.indexOf("work") !== -1) {
+        return "Praying for provision and open doors. May God guide your next step and give clarity in every decision.";
+      }
+      return "Thank you for sharing. I am praying with you now: Lord, bring peace, wisdom, and strength in this situation. Amen.";
+    }
+
+    function openModal() {
+      modal.removeAttribute("hidden");
+      if (inputNode && !liveMode) {
+        inputNode.focus();
+      }
+    }
+
+    function closeModal() {
+      modal.setAttribute("hidden", "");
+    }
+
+    launcher.addEventListener("click", openModal);
+    if (closeBtn) {
+      closeBtn.addEventListener("click", closeModal);
+    }
+    modal.addEventListener("click", function onBackdrop(event) {
+      if (event.target === modal) {
+        closeModal();
+      }
+    });
+
+    fetch("./assets/data/site-content.json")
+      .then(function (res) {
+        return res.json();
+      })
+      .then(function (data) {
+        const social = (data && data.socialFeeds) || {};
+        const prayer = social.prayerChat || {};
+        liveMode = String(prayer.status || "offline").toLowerCase() === "online";
+        liveUrl = prayer.liveUrl || social.anthonyFacebook?.pageUrl || defaultUrl;
+
+        if (liveMode) {
+          if (statusNode) statusNode.textContent = "Pastor Anthony is online for live prayer chat.";
+          if (actionNode) {
+            actionNode.innerHTML = '<a class="button secondary" href="' + liveUrl + '" target="_blank" rel="noopener noreferrer">Open Live Prayer with Pastor Anthony</a>';
+          }
+          if (formNode) formNode.setAttribute("hidden", "");
+          appendBubble("bot", "Live mode is active. Use the button below to connect directly with Pastor Anthony.");
+        } else {
+          if (statusNode) statusNode.textContent = "Pastor Anthony is offline. AI Prayer Helper is active.";
+          if (actionNode) {
+            actionNode.innerHTML = '<a class="button secondary" href="' + liveUrl + '" target="_blank" rel="noopener noreferrer">Leave a Message for Pastor Anthony</a>';
+          }
+          appendBubble("bot", "Pastor Anthony is offline right now. I am here to pray with you and encourage you.");
+        }
+      })
+      .catch(function () {
+        liveMode = false;
+        if (statusNode) statusNode.textContent = "Live status unavailable. AI Prayer Helper is active.";
+        if (actionNode) {
+          actionNode.innerHTML = '<a class="button secondary" href="' + defaultUrl + '" target="_blank" rel="noopener noreferrer">Open Pastor Anthony Page</a>';
+        }
+        appendBubble("bot", "I can still pray with you here. Share your request any time.");
+      });
+
+    if (formNode) {
+      formNode.addEventListener("submit", function onPrayerSubmit(event) {
+        event.preventDefault();
+        if (liveMode) {
+          return;
+        }
+        const text = inputNode ? inputNode.value.trim() : "";
+        if (!text) return;
+        appendBubble("user", text);
+        if (inputNode) inputNode.value = "";
+        window.setTimeout(function () {
+          appendBubble("bot", helperReply(text));
+        }, 260);
+      });
+    }
+  }
+
   function setupEmbedReliability() {
     const embeds = Array.from(document.querySelectorAll("iframe"));
     if (!embeds.length) {
@@ -572,5 +712,6 @@
   setupQuickActions();
   setupCommandPalette();
   setupFaithWidget();
+  setupPrayerChat();
   setupEmbedReliability();
 })();

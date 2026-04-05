@@ -129,8 +129,7 @@ html[data-theme="light"] .ambient-grid {
 
 .site-header,
 main,
-.site-footer,
-.ph-toggle {
+.site-footer {
   position: relative;
   z-index: 1;
 }
@@ -345,6 +344,14 @@ a {
   transition: transform 140ms ease;
 }
 
+.interactive-hero.logo-panel-card {
+  background:
+    radial-gradient(circle at 50% 16%, rgba(121, 221, 255, 0.36), rgba(121, 221, 255, 0.05) 32%, transparent 56%),
+    radial-gradient(circle at 50% 48%, rgba(43, 102, 190, 0.24), rgba(11, 22, 46, 0.04) 52%, transparent 72%),
+    radial-gradient(circle at 50% 50%, rgba(8, 20, 44, 0.3), rgba(2, 8, 18, 0) 46%),
+    linear-gradient(165deg, #01060f 0%, #050f23 45%, #030813 100%);
+}
+
 .interactive-hero img {
   width: 100%;
   height: 260px;
@@ -356,7 +363,11 @@ a {
 .interactive-hero img.logo-panel-image {
   object-fit: contain;
   padding: 0.55rem;
-  background: radial-gradient(circle at 50% 22%, rgba(126, 214, 255, 0.2), rgba(6, 10, 24, 0.86) 70%);
+  background:
+    radial-gradient(circle at 50% 18%, rgba(154, 229, 255, 0.18), rgba(7, 13, 28, 0.08) 48%, transparent 72%),
+    linear-gradient(180deg, rgba(2, 8, 20, 0.42), rgba(2, 8, 20, 0.58));
+  border-radius: 10px;
+  box-shadow: inset 0 0 52px rgba(2, 8, 20, 0.6), inset 0 0 12px rgba(2, 8, 20, 0.45);
 }
 
 .interactive-hero figcaption {
@@ -901,14 +912,6 @@ progress {
   background: rgba(0, 0, 0, 0.16);
 }
 
-.ph-toggle {
-  position: fixed;
-  right: 1rem;
-  bottom: 1rem;
-  z-index: 50;
-  box-shadow: var(--shadow-glow);
-}
-
 .quick-actions {
   position: fixed;
   right: 1rem;
@@ -1031,6 +1034,102 @@ progress {
   font-size: 0.8rem;
 }
 
+.prayer-chat-launcher {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 56;
+  border: 1px solid rgba(248, 249, 250, 0.24);
+  border-radius: 999px;
+  padding: 0.62rem 0.95rem;
+  color: #f8f9fa;
+  font-weight: 700;
+  background: linear-gradient(140deg, #2e42ff, #00b8a3);
+  box-shadow: 0 0 18px rgba(0, 245, 212, 0.24);
+}
+
+.prayer-chat-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  display: grid;
+  place-items: end right;
+  padding: 1rem;
+  background: rgba(4, 7, 16, 0.42);
+  backdrop-filter: blur(4px);
+}
+
+.prayer-chat-modal[hidden] {
+  display: none;
+}
+
+.prayer-chat-shell {
+  width: min(95vw, 380px);
+  border: 1px solid var(--surface-border);
+  border-radius: 14px;
+  background: rgba(8, 12, 28, 0.95);
+  box-shadow: 0 18px 55px rgba(0, 0, 0, 0.48);
+  overflow: hidden;
+}
+
+.prayer-chat-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 0.8rem;
+  border-bottom: 1px solid var(--surface-border);
+}
+
+.prayer-chat-head button {
+  border: 1px solid var(--surface-border);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--soft-white);
+  border-radius: 8px;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+}
+
+.prayer-chat-shell [data-prayer-status],
+.prayer-chat-shell [data-prayer-actions] {
+  padding: 0 0.8rem;
+}
+
+.prayer-chat-log {
+  padding: 0.3rem 0.8rem 0.4rem;
+  max-height: 240px;
+  overflow: auto;
+  display: grid;
+  gap: 0.45rem;
+}
+
+.prayer-bubble {
+  margin: 0;
+  font-size: 0.84rem;
+  border: 1px solid var(--surface-border);
+  border-radius: 10px;
+  padding: 0.45rem 0.55rem;
+}
+
+.prayer-bubble.bot {
+  background: rgba(46, 66, 255, 0.16);
+}
+
+.prayer-bubble.user {
+  background: rgba(0, 245, 212, 0.12);
+}
+
+.prayer-chat-form {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.45rem;
+  padding: 0.7rem 0.8rem 0.9rem;
+}
+
+.prayer-chat-form input {
+  min-width: 0;
+}
+
 .reveal {
   opacity: 0;
   transform: translateY(16px) scale(0.99);
@@ -1049,26 +1148,6 @@ body.focus-mode .faith-widget,
 body.focus-mode .ticker-shell {
   opacity: 0.25;
   transition: opacity 180ms ease;
-}
-
-.ph-label {
-  position: absolute;
-  top: -0.62rem;
-  right: 0.2rem;
-  display: none;
-  font-size: 0.66rem;
-  line-height: 1;
-  padding: 0.2rem 0.35rem;
-  border-radius: 999px;
-  border: 1px solid rgba(0, 245, 212, 0.45);
-  background: rgba(0, 10, 10, 0.92);
-  color: #7bfce9;
-  pointer-events: none;
-  white-space: nowrap;
-}
-
-body.show-placeholder-labels .ph-label {
-  display: inline-flex;
 }
 
 @media (max-width: 980px) {
