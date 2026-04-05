@@ -345,11 +345,23 @@ a {
 }
 
 .interactive-hero.logo-panel-card {
+  isolation: isolate;
   background:
     radial-gradient(circle at 50% 16%, rgba(121, 221, 255, 0.36), rgba(121, 221, 255, 0.05) 32%, transparent 56%),
     radial-gradient(circle at 50% 48%, rgba(43, 102, 190, 0.24), rgba(11, 22, 46, 0.04) 52%, transparent 72%),
     radial-gradient(circle at 50% 50%, rgba(8, 20, 44, 0.3), rgba(2, 8, 18, 0) 46%),
     linear-gradient(165deg, #01060f 0%, #050f23 45%, #030813 100%);
+}
+
+.interactive-hero.logo-panel-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 50% 8%, rgba(127, 214, 255, 0.26), rgba(127, 214, 255, 0) 38%),
+    linear-gradient(180deg, rgba(2, 7, 18, 0.04) 0%, rgba(2, 7, 18, 0.22) 74%, rgba(2, 7, 18, 0.58) 100%);
 }
 
 .interactive-hero img {
@@ -361,13 +373,15 @@ a {
 }
 
 .interactive-hero img.logo-panel-image {
-  object-fit: contain;
-  padding: 0.55rem;
-  background:
-    radial-gradient(circle at 50% 18%, rgba(154, 229, 255, 0.18), rgba(7, 13, 28, 0.08) 48%, transparent 72%),
-    linear-gradient(180deg, rgba(2, 8, 20, 0.42), rgba(2, 8, 20, 0.58));
-  border-radius: 10px;
-  box-shadow: inset 0 0 52px rgba(2, 8, 20, 0.6), inset 0 0 12px rgba(2, 8, 20, 0.45);
+  position: relative;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  min-height: 260px;
+  object-fit: cover;
+  object-position: center 35%;
+  transform: scale(1.04);
+  opacity: 0.94;
 }
 
 .interactive-hero figcaption {
@@ -381,6 +395,17 @@ a {
   font-size: 0.76rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+}
+
+.interactive-hero .logo-panel-caption {
+  z-index: 2;
+  left: auto;
+  right: 0.8rem;
+  bottom: 0.8rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  background: rgba(2, 8, 20, 0.66);
+  border-color: rgba(248, 249, 250, 0.24);
 }
 
 .inspiration-hero-cinematic {
