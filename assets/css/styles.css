@@ -353,6 +353,12 @@ a {
   opacity: 0.88;
 }
 
+.interactive-hero img.logo-panel-image {
+  object-fit: contain;
+  padding: 0.55rem;
+  background: radial-gradient(circle at 50% 22%, rgba(126, 214, 255, 0.2), rgba(6, 10, 24, 0.86) 70%);
+}
+
 .interactive-hero figcaption {
   position: absolute;
   left: 0.8rem;
