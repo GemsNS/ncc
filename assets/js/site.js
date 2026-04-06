@@ -671,6 +671,49 @@
     });
   }
 
+  function setupGlobalVideoHero() {
+    const currentPath = window.location.pathname || "";
+    const isConstruction = currentPath.toLowerCase().endsWith("/" + lockRoute) || currentPath.toLowerCase().endsWith(lockRoute);
+    if (isConstruction || document.querySelector(".global-video-hero")) {
+      return;
+    }
+
+    const main = document.querySelector("main");
+    if (!main) {
+      return;
+    }
+
+    let pageName = "";
+    const currentNav = document.querySelector(".main-nav a[aria-current='page']");
+    if (currentNav && currentNav.textContent) {
+      pageName = currentNav.textContent.trim();
+    }
+    if (!pageName) {
+      const firstH1 = document.querySelector("h1");
+      if (firstH1 && firstH1.textContent) {
+        pageName = firstH1.textContent.trim();
+      }
+    }
+    if (!pageName) {
+      pageName = (document.title || "New Community Church").split("|")[0].trim();
+    }
+
+    const hero = document.createElement("section");
+    hero.className = "global-video-hero";
+    hero.innerHTML =
+      '<video class="global-video-hero__video" autoplay muted loop playsinline preload="metadata" poster="./assets/images/churchlogoblackbackground.svg">' +
+      '<source src="./assets/hero.mp4" type="video/mp4" />' +
+      "</video>" +
+      '<div class="global-video-hero__overlay"></div>' +
+      '<div class="container global-video-hero__content">' +
+      '<p class="global-video-hero__kicker">New Community Church</p>' +
+      '<p class="global-video-hero__title">' + pageName + "</p>" +
+      '<p class="global-video-hero__sub">Suffolk, Virginia</p>' +
+      "</div>";
+
+    main.insertBefore(hero, main.firstChild);
+  }
+
   if (navToggle && nav) {
     navToggle.addEventListener("click", function onToggle() {
       const isOpen = nav.classList.toggle("open");
@@ -690,6 +733,7 @@
   setupInspirationNavLink();
   setupGiveNavEnhancement();
   setupAdminTree();
+  setupGlobalVideoHero();
   setupInteractiveHero();
   setupCinematicHeader();
   setupScrollProgress();
