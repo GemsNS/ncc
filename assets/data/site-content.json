@@ -101,7 +101,7 @@
     }
   },
   "live": {
-    "youtubeEmbedUrl": "https://www.youtube.com/embed?listType=user_uploads&list=NCCSUFFOLK",
+    "youtubeEmbedUrl": "https://www.youtube.com/embed/BfxAyy0i7tw",
     "zoomUrl": "https://zoom.us/",
     "status": "starting_soon",
     "tickerItems": [
@@ -153,7 +153,7 @@
       "author": "Anthony Vandyke",
       "published": "Mar 21, 2020",
       "videoUrl": "https://www.facebook.com/anthony.vandyke.3/videos/3285521744795879/",
-      "thumbnail": "https://i.ytimg.com/vi/wfaPp1vYkvs/hqdefault.jpg"
+      "thumbnail": "https://images.unsplash.com/photo-1504052434569-70ad5836ab65?auto=format&fit=crop&w=1200&q=80"
     },
     "facebookHighlights": [
       {
@@ -230,40 +230,124 @@
   },
   "mediaArchive": [
     {
-      "title": "Sunday Worship Replay",
-      "date": "Mar 29, 2026",
-      "speaker": "Pastor",
+      "title": "Grace for the Next Step",
+      "date": "Apr 01, 2026",
+      "speaker": "NCC Teaching Team",
       "platform": "YouTube",
-      "url": "https://www.youtube.com/watch?v=wfaPp1vYkvs",
-      "thumbnail": "https://i.ytimg.com/vi/wfaPp1vYkvs/hqdefault.jpg",
-      "series": "Hope Series",
+      "url": "https://www.youtube.com/watch?v=BfxAyy0i7tw",
+      "thumbnail": "https://i.ytimg.com/vi/BfxAyy0i7tw/hqdefault.jpg",
+      "series": "Faith in Motion",
       "scripture": "Philippians 4:13",
-      "tags": ["hope", "sunday", "faith"],
-      "duration": "42:10"
+      "tags": ["grace", "message", "ncc"],
+      "duration": "Replay"
     },
     {
-      "title": "NCC Channel Video Library",
+      "title": "Faith that Holds in Every Season",
+      "date": "Mar 30, 2026",
+      "speaker": "NCC Teaching Team",
+      "platform": "YouTube",
+      "url": "https://www.youtube.com/watch?v=KTaRFF97Mqs",
+      "thumbnail": "https://i.ytimg.com/vi/KTaRFF97Mqs/hqdefault.jpg",
+      "series": "Faith in Motion",
+      "scripture": "Hebrews 11:1",
+      "tags": ["teaching", "faith", "endurance"],
+      "duration": "Replay"
+    },
+    {
+      "title": "Hearing God Clearly",
+      "date": "Mar 28, 2026",
+      "speaker": "NCC Teaching Team",
+      "platform": "YouTube",
+      "url": "https://www.youtube.com/watch?v=8cDsePBO5RM",
+      "thumbnail": "https://i.ytimg.com/vi/8cDsePBO5RM/hqdefault.jpg",
+      "series": "Word and Worship",
+      "scripture": "Romans 10:17",
+      "tags": ["sermon", "word", "growth"],
+      "duration": "Replay"
+    },
+    {
+      "title": "Serve the Lord with Joy",
+      "date": "Mar 26, 2026",
+      "speaker": "NCC Worship Team",
+      "platform": "YouTube",
+      "url": "https://www.youtube.com/watch?v=P49emAikqo8",
+      "thumbnail": "https://i.ytimg.com/vi/P49emAikqo8/hqdefault.jpg",
+      "series": "Word and Worship",
+      "scripture": "Psalm 100:2",
+      "tags": ["worship", "joy", "service"],
+      "duration": "Replay"
+    },
+    {
+      "title": "Be Strong and Courageous",
+      "date": "Mar 24, 2026",
+      "speaker": "NCC Teaching Team",
+      "platform": "YouTube",
+      "url": "https://www.youtube.com/watch?v=CcCwM4QUFkQ",
+      "thumbnail": "https://i.ytimg.com/vi/CcCwM4QUFkQ/hqdefault.jpg",
+      "series": "Courage and Calling",
+      "scripture": "Joshua 1:9",
+      "tags": ["encouragement", "courage", "faith"],
+      "duration": "Replay"
+    },
+    {
+      "title": "Strength in the Joy of the Lord",
       "date": "Mar 22, 2026",
       "speaker": "NCC Teaching Team",
       "platform": "YouTube",
-      "url": "https://www.youtube.com/@NCCSUFFOLK/videos",
-      "thumbnail": "https://i.ytimg.com/vi/wfaPp1vYkvs/mqdefault.jpg",
-      "series": "Faith Forward",
-      "scripture": "Hebrews 11:1",
-      "tags": ["faith", "teaching", "growth"],
-      "duration": "38:44"
+      "url": "https://www.youtube.com/watch?v=KYDTq_mkKNo",
+      "thumbnail": "https://i.ytimg.com/vi/KYDTq_mkKNo/hqdefault.jpg",
+      "series": "Courage and Calling",
+      "scripture": "Nehemiah 8:10",
+      "tags": ["joy", "strength", "message"],
+      "duration": "Replay"
     },
     {
-      "title": "Anthony Inspiration: You Can't Heal What You Hide",
+      "title": "Let Everything Be Done in Love",
+      "date": "Mar 20, 2026",
+      "speaker": "NCC Teaching Team",
+      "platform": "YouTube",
+      "url": "https://www.youtube.com/watch?v=UEz5sH39jGA",
+      "thumbnail": "https://i.ytimg.com/vi/UEz5sH39jGA/hqdefault.jpg",
+      "series": "Church in Action",
+      "scripture": "1 Corinthians 16:14",
+      "tags": ["love", "community", "teaching"],
+      "duration": "Replay"
+    },
+    {
+      "title": "Sunday Worship: God Made Her for Me",
       "date": "Mar 18, 2026",
-      "speaker": "NCC Community",
-      "platform": "AnthonyInspiration.com",
-      "url": "https://anthonyinspiration.com/you-cant-heal-what-you-hide/",
-      "thumbnail": "https://i.ytimg.com/vi/wfaPp1vYkvs/sddefault.jpg",
-      "series": "Today's Inspiration",
-      "scripture": "Psalm 32:3",
-      "tags": ["inspiration", "healing", "pastoral"],
-      "duration": "Reading"
+      "speaker": "Pastor Anthony VanDyke",
+      "platform": "YouTube",
+      "url": "https://www.youtube.com/watch?v=wfaPp1vYkvs&t=1024s",
+      "thumbnail": "https://i.ytimg.com/vi/wfaPp1vYkvs/hqdefault.jpg",
+      "series": "Sunday Worship",
+      "scripture": "Philippians 4:13",
+      "tags": ["pastor", "worship", "sunday"],
+      "duration": "Replay"
+    },
+    {
+      "title": "Be Still and Know",
+      "date": "Mar 16, 2026",
+      "speaker": "NCC Teaching Team",
+      "platform": "YouTube",
+      "url": "https://www.youtube.com/watch?v=wIivsTC3owI",
+      "thumbnail": "https://i.ytimg.com/vi/wIivsTC3owI/hqdefault.jpg",
+      "series": "Midweek Focus",
+      "scripture": "Psalm 46:10",
+      "tags": ["midweek", "peace", "teaching"],
+      "duration": "Replay"
+    },
+    {
+      "title": "Renewed Strength for the Journey",
+      "date": "Mar 14, 2026",
+      "speaker": "NCC Teaching Team",
+      "platform": "YouTube",
+      "url": "https://www.youtube.com/watch?v=NMytNDub_iI",
+      "thumbnail": "https://i.ytimg.com/vi/NMytNDub_iI/hqdefault.jpg",
+      "series": "Midweek Focus",
+      "scripture": "Isaiah 40:31",
+      "tags": ["strength", "hope", "message"],
+      "duration": "Replay"
     }
   ],
   "sermonNotes": [

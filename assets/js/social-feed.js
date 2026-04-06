@@ -97,7 +97,7 @@ async function initSocialFeeds() {
       if (sections.length) {
         anthonySections.innerHTML = sections
           .map(function (item) {
-            return "<li><strong>Section:</strong> " + item + "</li>";
+            return '<li class="section-chip">' + item + "</li>";
           })
           .join("");
       }

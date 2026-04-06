@@ -33,23 +33,29 @@ async function loadMediaCards() {
       items = data.mediaArchive || [];
     }
 
-    const demoMedia = JSON.parse(localStorage.getItem("ncc_demo_media") || "[]")
-      .filter(function onlyPublished(item) {
-        return item.status === "published";
-      })
-      .map(function mapDemo(item) {
-        return {
-          title: item.title,
-          date: new Date(item.updatedAt || item.createdAt).toLocaleDateString(),
-          speaker: item.speaker || "NCC Team",
-          platform: item.platformUrl ? "External" : "Demo",
-          url: item.platformUrl || "https://www.youtube.com/",
-          thumbnail: "https://images.unsplash.com/photo-1519491050282-cf00c82424b4?auto=format&fit=crop&w=960&q=80"
-        };
-      });
+    const isDemoMode =
+      window.location.search.indexOf("demo=1") !== -1 ||
+      localStorage.getItem("ncc_demo_mode") === "1";
 
-    if (demoMedia.length) {
-      items = demoMedia.concat(items);
+    if (isDemoMode) {
+      const demoMedia = JSON.parse(localStorage.getItem("ncc_demo_media") || "[]")
+        .filter(function onlyPublished(item) {
+          return item.status === "published";
+        })
+        .map(function mapDemo(item) {
+          return {
+            title: item.title,
+            date: new Date(item.updatedAt || item.createdAt).toLocaleDateString(),
+            speaker: item.speaker || "NCC Team",
+            platform: item.platformUrl ? "External" : "Demo",
+            url: item.platformUrl || "https://www.youtube.com/",
+            thumbnail: "https://images.unsplash.com/photo-1519491050282-cf00c82424b4?auto=format&fit=crop&w=960&q=80"
+          };
+        });
+
+      if (demoMedia.length) {
+        items = demoMedia.concat(items);
+      }
     }
 
     const normalizedItems = items.map(function normalize(item) {
@@ -86,7 +92,7 @@ function renderMediaCards(items) {
       .map(function toCard(item) {
         return (
           '<article class="media-card">' +
-          '<img src="' + item.thumbnail + '" alt="' + item.title + ' thumbnail" loading="lazy">' +
+          '<img src="' + item.thumbnail + '" alt="' + item.title + ' thumbnail" loading="lazy" onerror="this.onerror=null;this.src=\'./assets/images/churchlogo.svg\';">' +
           '<div class="content">' +
           '<span class="pill">' + item.date + "</span>" +
           "<h3>" + item.title + "</h3>" +

@@ -720,6 +720,27 @@ p {
   color: var(--soft-white);
 }
 
+.section-chip-list {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  padding: 0;
+  margin: 0.3rem 0 0.2rem;
+}
+
+.section-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.35rem 0.65rem;
+  border-radius: 999px;
+  border: 1px solid var(--surface-border);
+  background: rgba(0, 245, 212, 0.08);
+  color: var(--soft-white);
+  font-size: 0.82rem;
+  letter-spacing: 0.03em;
+}
+
 .media-card {
   overflow: hidden;
 }
