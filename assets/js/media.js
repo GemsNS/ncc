@@ -92,7 +92,7 @@ function renderMediaCards(items) {
       .map(function toCard(item) {
         return (
           '<article class="media-card">' +
-          '<img src="' + item.thumbnail + '" alt="' + item.title + ' thumbnail" loading="lazy" onerror="this.onerror=null;this.src=\'./assets/images/churchlogo.svg\';">' +
+          '<img src="' + item.thumbnail + '" alt="' + item.title + ' thumbnail" loading="lazy" onerror="this.onerror=null;this.src=\'./assets/images/updated-removebg.png\';">' +
           '<div class="content">' +
           '<span class="pill">' + item.date + "</span>" +
           "<h3>" + item.title + "</h3>" +

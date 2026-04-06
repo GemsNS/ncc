@@ -179,8 +179,14 @@ a {
 }
 
 .brand img {
-  width: 42px;
+  width: auto;
   height: 42px;
+  max-width: min(46vw, 250px);
+  object-fit: contain;
+}
+
+.brand.brand--logo-lockup > div {
+  display: none;
 }
 
 .brand strong {

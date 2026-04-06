@@ -15,6 +15,8 @@
   const navToggle = document.querySelector("[data-nav-toggle]");
   const nav = document.querySelector("[data-main-nav]");
   const headerContainer = document.querySelector(".site-header .container");
+  const brandMarkSrc = "./assets/images/minilogo.png";
+  const brandHeroSrc = "./assets/images/updated.png";
 
   function applyTheme(theme) {
     document.documentElement.setAttribute("data-theme", theme);
@@ -25,6 +27,50 @@
     // presentation-ready visual baseline across all pages.
     applyTheme("dark");
     localStorage.setItem(themeKey, "dark");
+  }
+
+  function setupGlobalBrandAssets() {
+    document.querySelectorAll(".brand").forEach(function (brandNode) {
+      const brandImg = brandNode.querySelector("img");
+      if (!brandImg) return;
+      brandImg.src = brandMarkSrc;
+      brandImg.alt = "New Community Church logo";
+    });
+
+    document.querySelectorAll("link[rel~='icon']").forEach(function (iconNode) {
+      iconNode.setAttribute("href", brandMarkSrc);
+      iconNode.setAttribute("type", "image/png");
+    });
+
+    const ogImage = document.querySelector("meta[property='og:image']");
+    if (ogImage) {
+      ogImage.setAttribute("content", brandHeroSrc);
+    }
+
+    document.querySelectorAll("img").forEach(function (img) {
+      const src = img.getAttribute("src") || "";
+      if (img.closest(".brand")) {
+        return;
+      }
+      if (img.classList.contains("logo-panel-image")) {
+        img.src = brandHeroSrc;
+        return;
+      }
+      if (
+        src.indexOf("logo-mark.svg") !== -1 ||
+        src.indexOf("logo-wordmark.svg") !== -1 ||
+        src.indexOf("churchlogo.svg") !== -1 ||
+        src.indexOf("churchlogo.png") !== -1 ||
+        src.indexOf("churchlogoblackbackground.svg") !== -1 ||
+        src.indexOf("churchlogoblackbackground.png") !== -1
+      ) {
+        if (img.closest(".hub-section") || img.closest(".showcase-wrap")) {
+          img.src = brandHeroSrc;
+        } else {
+          img.src = brandMarkSrc;
+        }
+      }
+    });
   }
 
   function setupLockToggle() {
@@ -701,7 +747,7 @@
     const hero = document.createElement("section");
     hero.className = "global-video-hero";
     hero.innerHTML =
-      '<video class="global-video-hero__video" autoplay muted loop playsinline preload="metadata" poster="./assets/images/churchlogoblackbackground.svg">' +
+      '<video class="global-video-hero__video" autoplay muted loop playsinline preload="metadata" poster="./assets/images/updated.png">' +
       '<source src="./assets/hero.mp4" type="video/mp4" />' +
       "</video>" +
       '<div class="global-video-hero__overlay"></div>' +
@@ -727,6 +773,7 @@
   }
 
   enforceSiteGate();
+  setupGlobalBrandAssets();
   setupAmbientBackground();
   setupThemeToggle();
   setupLockToggle();
