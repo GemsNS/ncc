@@ -198,6 +198,12 @@ This changelog summarizes all major implementation work completed for the NCC re
 - Fixed command palette visibility bug (`.command-palette[hidden] { display:none; }`).
 - Iteratively refined logo asset handling and SVG/PNG consistency.
 
+### Phase 13 - Statement of Faith Implementation
+
+- Imported and implemented the official Statement of Faith from provided PDF source.
+- Added dedicated public doctrine page: `statement-of-faith.html`.
+- Added dynamic navigation access (`Faith`) across site pages via shared nav enhancement in `assets/js/site.js`.
+
 ### Current Status
 
 - Frontend: GitHub Pages-ready static deployment.

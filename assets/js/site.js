@@ -139,20 +139,23 @@
       return;
     }
 
-    const existing = navList.querySelector('a[href$="anthony-inspiration.html"]');
-    if (existing) {
-      return;
+    function ensureLink(href, label) {
+      const existing = navList.querySelector('a[href$="' + href + '"]');
+      if (existing) {
+        return;
+      }
+      const li = document.createElement("li");
+      li.innerHTML = '<a href="./' + href + '">' + label + "</a>";
+      const galleryLi = navList.querySelector('a[href$="gallery.html"]');
+      if (galleryLi && galleryLi.closest("li")) {
+        navList.insertBefore(li, galleryLi.closest("li"));
+      } else {
+        navList.appendChild(li);
+      }
     }
 
-    const li = document.createElement("li");
-    li.innerHTML = '<a href="./anthony-inspiration.html">Inspiration</a>';
-
-    const galleryLi = navList.querySelector('a[href$="gallery.html"]');
-    if (galleryLi && galleryLi.closest("li")) {
-      navList.insertBefore(li, galleryLi.closest("li"));
-    } else {
-      navList.appendChild(li);
-    }
+    ensureLink("anthony-inspiration.html", "Inspiration");
+    ensureLink("statement-of-faith.html", "Faith");
   }
 
   function setupInteractiveHero() {
