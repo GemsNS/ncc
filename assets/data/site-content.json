@@ -20,7 +20,7 @@
       "phone": "(757) 434-6231"
     },
     "links": {
-      "youtube": "https://www.youtube.com/",
+      "youtube": "https://www.youtube.com/@NCCSUFFOLK",
       "zoom": "https://zoom.us/",
       "give": "https://www.nccfamily.us/",
       "map": "https://maps.google.com/?q=5112+Godwin+Blvd+Suffolk+VA+23434",
@@ -34,7 +34,7 @@
       "heroTimes": "Join us on Sunday at 11:00 AM and Wednesday at 7:00 PM via Zoom.",
       "ctaWatch": "Watch Latest Message",
       "ctaVisit": "Plan Your Visit",
-      "heroImage": "./assets/images/churchlogoblackbackground.png",
+      "heroImage": "./assets/images/churchlogoblackbackground.svg",
       "heroImageLabel": "Final Approved Logo Panel",
       "ministryTitle": "Ministry Priorities",
       "teachingTitle": "Biblical Teaching",
@@ -101,7 +101,7 @@
     }
   },
   "live": {
-    "youtubeEmbedUrl": "https://www.youtube.com/embed/wfaPp1vYkvs",
+    "youtubeEmbedUrl": "https://www.youtube.com/embed?listType=user_uploads&list=NCCSUFFOLK",
     "zoomUrl": "https://zoom.us/",
     "status": "starting_soon",
     "tickerItems": [
@@ -153,7 +153,7 @@
       "author": "Anthony Vandyke",
       "published": "Mar 21, 2020",
       "videoUrl": "https://www.facebook.com/anthony.vandyke.3/videos/3285521744795879/",
-      "thumbnail": "https://scontent-ord5-2.xx.fbcdn.net/v/t15.5256-10/75538217_3285523498129037_2059265608150679552_n.jpg?stp=dst-jpg_s960x960_tt6&_nc_cat=102&ccb=1-7&_nc_sid=117846&_nc_ohc=CsQnVSKfmVIQ7kNvwGMGtJ7&_nc_oc=AdofDZcqRX83b2ivrkWox0XV0-3bDTNB8PNzVelFyw1BPJhgysM4y-4ooJ-RiWz3yoY&_nc_zt=23&_nc_ht=scontent-ord5-2.xx&_nc_gid=X3XrEWO9uioY9n1A5ufHWw&_nc_ss=7a389&oh=00_Af3lKcrKbpHuqdv5orEd-WPk_7Ps0XVusnaSxmmNEdRQ0A&oe=69D38103"
+      "thumbnail": "https://i.ytimg.com/vi/wfaPp1vYkvs/hqdefault.jpg"
     },
     "facebookHighlights": [
       {
@@ -230,40 +230,40 @@
   },
   "mediaArchive": [
     {
-      "title": "Anchored In Hope",
+      "title": "Sunday Worship Replay",
       "date": "Mar 29, 2026",
       "speaker": "Pastor",
       "platform": "YouTube",
-      "url": "https://www.youtube.com/",
-      "thumbnail": "https://images.unsplash.com/photo-1504052434569-70ad5836ab65?auto=format&fit=crop&w=960&q=80",
+      "url": "https://www.youtube.com/watch?v=wfaPp1vYkvs",
+      "thumbnail": "https://i.ytimg.com/vi/wfaPp1vYkvs/hqdefault.jpg",
       "series": "Hope Series",
       "scripture": "Philippians 4:13",
       "tags": ["hope", "sunday", "faith"],
       "duration": "42:10"
     },
     {
-      "title": "Faith Through Every Season",
+      "title": "NCC Channel Video Library",
       "date": "Mar 22, 2026",
       "speaker": "NCC Teaching Team",
       "platform": "YouTube",
-      "url": "https://www.youtube.com/",
-      "thumbnail": "https://images.unsplash.com/photo-1438232992991-995b7058bbb3?auto=format&fit=crop&w=960&q=80",
+      "url": "https://www.youtube.com/@NCCSUFFOLK/videos",
+      "thumbnail": "https://i.ytimg.com/vi/wfaPp1vYkvs/mqdefault.jpg",
       "series": "Faith Forward",
       "scripture": "Hebrews 11:1",
       "tags": ["faith", "teaching", "growth"],
       "duration": "38:44"
     },
     {
-      "title": "Wednesday Midweek Live",
+      "title": "Anthony Inspiration: You Can't Heal What You Hide",
       "date": "Mar 18, 2026",
       "speaker": "NCC Community",
-      "platform": "Zoom Recording",
-      "url": "https://zoom.us/",
-      "thumbnail": "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=960&q=80",
-      "series": "Midweek Focus",
-      "scripture": "Psalm 46:10",
-      "tags": ["midweek", "prayer", "zoom"],
-      "duration": "55:20"
+      "platform": "AnthonyInspiration.com",
+      "url": "https://anthonyinspiration.com/you-cant-heal-what-you-hide/",
+      "thumbnail": "https://i.ytimg.com/vi/wfaPp1vYkvs/sddefault.jpg",
+      "series": "Today's Inspiration",
+      "scripture": "Psalm 32:3",
+      "tags": ["inspiration", "healing", "pastoral"],
+      "duration": "Reading"
     }
   ],
   "sermonNotes": [

@@ -21,28 +21,10 @@
   }
 
   function setupThemeToggle() {
-    if (!headerContainer) {
-      return;
-    }
-
-    const savedTheme = localStorage.getItem(themeKey) || "dark";
-    applyTheme(savedTheme);
-
-    const button = document.createElement("button");
-    button.type = "button";
-    button.className = "theme-toggle";
-    button.setAttribute("aria-label", "Toggle light and dark mode");
-    button.textContent = savedTheme === "light" ? "Dark Mode" : "Light Mode";
-
-    button.addEventListener("click", function onToggleTheme() {
-      const current = document.documentElement.getAttribute("data-theme") || "dark";
-      const next = current === "dark" ? "light" : "dark";
-      applyTheme(next);
-      localStorage.setItem(themeKey, next);
-      button.textContent = next === "light" ? "Dark Mode" : "Light Mode";
-    });
-
-    headerContainer.insertBefore(button, nav || navToggle || null);
+    // Light mode is intentionally disabled for now to keep a consistent,
+    // presentation-ready visual baseline across all pages.
+    applyTheme("dark");
+    localStorage.setItem(themeKey, "dark");
   }
 
   function setupLockToggle() {
