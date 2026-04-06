@@ -195,12 +195,18 @@
       "quote": "Making a difference in the world is not something you do, it is who you are.",
       "bookTitle": "The Power of Words",
       "bookSummary": "A practical guide on how communication shapes relationships, growth, and success in everyday life.",
-      "latestBlogTitle": "Happiness Is A Choice",
-      "latestBlogSnippet": "A reflection on true happiness through the guidance of the Holy Spirit beyond wealth, fame, or recognition.",
+      "latestBlogTitle": "You Can't Heal What You Hide",
+      "latestBlogSnippet": "Today's inspiration message: healing begins with honest surrender, confession, and bringing hidden pain into the light.",
       "booksUrl": "https://anthonyinspiration.com/",
-      "blogUrl": "https://anthonyinspiration.com/",
+      "blogUrl": "https://anthonyinspiration.com/you-cant-heal-what-you-hide/",
       "sections": ["Home", "About", "Books", "Speaking", "Inspiration", "Shop", "Contact"],
       "latestPosts": [
+        {
+          "title": "You Can't Heal What You Hide",
+          "summary": "Today's featured inspiration message from Anthony's Inspiration focused on healing through truth and transparency.",
+          "url": "https://anthonyinspiration.com/you-cant-heal-what-you-hide/",
+          "type": "Today's Inspiration"
+        },
         {
           "title": "Happiness Is A Choice",
           "summary": "A reflection on choosing joy through spiritual alignment rather than external success markers.",
