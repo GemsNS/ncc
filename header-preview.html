@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animated Header Preview</title>
+    <style>
+      :root {
+        --bg: #050814;
+        --text: #f8f9fa;
+        --muted: #bfc6d2;
+        --line: rgba(248, 249, 250, 0.2);
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        font-family: Inter, Segoe UI, Arial, sans-serif;
+        background: radial-gradient(circle at 25% 12%, #121b46, #060911 58%);
+        color: var(--text);
+      }
+
+      .bar {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        display: flex;
+        gap: 0.7rem;
+        align-items: center;
+        border-bottom: 1px solid var(--line);
+        background: rgba(6, 10, 24, 0.86);
+        backdrop-filter: blur(8px);
+        padding: 0.75rem 1rem;
+      }
+
+      .bar input {
+        width: min(560px, 76vw);
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.04);
+        color: var(--text);
+        padding: 0.58rem 0.7rem;
+      }
+
+      .bar .hint {
+        color: var(--muted);
+        font-size: 0.86rem;
+      }
+
+      .preview-shell {
+        width: min(1280px, calc(100% - 2rem));
+        margin: 1rem auto 2rem;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        overflow: hidden;
+        background: #03050c;
+      }
+
+      .hero {
+        position: relative;
+        min-height: clamp(260px, 42vw, 440px);
+      }
+
+      .hero video {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        background: #000;
+      }
+
+      .hero::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(180deg, rgba(0, 0, 0, 0.2), rgba(4, 7, 18, 0.68));
+      }
+
+      .hero-content {
+        position: relative;
+        z-index: 2;
+        min-height: inherit;
+        display: grid;
+        place-items: center;
+        text-align: center;
+        padding: 1.2rem;
+      }
+
+      .hero-content p {
+        margin: 0;
+      }
+
+      .kicker {
+        margin-bottom: 0.35rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: rgba(248, 249, 250, 0.92);
+        font-size: 0.74rem;
+      }
+
+      .title {
+        margin-bottom: 0.4rem;
+        font-weight: 800;
+        font-size: clamp(2rem, 6vw, 4.4rem);
+        text-shadow: 0 4px 18px rgba(0, 0, 0, 0.55);
+      }
+
+      .sub {
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: rgba(248, 249, 250, 0.86);
+        font-size: 0.78rem;
+      }
+
+      .notes {
+        padding: 0.8rem 1rem;
+        border-top: 1px solid var(--line);
+        color: var(--muted);
+        font-size: 0.86rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="bar">
+      <input id="titleInput" value="Ministries" aria-label="Preview page title text">
+      <span class="hint">Edit title text live</span>
+    </div>
+
+    <div class="preview-shell">
+      <section class="hero">
+        <video autoplay muted loop playsinline preload="metadata" controls>
+          <source src="file:///C:/Users/bytec/Downloads/copy_300D1CBD-CF16-421A-B69B-3A34BCD7ED97.mov" type="video/quicktime">
+          <source src="./assets/hero.mp4" type="video/mp4">
+        </video>
+        <div class="hero-content">
+          <p class="kicker">New Community Church</p>
+          <p class="title" id="heroTitle">Ministries</p>
+          <p class="sub">Suffolk, Virginia</p>
+        </div>
+      </section>
+      <div class="notes">
+        If the `.mov` source is blocked by browser policy, copy it into your project as `assets/hero.mp4` and refresh this page.
+      </div>
+    </div>
+
+    <script>
+      const input = document.getElementById("titleInput");
+      const heroTitle = document.getElementById("heroTitle");
+      input.addEventListener("input", function () {
+        heroTitle.textContent = input.value.trim() || "Page Title";
+      });
+    </script>
+  </body>
+</html>
