@@ -48,6 +48,70 @@
         font-size: 0.86rem;
       }
 
+      .site-header {
+        position: sticky;
+        top: 0;
+        z-index: 12;
+        backdrop-filter: blur(8px);
+        background: rgba(7, 10, 22, 0.86);
+        border-bottom: 1px solid var(--line);
+      }
+
+      .site-header .container {
+        width: min(100% - 2rem, 1160px);
+        margin-inline: auto;
+        min-height: 70px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.65rem;
+        text-decoration: none;
+        color: var(--text);
+      }
+
+      .brand img {
+        width: 40px;
+        height: 40px;
+        object-fit: contain;
+      }
+
+      .brand strong {
+        display: block;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        font-size: 0.9rem;
+      }
+
+      .brand span {
+        color: var(--muted);
+        font-size: 0.82rem;
+      }
+
+      .main-nav ul {
+        display: flex;
+        gap: 0.85rem;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      .main-nav a {
+        text-decoration: none;
+        color: rgba(248, 249, 250, 0.86);
+        font-size: 0.9rem;
+      }
+
+      .main-nav a:hover,
+      .main-nav a[aria-current="page"] {
+        color: #fff;
+      }
+
       .preview-shell {
         width: min(1280px, calc(100% - 2rem));
         margin: 1rem auto 2rem;
@@ -120,9 +184,39 @@
         color: var(--muted);
         font-size: 0.86rem;
       }
+
+      @media (max-width: 920px) {
+        .main-nav ul {
+          flex-wrap: wrap;
+          justify-content: flex-end;
+          row-gap: 0.45rem;
+        }
+      }
     </style>
   </head>
   <body>
+    <header class="site-header">
+      <div class="container">
+        <a class="brand" href="#">
+          <img src="./assets/images/minilogo.png" alt="NCC logo">
+          <div>
+            <strong>NCC Family</strong>
+            <span>Suffolk, Virginia</span>
+          </div>
+        </a>
+        <nav class="main-nav" aria-label="Preview navigation">
+          <ul>
+            <li><a href="#" aria-current="page">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Ministries</a></li>
+            <li><a href="#">Messages</a></li>
+            <li><a href="#">Inspiration</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
     <div class="bar">
       <input id="titleInput" value="Ministries" aria-label="Preview page title text">
       <span class="hint">Edit title text live</span>
