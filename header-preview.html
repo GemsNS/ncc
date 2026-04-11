@@ -229,8 +229,8 @@
     <div class="preview-shell">
       <section class="hero">
         <video autoplay muted loop playsinline preload="metadata" controls>
+          <source src="./assets/newhero.mp4" type="video/mp4">
           <source src="./assets/newhero.mov" type="video/quicktime">
-          <source src="./assets/hero.mp4" type="video/mp4">
         </video>
         <div class="hero-content">
           <p class="kicker">New Community Church</p>
@@ -239,7 +239,7 @@
         </div>
       </section>
       <div class="notes">
-        Primary source uses `assets/newhero.mov` with `assets/hero.mp4` as fallback.
+        Primary playback uses H.264 `assets/newhero.mp4`; `assets/newhero.mov` is a secondary source for browsers that prefer it.
       </div>
     </div>
 

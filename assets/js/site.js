@@ -748,8 +748,8 @@
     hero.className = "global-video-hero";
     hero.innerHTML =
       '<video class="global-video-hero__video" autoplay muted loop playsinline preload="metadata" poster="./assets/images/updated.png">' +
+      '<source src="./assets/newhero.mp4" type="video/mp4" />' +
       '<source src="./assets/newhero.mov" type="video/quicktime" />' +
-      '<source src="./assets/hero.mp4" type="video/mp4" />' +
       "</video>" +
       '<div class="global-video-hero__overlay"></div>' +
       '<div class="container global-video-hero__content">' +
