@@ -1,0 +1,22 @@
+{
+  "videos": [
+    {
+      "title": "NCC teaching",
+      "subtitle": "YouTube — oEmbed could not load a title (video may be private, unlisted, or restricted). Open on YouTube for the exact title.",
+      "youtubeId": "MSPvJERNI7U",
+      "watchUrl": "https://www.youtube.com/watch?v=MSPvJERNI7U"
+    },
+    {
+      "title": "What's Your Character?",
+      "subtitle": "New Community Church Suffolk · YouTube",
+      "youtubeId": "hNlXeDeXoas",
+      "watchUrl": "https://www.youtube.com/watch?v=hNlXeDeXoas"
+    },
+    {
+      "title": "PurposeDesigned4Greatness",
+      "subtitle": "New Community Church Suffolk · YouTube",
+      "youtubeId": "3fuLMAGMZjw",
+      "watchUrl": "https://www.youtube.com/watch?v=3fuLMAGMZjw"
+    }
+  ]
+}
