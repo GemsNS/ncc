@@ -132,7 +132,11 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
+        object-position: center;
         background: #000;
+        transform: scale(1.045);
+        transform-origin: center center;
+        filter: saturate(1.1) contrast(1.08) brightness(0.92) blur(1.25px);
       }
 
       .hero::after {
@@ -225,7 +229,7 @@
     <div class="preview-shell">
       <section class="hero">
         <video autoplay muted loop playsinline preload="metadata" controls>
-          <source src="./assets/copy_300D1CBD-CF16-421A-B69B-3A34BCD7ED97.mov" type="video/quicktime">
+          <source src="./assets/newhero.mov" type="video/quicktime">
           <source src="./assets/hero.mp4" type="video/mp4">
         </video>
         <div class="hero-content">
@@ -235,7 +239,7 @@
         </div>
       </section>
       <div class="notes">
-        Primary source now uses `assets/copy_300D1CBD-CF16-421A-B69B-3A34BCD7ED97.mov` with `assets/hero.mp4` as fallback.
+        Primary source uses `assets/newhero.mov` with `assets/hero.mp4` as fallback.
       </div>
     </div>
 

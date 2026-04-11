@@ -338,7 +338,9 @@ a {
   height: 100%;
   object-fit: cover;
   object-position: center;
-  filter: saturate(1.1) contrast(1.08) brightness(0.92);
+  transform: scale(1.045);
+  transform-origin: center center;
+  filter: saturate(1.1) contrast(1.08) brightness(0.92) blur(1.25px);
 }
 
 .global-video-hero__overlay {
