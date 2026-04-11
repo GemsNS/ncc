@@ -229,8 +229,7 @@
     <div class="preview-shell">
       <section class="hero">
         <video autoplay muted loop playsinline preload="metadata" controls>
-          <source src="./assets/newhero.mp4" type="video/mp4">
-          <source src="./assets/newhero.mov" type="video/quicktime">
+          <source src="./assets/headersrc/hero2.mp4" type="video/mp4">
         </video>
         <div class="hero-content">
           <p class="kicker">New Community Church</p>
@@ -239,7 +238,7 @@
         </div>
       </section>
       <div class="notes">
-        Primary playback uses H.264 `assets/newhero.mp4`; `assets/newhero.mov` is a secondary source for browsers that prefer it.
+        Live pages read `assets/headersrc/manifest.json` and cycle clips on each navigation (session). Drop new MP4/WebM files into `assets/headersrc/` and add a line like <code>./assets/headersrc/yourfile.mp4</code> to the <code>videos</code> array.
       </div>
     </div>
 

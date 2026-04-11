@@ -19,7 +19,8 @@ async function loadMediaCards() {
             speaker: item.speaker || "NCC Team",
             platform: item.platformUrl ? "External" : "Local Upload",
             url: item.platformUrl || (apiBase.replace("/api", "") + "/uploads/" + item.fileName),
-            thumbnail: "https://images.unsplash.com/photo-1519491050282-cf00c82424b4?auto=format&fit=crop&w=960&q=80"
+            thumbnail: "https://images.unsplash.com/photo-1519491050282-cf00c82424b4?auto=format&fit=crop&w=960&q=80",
+            popularity: typeof item.popularity === "number" ? item.popularity : 0
           };
         });
       }
@@ -49,7 +50,8 @@ async function loadMediaCards() {
             speaker: item.speaker || "NCC Team",
             platform: item.platformUrl ? "External" : "Demo",
             url: item.platformUrl || "https://www.youtube.com/",
-            thumbnail: "https://images.unsplash.com/photo-1519491050282-cf00c82424b4?auto=format&fit=crop&w=960&q=80"
+            thumbnail: "https://images.unsplash.com/photo-1519491050282-cf00c82424b4?auto=format&fit=crop&w=960&q=80",
+            popularity: typeof item.popularity === "number" ? item.popularity : 0
           };
         });
 
@@ -69,17 +71,65 @@ async function loadMediaCards() {
         tags: item.tags || [],
         series: item.series || "General",
         scripture: item.scripture || "N/A",
-        duration: item.duration || "N/A"
+        duration: item.duration || "N/A",
+        popularity: typeof item.popularity === "number" ? item.popularity : 0
       };
     });
 
     window.__NCC_MEDIA_ITEMS__ = normalizedItems;
+    renderHomeFeaturedCarousel(normalizedItems);
     renderMediaCards(normalizedItems);
     initMediaFilters();
     initSermonNotes();
   } catch (error) {
     target.innerHTML = '<p class="muted">Media archive is being refreshed. Check back soon.</p>';
   }
+}
+
+function renderHomeFeaturedCarousel(items) {
+  const target = document.querySelector("[data-home-featured-carousel]");
+  if (!target) {
+    return;
+  }
+  const sorted = items.slice().sort(function sortByPopularity(a, b) {
+    return (b.popularity || 0) - (a.popularity || 0);
+  });
+  const top = sorted.slice(0, 3);
+  if (!top.length) {
+    target.innerHTML = '<p class="muted">Featured messages will appear here soon.</p>';
+    return;
+  }
+  target.innerHTML = top
+    .map(function toFeaturedCard(item, index) {
+      return (
+        '<article class="home-featured-card">' +
+        '<a class="home-featured-card__media" href="' +
+        item.url +
+        '" target="_blank" rel="noopener noreferrer">' +
+        '<img src="' +
+        item.thumbnail +
+        '" alt="" loading="lazy" onerror="this.onerror=null;this.src=\'./assets/images/updated-removebg.png\';">' +
+        '<span class="home-featured-card__badge">Popular #' +
+        (index + 1) +
+        "</span>" +
+        "</a>" +
+        '<div class="home-featured-card__body">' +
+        "<h3>" +
+        item.title +
+        "</h3>" +
+        "<p class=\"muted\">" +
+        item.speaker +
+        " · " +
+        item.date +
+        "</p>" +
+        '<a class="button secondary" href="' +
+        item.url +
+        '" target="_blank" rel="noopener noreferrer">Watch</a>' +
+        "</div>" +
+        "</article>"
+      );
+    })
+    .join("");
 }
 
 function renderMediaCards(items) {

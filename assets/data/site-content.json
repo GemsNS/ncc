@@ -239,7 +239,8 @@
       "series": "Faith in Motion",
       "scripture": "Philippians 4:13",
       "tags": ["grace", "message", "ncc"],
-      "duration": "Replay"
+      "duration": "Replay",
+      "popularity": 100
     },
     {
       "title": "Faith that Holds in Every Season",
@@ -251,7 +252,8 @@
       "series": "Faith in Motion",
       "scripture": "Hebrews 11:1",
       "tags": ["teaching", "faith", "endurance"],
-      "duration": "Replay"
+      "duration": "Replay",
+      "popularity": 95
     },
     {
       "title": "Hearing God Clearly",
@@ -263,7 +265,8 @@
       "series": "Word and Worship",
       "scripture": "Romans 10:17",
       "tags": ["sermon", "word", "growth"],
-      "duration": "Replay"
+      "duration": "Replay",
+      "popularity": 90
     },
     {
       "title": "Serve the Lord with Joy",

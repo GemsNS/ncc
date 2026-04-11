@@ -8,53 +8,227 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./assets/css/styles.css?v=20260410">
+    <link rel="stylesheet" href="./assets/css/styles.css?v=20260413">
   </head>
   <body>
-    <header class="site-header"><div class="container"><a class="brand" href="./index.html"><img src="./assets/images/logo-mark.svg" alt="NCC logo"><div><strong data-ph="branding.shortName">NCC Family</strong><span data-ph="contact.cityState">Suffolk, Virginia</span></div></a><button class="nav-toggle" data-nav-toggle aria-expanded="false" aria-label="Toggle site menu">☰</button><nav class="main-nav" data-main-nav><ul><li><a href="./index.html">Home</a></li><li><a href="./about.html">About</a></li><li><a href="./ministries.html">Ministries</a></li><li><a href="./events.html">Events</a></li><li><a href="./messages.html">Messages</a></li><li><a href="./gallery.html" aria-current="page">Gallery</a></li><li><a href="./contact.html">Contact</a></li><li><a href="./give.html">Give</a></li><li><a href="./admin.html">Admin</a></li></ul></nav></div></header>
-    <main class="section">
+    <header class="site-header">
       <div class="container">
-        <p class="eyebrow">Gallery</p>
-        <h1 data-ph="gallery.title">Church Life In Motion</h1>
-        <p data-ph="gallery.intro">Photo and video highlights are curated here, with future admin-managed uploads planned in phase 2.</p>
-        <article class="card">
-          <h3>Smart Filter</h3>
-          <form class="form-grid" data-media-filter-form>
-            <label>Tag
-              <select name="tag">
-                <option value="">All Tags</option>
-                <option value="hope">hope</option>
-                <option value="faith">faith</option>
-                <option value="midweek">midweek</option>
-              </select>
-            </label>
-            <label>Speaker <input type="text" name="speaker" placeholder="Speaker name"></label>
-            <label>Search <input type="text" name="search" placeholder="title, scripture, series"></label>
-            <button class="button secondary" type="submit">Filter Media</button>
-          </form>
-        </article>
+        <a class="brand" href="./index.html">
+          <img src="./assets/images/logo-mark.svg" alt="NCC logo">
+          <div>
+            <strong data-ph="branding.shortName">NCC Family</strong>
+            <span data-ph="contact.cityState">Suffolk, Virginia</span>
+          </div>
+        </a>
+        <button class="nav-toggle" data-nav-toggle aria-expanded="false" aria-label="Toggle site menu">☰</button>
+        <nav class="main-nav" data-main-nav>
+          <ul>
+            <li><a href="./index.html">Home</a></li>
+            <li><a href="./about.html">About</a></li>
+            <li><a href="./ministries.html">Ministries</a></li>
+            <li><a href="./events.html">Events</a></li>
+            <li><a href="./messages.html">Messages</a></li>
+            <li><a href="./gallery.html" aria-current="page">Gallery</a></li>
+            <li><a href="./contact.html">Contact</a></li>
+            <li><a href="./give.html">Give</a></li>
+            <li><a href="./admin.html">Admin</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
 
-        <section class="section">
-          <div class="section-title-row">
-            <h2>Facebook Media Gallery</h2>
-            <span class="pill">NCC Social Highlights</span>
+    <main>
+      <section class="section section--compact">
+        <div class="container">
+          <div class="ticker-shell">
+            <div class="ticker-head">
+              <strong>Live Control Center</strong>
+              <span class="ticker-state" data-live-status data-state="offline">OFFLINE</span>
+            </div>
+            <div class="ticker-track">
+              <div class="ticker-runner" data-live-ticker></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <p class="eyebrow">Gallery</p>
+          <h1 data-ph="gallery.title">Church Life In Motion</h1>
+          <p class="gallery-intro" data-ph="gallery.intro">Photo and video highlights are curated here, with future admin-managed uploads planned in phase 2.</p>
+
+          <article class="card card--balanced gallery-filter-card">
+            <h3>Filter the library</h3>
+            <form class="form-grid" data-media-filter-form>
+              <label>Tag
+                <select name="tag">
+                  <option value="">All Tags</option>
+                  <option value="hope">hope</option>
+                  <option value="faith">faith</option>
+                  <option value="midweek">midweek</option>
+                </select>
+              </label>
+              <label>Speaker <input type="text" name="speaker" placeholder="Speaker name"></label>
+              <label>Search <input type="text" name="search" placeholder="title, scripture, series"></label>
+              <button class="button secondary" type="submit">Apply filters</button>
+            </form>
+          </article>
+        </div>
+      </section>
+
+      <section class="section section--featured">
+        <div class="container">
+          <div class="section-title-row section-title-row--balanced">
+            <h2>Worship broadcast</h2>
+            <span class="pill">YouTube + Zoom</span>
+          </div>
+          <div class="live-shell">
+            <iframe
+              class="video-frame"
+              src="https://www.youtube.com/embed/BfxAyy0i7tw"
+              title="Live worship stream"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen>
+            </iframe>
+            <aside class="card card--balanced">
+              <h3>How to join live</h3>
+              <p>Use YouTube for the public stream or Zoom for interactive moments.</p>
+              <p><a class="button primary" href="https://www.youtube.com/" data-ph="links.youtube" data-ph-prop="href" target="_blank" rel="noopener noreferrer">Open YouTube</a></p>
+              <p><a class="button secondary" href="https://zoom.us/" data-ph="links.zoom" data-ph-prop="href" target="_blank" rel="noopener noreferrer">Open Zoom</a></p>
+            </aside>
+          </div>
+          <article class="card gallery-runtime-card">
+            <h3>Program runtime</h3>
+            <ul class="meta-list" data-runtime-overlay></ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="section-title-row section-title-row--balanced">
+            <h2>NCC on YouTube</h2>
+            <a class="button secondary" href="https://www.youtube.com/@NCCSUFFOLK" target="_blank" rel="noopener noreferrer">@NCCSUFFOLK</a>
           </div>
           <div class="grid-2">
             <article class="card">
-              <img src="https://images.unsplash.com/photo-1518733057094-95b53143d2a7?auto=format&fit=crop&w=1200&q=80" alt="NCC Facebook highlight" style="width:100%; border-radius:12px; display:block;">
-              <p class="muted">Facebook timeline embeds may be blocked by permissions. Use highlight links for reliable access.</p>
+              <iframe class="embed-frame" src="https://www.youtube.com/embed/KTaRFF97Mqs" title="NCC YouTube featured" loading="lazy" allowfullscreen></iframe>
             </article>
-            <div class="grid-2" data-facebook-highlights></div>
+            <article class="card card--balanced">
+              <h3>Channel access</h3>
+              <p>Sermons, livestream archives, and ministry clips from the official channel.</p>
+              <p><a class="button primary" href="https://www.youtube.com/@NCCSUFFOLK" target="_blank" rel="noopener noreferrer">Open channel</a></p>
+              <p><a class="button secondary" href="./legacy-content.html">Legacy content archive</a></p>
+            </article>
           </div>
-        </section>
+        </div>
+      </section>
 
-        <div class="grid-3" data-media-grid></div>
-      </div>
+      <section class="section">
+        <div class="container">
+          <div class="section-title-row section-title-row--balanced">
+            <h2>Facebook spotlight</h2>
+            <span class="pill">Featured video</span>
+          </div>
+          <div class="live-shell">
+            <article class="card">
+              <img
+                data-facebook-feature-image
+                src="https://images.unsplash.com/photo-1504052434569-70ad5836ab65?auto=format&fit=crop&w=1200&q=80"
+                alt="NCC Facebook featured video thumbnail"
+                class="gallery-inline-image">
+            </article>
+            <aside class="card card--balanced">
+              <h3>Watch on Facebook</h3>
+              <p>Direct link when embeds are limited by privacy settings.</p>
+              <p><a class="button primary" data-facebook-feature-link href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer">Open Facebook video</a></p>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="section-title-row section-title-row--balanced">
+            <h2>Pastor inspiration</h2>
+            <a class="button secondary" href="./anthony-inspiration.html">Inspiration hub</a>
+          </div>
+          <div class="grid-2">
+            <article class="card">
+              <iframe
+                class="embed-frame xl"
+                data-pastor-blog-embed
+                src="https://anthonyinspiration.com/"
+                title="Anthony Inspiration preview"
+                loading="lazy"
+                allowfullscreen>
+              </iframe>
+            </article>
+            <article class="card card--balanced">
+              <h3>Feed status</h3>
+              <p data-pastor-blog-status class="muted">Loading pastor blog status…</p>
+              <p>
+                <a class="button primary" data-pastor-blog-link href="https://anthonyinspiration.com/" target="_blank" rel="noopener noreferrer">AnthonyInspiration.com</a>
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="section-title-row section-title-row--balanced">
+            <h2>Latest from Anthony Inspiration</h2>
+            <span class="pill">Fresh posts</span>
+          </div>
+          <div class="grid-3 grid-3--balanced" data-anthony-home-feed>
+            <article class="card">
+              <h3>Loading…</h3>
+              <p class="muted">Preparing latest updates.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--featured">
+        <div class="container">
+          <div class="section-title-row section-title-row--balanced">
+            <h2>Facebook media gallery</h2>
+            <span class="pill">Social highlights</span>
+          </div>
+          <div class="grid-2">
+            <article class="card">
+              <img src="https://images.unsplash.com/photo-1518733057094-95b53143d2a7?auto=format&fit=crop&w=1200&q=80" alt="NCC Facebook highlight" class="gallery-inline-image">
+              <p class="muted">Timeline embeds may be blocked; use the cards for reliable links.</p>
+            </article>
+            <div class="gallery-highlights-stack" data-facebook-highlights></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="section-title-row section-title-row--balanced">
+            <h2>Full message library</h2>
+            <a class="button secondary" href="./messages.html">Messages page</a>
+          </div>
+          <p class="section-lead gallery-library-lead">Every archived card below respects the filters at the top of this page.</p>
+          <div class="grid-3" data-media-grid></div>
+        </div>
+      </section>
     </main>
-    <footer class="site-footer"><div class="container row"><p class="muted"><span data-ph="branding.fullName">New Community Church</span>, <span data-ph="contact.cityState">Suffolk VA</span></p><p class="muted">Copyright <span data-year></span> NCC Family</p></div></footer>
-    <script src="./assets/js/site.js?v=20260411"></script>
+
+    <footer class="site-footer">
+      <div class="container row">
+        <p class="muted"><span data-ph="branding.fullName">New Community Church</span>, <span data-ph="contact.cityState">Suffolk VA</span></p>
+        <p class="muted">Copyright <span data-year></span> NCC Family</p>
+      </div>
+    </footer>
+    <script src="./assets/js/site.js?v=20260413"></script>
     <script src="./assets/js/placeholders.js"></script>
-    <script src="./assets/js/media.js"></script>
+    <script src="./assets/js/live-control.js"></script>
+    <script src="./assets/js/media.js?v=20260413"></script>
     <script src="./assets/js/social-feed.js"></script>
   </body>
 </html>

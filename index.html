@@ -13,7 +13,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./assets/css/styles.css?v=20260410">
+    <link rel="stylesheet" href="./assets/css/styles.css?v=20260413">
     <link rel="icon" href="./assets/images/updated-removebg.png" type="image/png">
   </head>
   <body>
@@ -44,7 +44,7 @@
     </header>
 
     <main>
-      <section class="section">
+      <section class="section section--compact">
         <div class="container">
           <div class="ticker-shell">
             <div class="ticker-head">
@@ -58,64 +58,70 @@
         </div>
       </section>
 
-      <section class="hero">
-        <div class="container hero-grid">
-          <div>
-            <p class="eyebrow">Reliability Through Innovation</p>
-            <h1 data-ph="home.heroTitle">We Are Building Faith + Community In Suffolk</h1>
-            <p>
-              <span data-ph="home.heroCopy">New Community Church exists to serve people at every stage of faith with Christ-centered teaching, care, and digital access to worship throughout the week.</span>
-            </p>
-            <p>
-              <span data-ph="home.heroTimes">Join us on Sunday at 11:00 AM and Wednesday at 7:00 PM via Zoom.</span>
-            </p>
-            <div class="faith-banner">
-              <p><strong>Jesus-centered mission:</strong> We are here to know Christ, love people well, and walk in hope together.</p>
-              <p class="muted">"I can do all things through Christ who strengthens me." - Philippians 4:13</p>
+      <section class="hero hero--home">
+        <div class="container">
+          <div class="home-intro-grid">
+            <div class="home-intro-grid__copy">
+              <p class="eyebrow">Reliability Through Innovation</p>
+              <h1 data-ph="home.heroTitle">We Are Building Faith + Community In Suffolk</h1>
+              <p class="home-lead">
+                <span data-ph="home.heroCopy">New Community Church exists to serve people at every stage of faith with Christ-centered teaching, care, and digital access to worship throughout the week.</span>
+              </p>
+              <p class="home-lead home-lead--accent">
+                <span data-ph="home.heroTimes">Join us on Sunday at 11:00 AM and Wednesday at 7:00 PM via Zoom.</span>
+              </p>
+              <div class="faith-banner faith-banner--home">
+                <p><strong>Jesus-centered mission:</strong> We are here to know Christ, love people well, and walk in hope together.</p>
+                <p class="muted faith-banner__quote">"I can do all things through Christ who strengthens me." — Philippians 4:13</p>
+              </div>
+              <div class="home-actions">
+                <a class="button primary" href="./messages.html" data-ph="home.ctaWatch">Watch Latest Message</a>
+                <a class="button secondary" href="./contact.html" data-ph="home.ctaVisit">Plan Your Visit</a>
+              </div>
             </div>
-            <a class="button primary" href="./messages.html" data-ph="home.ctaWatch">Watch Latest Message</a>
-            <a class="button secondary" href="./contact.html" data-ph="home.ctaVisit">Plan Your Visit</a>
-          </div>
-          <div class="hero-side">
-            <figure class="interactive-hero logo-panel-card" data-interactive-hero>
-              <img
-                src="./assets/images/churchlogoblackbackground.svg"
-                class="logo-panel-image"
-                data-ph="home.heroImage"
-                data-ph-prop="src"
-                alt="New Community Church approved logo panel">
-              <figcaption class="logo-panel-caption" data-ph="home.heroImageLabel">Final Approved Logo Panel</figcaption>
-            </figure>
-            <aside class="hero-card">
-              <h2>Live Now</h2>
-              <p>Connect to worship and teaching from anywhere.</p>
-              <ul class="meta-list">
-                <li><strong>Sunday Worship:</strong> 11:00 AM (Zoom)</li>
-                <li><strong>Wednesday Midweek:</strong> 7:00 PM (Zoom)</li>
-                <li><strong>Location:</strong> 5112 Godwin Blvd, Suffolk, VA</li>
-              </ul>
-              <p class="center"><a class="button primary" href="https://zoom.us/" data-ph="links.zoom" data-ph-prop="href" target="_blank" rel="noopener noreferrer">Join On Zoom</a></p>
-            </aside>
+            <div class="home-intro-grid__aside">
+              <figure class="interactive-hero logo-panel-card" data-interactive-hero>
+                <img
+                  src="./assets/images/churchlogoblackbackground.svg"
+                  class="logo-panel-image"
+                  data-ph="home.heroImage"
+                  data-ph-prop="src"
+                  alt="New Community Church approved logo panel">
+                <figcaption class="logo-panel-caption" data-ph="home.heroImageLabel">Final Approved Logo Panel</figcaption>
+              </figure>
+              <aside class="hero-card hero-card--schedule">
+                <h2>Service rhythm</h2>
+                <p class="muted">Connect to worship and teaching from anywhere.</p>
+                <ul class="meta-list meta-list--spaced">
+                  <li><strong>Sunday</strong><span>11:00 AM · Zoom</span></li>
+                  <li><strong>Wednesday</strong><span>7:00 PM · Zoom</span></li>
+                  <li><strong>Address</strong><span>5112 Godwin Blvd, Suffolk, VA</span></li>
+                </ul>
+                <p class="home-card-cta">
+                  <a class="button primary button--block" href="https://zoom.us/" data-ph="links.zoom" data-ph-prop="href" target="_blank" rel="noopener noreferrer">Join on Zoom</a>
+                </p>
+              </aside>
+            </div>
           </div>
         </div>
       </section>
 
       <section class="section">
         <div class="container">
-          <div class="section-title-row">
+          <div class="section-title-row section-title-row--balanced">
             <h2 data-ph="home.ministryTitle">Ministry Priorities</h2>
-            <span class="pill">Community Driven</span>
+            <span class="pill">Community driven</span>
           </div>
-          <div class="grid-3">
-            <article class="card">
+          <div class="grid-3 grid-3--balanced">
+            <article class="card card--balanced">
               <h3 data-ph="home.teachingTitle">Biblical Teaching</h3>
               <p data-ph="home.teachingCopy">Teaching rooted in scripture, practical for everyday life, and centered on Jesus.</p>
             </article>
-            <article class="card">
+            <article class="card card--balanced">
               <h3 data-ph="home.sharedLifeTitle">Shared Life</h3>
               <p data-ph="home.sharedLifeCopy">A community where we celebrate victories and carry one another through difficult seasons.</p>
             </article>
-            <article class="card">
+            <article class="card card--balanced">
               <h3 data-ph="home.digitalReachTitle">Digital Reach</h3>
               <p data-ph="home.digitalReachCopy">Live and on-demand media experiences that extend ministry beyond Sunday gatherings.</p>
             </article>
@@ -123,144 +129,55 @@
         </div>
       </section>
 
-      <section class="section">
+      <section class="section section--featured">
         <div class="container">
-          <div class="section-title-row">
-            <h2>Worship Broadcast</h2>
-            <span class="pill">YouTube + Zoom Ready</span>
+          <div class="section-title-row section-title-row--balanced">
+            <h2>Popular teachings</h2>
+            <a class="button secondary" href="./gallery.html">Full gallery &amp; library</a>
           </div>
-          <p class="muted"><strong>Video Block A:</strong> Live Worship Feed (YouTube embed) with Zoom join options for interactive attendance.</p>
-          <div class="live-shell">
-            <iframe
-              class="video-frame"
-              src="https://www.youtube.com/embed/BfxAyy0i7tw"
-              title="Video Block A - Live worship stream feed"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen>
-            </iframe>
-            <aside class="card">
-              <h3>How To Join Live</h3>
-              <p>Use YouTube for public stream viewing, or join Zoom for interactive service moments.</p>
-              <p><a class="button primary" href="https://www.youtube.com/" data-ph="links.youtube" data-ph-prop="href" target="_blank" rel="noopener noreferrer">Open YouTube</a></p>
-              <p><a class="button secondary" href="https://zoom.us/" data-ph="links.zoom" data-ph-prop="href" target="_blank" rel="noopener noreferrer">Open Zoom</a></p>
-            </aside>
-          </div>
-          <article class="card">
-            <h3>Program Runtime Overlay</h3>
-            <ul class="meta-list" data-runtime-overlay></ul>
-          </article>
-        </div>
-      </section>
-
-      <section class="section">
-        <div class="container">
-          <div class="section-title-row">
-            <h2>Message Archive</h2>
-            <a class="button secondary" href="./messages.html">View All Messages</a>
-          </div>
-          <p class="muted"><strong>Video Block B:</strong> On-demand sermon and media archive cards.</p>
-          <div class="grid-3" data-media-grid></div>
-        </div>
-      </section>
-
-      <section class="section">
-        <div class="container">
-          <div class="section-title-row">
-            <h2>NCC YouTube Channel Feed</h2>
-            <span class="pill">Video Block D</span>
-          </div>
-          <div class="grid-2">
+          <p class="section-lead">Top picks by engagement—scroll sideways to browse. Every message is still available on the Gallery and Messages pages.</p>
+          <div class="home-featured-carousel" data-home-featured-carousel aria-label="Featured message carousel">
             <article class="card">
-              <iframe class="embed-frame" src="https://www.youtube.com/embed/KTaRFF97Mqs" title="NCC YouTube featured feed" loading="lazy" allowfullscreen></iframe>
-            </article>
-            <article class="card">
-              <h3>Channel Access</h3>
-              <p>Browse additional sermons, livestream archives, and ministry clips from the official channel.</p>
-              <p><a class="button primary" href="https://www.youtube.com/@NCCSUFFOLK" target="_blank" rel="noopener noreferrer">Open @NCCSUFFOLK</a></p>
-              <p><a class="button secondary" href="./legacy-content.html">Open Full Legacy Content Archive</a></p>
+              <h3>Loading…</h3>
+              <p class="muted">Preparing featured teachings.</p>
             </article>
           </div>
         </div>
       </section>
 
-      <section class="section">
+      <section class="section section--connect">
         <div class="container">
-          <div class="section-title-row">
-            <h2>Facebook Featured Video</h2>
-            <span class="pill">Social Media Spotlight</span>
+          <div class="section-head-center">
+            <h2>Stay connected</h2>
+            <p class="muted">One tap to streams, archives, and social channels.</p>
           </div>
-          <p class="muted"><strong>Video Block C:</strong> Featured from New Community Christian Center Church Facebook media.</p>
-          <div class="live-shell">
-            <article class="card">
-              <img
-                data-facebook-feature-image
-                src="https://images.unsplash.com/photo-1504052434569-70ad5836ab65?auto=format&fit=crop&w=1200&q=80"
-                alt="NCC Facebook featured video thumbnail"
-                style="width:100%; border-radius:12px; display:block;">
-            </article>
-            <aside class="card">
-              <h3>Watch On Facebook</h3>
-              <p>Direct link to the featured church video post.</p>
-              <p><a class="button primary" data-facebook-feature-link href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer">Open Facebook Video</a></p>
-              <p class="muted">If embedding is blocked by Facebook privacy settings, use the direct link button.</p>
-            </aside>
+          <div class="home-connect-grid">
+            <a class="home-connect-tile" href="./messages.html">
+              <span class="home-connect-tile__label">Messages</span>
+              <span class="home-connect-tile__hint">Live + archive</span>
+            </a>
+            <a class="home-connect-tile" href="./gallery.html">
+              <span class="home-connect-tile__label">Gallery</span>
+              <span class="home-connect-tile__hint">Video hub &amp; filters</span>
+            </a>
+            <a class="home-connect-tile" href="https://www.youtube.com/@NCCSUFFOLK" data-ph="links.youtube" data-ph-prop="href" target="_blank" rel="noopener noreferrer">
+              <span class="home-connect-tile__label">YouTube</span>
+              <span class="home-connect-tile__hint">@NCCSUFFOLK</span>
+            </a>
+            <a class="home-connect-tile" href="./anthony-inspiration.html">
+              <span class="home-connect-tile__label">Inspiration</span>
+              <span class="home-connect-tile__hint">Pastor Anthony</span>
+            </a>
           </div>
         </div>
       </section>
 
-      <section class="section">
-        <div class="container">
-          <div class="section-title-row">
-            <h2>Pastor Inspiration Feed</h2>
-            <span class="pill">Live Blog Panel</span>
-          </div>
-          <div class="grid-2">
-            <article class="card">
-              <iframe
-                class="embed-frame xl"
-                data-pastor-blog-embed
-                src="https://anthonyinspiration.com/"
-                title="Anthony Inspiration website feed preview"
-                loading="lazy"
-                allowfullscreen>
-              </iframe>
-            </article>
-            <article class="card">
-              <h3>Feed Status</h3>
-              <p data-pastor-blog-status class="muted">Loading pastor blog status...</p>
-              <p>
-                <a class="button primary" data-pastor-blog-link href="https://anthonyinspiration.com/" target="_blank" rel="noopener noreferrer">Open AnthonyInspiration.com</a>
-                <a class="button secondary" href="./anthony-inspiration.html">Open Full Inspiration Hub</a>
-              </p>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <section class="section">
-        <div class="container">
-          <div class="section-title-row">
-            <h2>Latest From Anthony Inspiration</h2>
-            <span class="pill">Fresh Encouragement</span>
-          </div>
-          <div class="grid-3" data-anthony-home-feed>
-            <article class="card">
-              <h3>Loading...</h3>
-              <p>Preparing latest inspiration updates.</p>
-            </article>
-          </div>
-          <p style="margin-top:1rem;">
-            <a class="button secondary" href="./anthony-inspiration.html">Open Full Anthony Inspiration Page</a>
-          </p>
-        </div>
-      </section>
-
-      <section class="section">
-        <div class="container">
-          <div class="card">
-            <h2>Notification Center</h2>
-            <p>Enable browser alerts for live service reminders and event updates.</p>
-            <p><button class="button secondary" type="button" data-notify-enable>Enable Notifications</button></p>
+      <section class="section section--compact-bottom">
+        <div class="container container--narrow">
+          <div class="card card--centered-notify">
+            <h2>Notifications</h2>
+            <p class="muted">Browser alerts for live services and updates (optional).</p>
+            <p><button class="button secondary" type="button" data-notify-enable>Enable notifications</button></p>
             <p class="muted" data-notify-status>Current permission: default</p>
           </div>
         </div>
@@ -281,10 +198,10 @@
       </div>
     </footer>
 
-    <script src="./assets/js/site.js?v=20260411"></script>
+    <script src="./assets/js/site.js?v=20260413"></script>
     <script src="./assets/js/placeholders.js"></script>
     <script src="./assets/js/live-control.js"></script>
-    <script src="./assets/js/media.js"></script>
+    <script src="./assets/js/media.js?v=20260413"></script>
     <script src="./assets/js/social-feed.js"></script>
     <script src="./assets/js/notifications.js"></script>
   </body>

@@ -717,6 +717,66 @@
     });
   }
 
+  const headerVideoIndexKey = "ncc_header_video_index";
+  const headerManifestUrl = "./assets/headersrc/manifest.json";
+  const headerVideoFallback = "./assets/headersrc/newhero.mp4";
+
+  function headerVideoMime(src) {
+    const lower = (src || "").toLowerCase();
+    if (lower.endsWith(".webm")) {
+      return "video/webm";
+    }
+    if (lower.endsWith(".mov") || lower.endsWith(".qt")) {
+      return "video/quicktime";
+    }
+    return "video/mp4";
+  }
+
+  function isSafeHeaderVideoSrc(src) {
+    if (typeof src !== "string") {
+      return false;
+    }
+    const t = src.trim().replace(/\\/g, "/");
+    if (t.indexOf("./assets/") !== 0) {
+      return false;
+    }
+    if (/["'<>]/.test(t)) {
+      return false;
+    }
+    return true;
+  }
+
+  function encodeHeaderVideoSrc(src) {
+    const t = src.trim().replace(/\\/g, "/");
+    return encodeURI(t);
+  }
+
+  function normalizeHeaderManifest(data) {
+    let raw = [];
+    if (Array.isArray(data)) {
+      raw = data;
+    } else if (data && Array.isArray(data.videos)) {
+      raw = data.videos;
+    }
+    return raw.filter(function (item) {
+      return typeof item === "string" && isSafeHeaderVideoSrc(item);
+    });
+  }
+
+  function nextHeaderVideoIndex(length) {
+    if (length < 1) {
+      return 0;
+    }
+    const prevRaw = sessionStorage.getItem(headerVideoIndexKey);
+    let prev = parseInt(prevRaw, 10);
+    if (Number.isNaN(prev)) {
+      prev = -1;
+    }
+    const next = (prev + 1) % length;
+    sessionStorage.setItem(headerVideoIndexKey, String(next));
+    return next;
+  }
+
   function setupGlobalVideoHero() {
     const currentPath = window.location.pathname || "";
     const isConstruction = currentPath.toLowerCase().endsWith("/" + lockRoute) || currentPath.toLowerCase().endsWith(lockRoute);
@@ -744,21 +804,48 @@
       pageName = (document.title || "New Community Church").split("|")[0].trim();
     }
 
-    const hero = document.createElement("section");
-    hero.className = "global-video-hero";
-    hero.innerHTML =
-      '<video class="global-video-hero__video" autoplay muted loop playsinline preload="metadata" poster="./assets/images/updated.png">' +
-      '<source src="./assets/newhero.mp4" type="video/mp4" />' +
-      '<source src="./assets/newhero.mov" type="video/quicktime" />' +
-      "</video>" +
-      '<div class="global-video-hero__overlay"></div>' +
-      '<div class="container global-video-hero__content">' +
-      '<p class="global-video-hero__kicker">New Community Church</p>' +
-      '<p class="global-video-hero__title">' + pageName + "</p>" +
-      '<p class="global-video-hero__sub">Suffolk, Virginia</p>' +
-      "</div>";
+    function mountHero(videoSrc) {
+      const srcAttr = encodeHeaderVideoSrc(videoSrc);
+      const mime = headerVideoMime(videoSrc);
+      const hero = document.createElement("section");
+      hero.className = "global-video-hero";
+      hero.innerHTML =
+        '<video class="global-video-hero__video" autoplay muted loop playsinline preload="metadata" poster="./assets/images/updated.png">' +
+        '<source src="' +
+        srcAttr +
+        '" type="' +
+        mime +
+        '" />' +
+        "</video>" +
+        '<div class="global-video-hero__overlay"></div>' +
+        '<div class="container global-video-hero__content">' +
+        '<p class="global-video-hero__kicker">New Community Church</p>' +
+        '<p class="global-video-hero__title">' +
+        pageName +
+        "</p>" +
+        '<p class="global-video-hero__sub">Suffolk, Virginia</p>' +
+        "</div>";
+      main.insertBefore(hero, main.firstChild);
+    }
 
-    main.insertBefore(hero, main.firstChild);
+    fetch(headerManifestUrl, { cache: "no-store" })
+      .then(function (res) {
+        if (!res.ok) {
+          throw new Error("manifest http");
+        }
+        return res.json();
+      })
+      .then(function (data) {
+        const list = normalizeHeaderManifest(data);
+        if (!list.length) {
+          throw new Error("manifest empty");
+        }
+        const idx = nextHeaderVideoIndex(list.length);
+        mountHero(list[idx]);
+      })
+      .catch(function () {
+        mountHero(headerVideoFallback);
+      });
   }
 
   if (navToggle && nav) {
