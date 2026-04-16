@@ -322,9 +322,9 @@ a {
   height: 100%;
   object-fit: cover;
   object-position: center;
-  transform: scale(1.045);
+  transform: scale(1.085);
   transform-origin: center center;
-  filter: saturate(1.1) contrast(1.08) brightness(0.92) blur(1.25px);
+  filter: saturate(1.05) contrast(1.04) brightness(0.88) blur(8px);
 }
 
 .global-video-hero__overlay {
@@ -1029,6 +1029,11 @@ p {
   max-height: 340px;
   object-fit: cover;
   display: block;
+}
+
+.media-hero img.media-hero__portrait {
+  max-height: 500px;
+  object-position: center top;
 }
 
 .site-footer {

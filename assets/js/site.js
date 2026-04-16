@@ -227,7 +227,7 @@
     dock.innerHTML =
       '<button type="button" class="qa-trigger" data-qa-trigger aria-expanded="false" aria-label="Open quick actions">+</button>' +
       '<div class="qa-menu" data-qa-menu hidden>' +
-      '<a class="qa-item" href="./messages.html" title="Messages">Watch</a>' +
+      '<a class="qa-item" href="./livestream.html" title="Livestream">Watch</a>' +
       '<a class="qa-item" href="./give.html" title="Give">Give</a>' +
       '<button type="button" class="qa-item" data-qa-top title="Scroll to top">Top</button>' +
       '<button type="button" class="qa-item" data-qa-focus title="Focus mode">Focus</button>' +

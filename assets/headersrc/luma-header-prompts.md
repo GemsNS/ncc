@@ -19,7 +19,7 @@ Output: seamless hero-style footage that still reads clearly with a dark overlay
 - `mens-ministry.html`: Subject: men in prayer circles and Bible discussion, brotherhood, leadership, authentic church environment.
 - `youth-ministry.html`: Subject: youth worship, mentorship, joyful interaction, hope and purpose with real church context.
 - `events.html`: Subject: event setup and welcome moments, chairs being arranged, greeters, families arriving, anticipation.
-- `messages.html`: Subject: pastor preaching, congregation engaged, Bible teaching focus, cinematic movement centered on the message moment.
+- `livestream.html`: Subject: pastor preaching, congregation engaged, Bible teaching focus, cinematic movement centered on the message moment.
 - `anthony-inspiration.html`: Subject: pastoral encouragement in reflective scenes, walking outdoors, hopeful devotional tone.
 - `gallery.html`: Subject: montage of worship, fellowship, candid smiles, outreach moments, dynamic highlight-reel feel.
 - `give.html`: Subject: dignified generosity through service, helping hands, community support, mission-centered visuals.

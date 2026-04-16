@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Livestream | New Community Church</title>
+    <meta name="description" content="Watch the NCC livestream and recent teachings through YouTube and Zoom ministry content.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/css/styles.css?v=20260416b">
+  </head>
+  <body>
+    <header class="site-header"><div class="container"><a class="brand" href="./index.html"><img src="./assets/newlogoset/ncc-mark-primary-light.png" alt="NCC logo"><div><strong data-ph="branding.shortName">NCC Family</strong><span data-ph="contact.cityState">Suffolk, Virginia</span></div></a><button class="nav-toggle" data-nav-toggle aria-expanded="false" aria-label="Toggle site menu">☰</button><nav class="main-nav" data-main-nav><ul><li><a href="./index.html">Home</a></li><li><a href="./statement-of-faith.html">Faith</a></li><li><a href="./about.html">About</a></li><li><a href="./ministries.html">Ministries</a></li><li><a href="./give.html">Give</a></li><li><a href="./events.html">Events</a></li><li><a href="./livestream.html" aria-current="page">Livestream</a></li><li><a href="./anthony-inspiration.html">Inspiration</a></li><li><a href="./gallery.html">Gallery</a></li><li><a href="./contact.html">Contact</a></li></ul></nav></div></header>
+    <main class="section">
+      <div class="container">
+        <div class="ticker-shell">
+          <div class="ticker-head">
+            <strong>Live Ministry Updates</strong>
+            <span class="ticker-state" data-live-status data-state="offline">OFFLINE</span>
+          </div>
+          <div class="ticker-track">
+            <div class="ticker-runner" data-live-ticker></div>
+          </div>
+        </div>
+        <p class="eyebrow">Livestream</p>
+        <h1 data-ph="messages.pageTitle">Live Stream + Recent Teachings</h1>
+        <div class="live-shell">
+          <iframe class="video-frame" src="https://www.youtube.com/embed/8cDsePBO5RM" title="NCC live feed player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          <aside class="card">
+            <h3 data-ph="messages.liveCardTitle">Join The Worship Stream</h3>
+            <p data-ph="messages.liveCardCopy">Stream through YouTube or join the Zoom room for direct participation.</p>
+            <p><a class="button primary" href="https://www.youtube.com/" data-ph="links.youtube" data-ph-prop="href" target="_blank" rel="noopener noreferrer">YouTube Stream</a></p>
+            <p><a class="button secondary" href="https://zoom.us/" data-ph="links.zoom" data-ph-prop="href" target="_blank" rel="noopener noreferrer">Join Zoom</a></p>
+          </aside>
+        </div>
+        <article class="card">
+          <h3>Service Timeline</h3>
+          <ul class="meta-list" data-runtime-overlay></ul>
+        </article>
+        <div class="section-title-row">
+          <h2 data-ph="messages.archiveTitle">Archive</h2>
+          <span class="pill">Growing Library</span>
+        </div>
+        <article class="card">
+          <h3>Message Filters</h3>
+          <form class="form-grid" data-media-filter-form>
+            <label>Tag
+              <select name="tag">
+                <option value="">All Tags</option>
+                <option value="hope">hope</option>
+                <option value="faith">faith</option>
+                <option value="sunday">sunday</option>
+                <option value="midweek">midweek</option>
+                <option value="prayer">prayer</option>
+              </select>
+            </label>
+            <label>Speaker <input type="text" name="speaker" placeholder="Pastor"></label>
+            <label>Search <input type="text" name="search" placeholder="series, scripture, topic"></label>
+            <button class="button secondary" type="submit">Apply Filters</button>
+          </form>
+        </article>
+        <div class="grid-3" data-media-grid></div>
+
+        <section class="section">
+          <div class="section-title-row">
+            <h2>Facebook Video Mirror</h2>
+            <span class="pill">Cross-Platform Ministry Feed</span>
+          </div>
+          <div class="live-shell">
+            <article class="card">
+              <img src="./assets/newlogoset/001_A_logo_for_NCC_New_Community_Church_Suffolk_VA_6nZsPeAi.png" alt="NCC Facebook featured video thumbnail" style="width:100%; border-radius:12px; display:block;">
+            </article>
+            <article class="card">
+              <h3>Facebook Media Access</h3>
+              <p>This block mirrors the featured church Facebook video for multi-channel reach.</p>
+              <p><a class="button primary" data-facebook-feature-link href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer">Open Facebook Video</a></p>
+            </article>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-title-row">
+            <h2 data-ph="messages.overlayTitle">Sermon Notes Mode</h2>
+            <span class="pill">Timestamped Key Moments</span>
+          </div>
+          <article class="card">
+            <ul class="notes-list" data-sermon-notes></ul>
+          </article>
+        </section>
+      </div>
+    </main>
+    <footer class="site-footer"><div class="container row"><p class="muted"><span data-ph="branding.fullName">New Community Church</span>, <span data-ph="contact.cityState">Suffolk VA</span></p><p class="muted">Copyright <span data-year></span> NCC Family</p></div></footer>
+    <script src="./assets/js/site.js?v=20260416b"></script>
+    <script src="./assets/js/placeholders.js"></script>
+    <script src="./assets/js/live-control.js"></script>
+    <script src="./assets/js/media.js"></script>
+    <script src="./assets/js/social-feed.js"></script>
+  </body>
+</html>
