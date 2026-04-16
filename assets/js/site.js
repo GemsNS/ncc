@@ -5,8 +5,9 @@
   const navToggle = document.querySelector("[data-nav-toggle]");
   const nav = document.querySelector("[data-main-nav]");
   const headerContainer = document.querySelector(".site-header .container");
-  const brandMarkSrc = "./assets/newlogoset/004_In_a_minimalist_logo_style_the_emblem_features_zAIQkKHc.png";
-  const brandHeroSrc = "./assets/newlogoset/001_A_logo_for_NCC_New_Community_Church_Suffolk_VA_6nZsPeAi.png";
+  const brandMarkSrc = "./assets/newlogoset/ncc-mark-primary-light.png";
+  const brandMarkDarkSrc = "./assets/newlogoset/ncc-mark-white-dark.png";
+  const brandHeroSrc = "./assets/newlogoset/ncc-lockup-horizontal-dark.png";
 
   function applyTheme(theme) {
     document.documentElement.setAttribute("data-theme", theme);
@@ -20,15 +21,18 @@
   }
 
   function setupGlobalBrandAssets() {
+    const activeBrandMarkSrc =
+      document.documentElement.getAttribute("data-theme") === "dark" ? brandMarkDarkSrc : brandMarkSrc;
+
     document.querySelectorAll(".brand").forEach(function (brandNode) {
       const brandImg = brandNode.querySelector("img");
       if (!brandImg) return;
-      brandImg.src = brandMarkSrc;
+      brandImg.src = activeBrandMarkSrc;
       brandImg.alt = "New Community Church logo";
     });
 
     document.querySelectorAll("link[rel~='icon']").forEach(function (iconNode) {
-      iconNode.setAttribute("href", brandMarkSrc);
+      iconNode.setAttribute("href", activeBrandMarkSrc);
       iconNode.setAttribute("type", "image/png");
     });
 
@@ -785,9 +789,9 @@
     yearNode.textContent = String(new Date().getFullYear());
   }
 
-  setupGlobalBrandAssets();
   setupAmbientBackground();
   setupThemeToggle();
+  setupGlobalBrandAssets();
   setupInspirationNavLink();
   setupAdminTree();
   setupGlobalVideoHero();
