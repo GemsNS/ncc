@@ -624,7 +624,7 @@
   const headerVideoIndexKey = "ncc_header_video_index";
   const headerManifestUrl = "./assets/headersrc/manifest.json";
   const headerPageMapUrl = "./assets/headersrc/page-headers.json";
-  const headerVideoFallback = "./assets/headersrc/DigitalWavesSummerWelcomeHD_PRV.mp4";
+  const headerVideoFallback = "./assets/headersrc/DigitalWavesSummerSunsetHD_PRV.mp4";
 
   function headerVideoMime(src) {
     const lower = (src || "").toLowerCase();

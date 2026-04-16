@@ -1,8 +1,5 @@
 {
-  "videos": [
-    "./assets/headersrc/DigitalWavesSummerWelcomeHD_PRV.mp4",
-    "./assets/headersrc/DigitalWavesSummerSunsetHD_PRV.mp4",
-    "./assets/headersrc/DigitalWavesAnnouncementsHD_PRV.mp4",
-    "./assets/headersrc/DigitalWavesOfferingHD_PRV.mp4"
-  ]
+    "videos":  [
+                   "./assets/headersrc/DigitalWavesSummerSunsetHD_PRV.mp4"
+               ]
 }
