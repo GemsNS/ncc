@@ -200,7 +200,7 @@ async function loadHomeFeaturedVideos() {
         const srcAttr = encodeMediaSrc(item.src);
         const mime = homeFeaturedVideoMime(item.src);
         const poster =
-          item.poster && isSafeLocalMediaSrc(item.poster) ? encodeMediaSrc(item.poster) : "./assets/images/updated.png";
+          item.poster && isSafeLocalMediaSrc(item.poster) ? encodeMediaSrc(item.poster) : "./assets/newlogoset/001_A_logo_for_NCC_New_Community_Church_Suffolk_VA_6nZsPeAi.png";
         const subLocal = item.subtitle ? String(item.subtitle) : "Hosted on this site";
         return (
           '<article class="home-featured-card">' +
@@ -244,60 +244,9 @@ async function loadMediaCards() {
   }
 
   try {
-    let items = [];
-    const apiBase = window.NCC_API_BASE || "http://localhost:4000/api";
-
-    try {
-      const apiResponse = await fetch(apiBase + "/media?status=published");
-      if (apiResponse.ok) {
-        const apiItems = await apiResponse.json();
-        items = apiItems.map(function normalize(item) {
-          return {
-            title: item.title,
-            date: new Date(item.updatedAt || item.createdAt).toLocaleDateString(),
-            speaker: item.speaker || "NCC Team",
-            platform: item.platformUrl ? "External" : "Local Upload",
-            url: item.platformUrl || (apiBase.replace("/api", "") + "/uploads/" + item.fileName),
-            thumbnail: "https://images.unsplash.com/photo-1519491050282-cf00c82424b4?auto=format&fit=crop&w=960&q=80",
-            popularity: typeof item.popularity === "number" ? item.popularity : 0
-          };
-        });
-      }
-    } catch (error) {
-      items = [];
-    }
-
-    if (!items.length) {
-      const response = await fetch("./assets/data/site-content.json");
-      const data = await response.json();
-      items = data.mediaArchive || [];
-    }
-
-    const isDemoMode =
-      window.location.search.indexOf("demo=1") !== -1 ||
-      localStorage.getItem("ncc_demo_mode") === "1";
-
-    if (isDemoMode) {
-      const demoMedia = JSON.parse(localStorage.getItem("ncc_demo_media") || "[]")
-        .filter(function onlyPublished(item) {
-          return item.status === "published";
-        })
-        .map(function mapDemo(item) {
-          return {
-            title: item.title,
-            date: new Date(item.updatedAt || item.createdAt).toLocaleDateString(),
-            speaker: item.speaker || "NCC Team",
-            platform: item.platformUrl ? "External" : "Demo",
-            url: item.platformUrl || "https://www.youtube.com/",
-            thumbnail: "https://images.unsplash.com/photo-1519491050282-cf00c82424b4?auto=format&fit=crop&w=960&q=80",
-            popularity: typeof item.popularity === "number" ? item.popularity : 0
-          };
-        });
-
-      if (demoMedia.length) {
-        items = demoMedia.concat(items);
-      }
-    }
+    const response = await fetch("./assets/data/site-content.json", { cache: "no-store" });
+    const data = await response.json();
+    const items = (data && data.mediaArchive) || [];
 
     const normalizedItems = items.map(function normalize(item) {
       return {
@@ -338,7 +287,7 @@ function renderMediaCards(items) {
         item.thumbnail +
         '" alt="' +
         item.title +
-        ' thumbnail" loading="lazy" onerror="this.onerror=null;this.src=\'./assets/images/updated-removebg.png\';">' +
+        ' thumbnail" loading="lazy" onerror="this.onerror=null;this.src=\'./assets/newlogoset/crest%20no%20back.png\';">' +
         '<div class="content">' +
         '<span class="pill">' +
         item.date +

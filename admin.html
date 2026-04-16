@@ -11,126 +11,17 @@
     <link rel="stylesheet" href="./assets/css/styles.css?v=20260410">
   </head>
   <body>
-    <header class="site-header"><div class="container"><a class="brand" href="./index.html"><img src="./assets/images/logo-mark.svg" alt="NCC logo"><div><strong data-ph="branding.shortName">NCC Family</strong><span data-ph="contact.cityState">Suffolk, Virginia</span></div></a><button class="nav-toggle" data-nav-toggle aria-expanded="false" aria-label="Toggle site menu">☰</button><nav class="main-nav" data-main-nav><ul><li><a href="./index.html">Home</a></li><li><a href="./about.html">About</a></li><li><a href="./ministries.html">Ministries</a></li><li><a href="./events.html">Events</a></li><li><a href="./messages.html">Messages</a></li><li><a href="./gallery.html">Gallery</a></li><li><a href="./contact.html">Contact</a></li><li><a href="./give.html">Give</a></li><li><a href="./admin.html" aria-current="page">Admin</a></li></ul></nav></div></header>
+    <header class="site-header"><div class="container"><a class="brand" href="./index.html"><img src="./assets/newlogoset/crest%20no%20back.png" alt="NCC logo"><div><strong data-ph="branding.shortName">NCC Family</strong><span data-ph="contact.cityState">Suffolk, Virginia</span></div></a><button class="nav-toggle" data-nav-toggle aria-expanded="false" aria-label="Toggle site menu">☰</button><nav class="main-nav" data-main-nav><ul><li><a href="./index.html">Home</a></li><li><a href="./statement-of-faith.html">Faith</a></li><li><a href="./about.html">About</a></li><li><a href="./ministries.html">Ministries</a></li><li><a href="./give.html">GIVE</a></li><li><a href="./events.html">Events</a></li><li><a href="./messages.html">Messages</a></li><li><a href="./anthony-inspiration.html">Inspiration</a></li><li><a href="./gallery.html">Gallery</a></li><li><a href="./contact.html">Contact</a></li></ul></nav></div></header>
     <main class="section">
       <div class="container">
-        <p class="eyebrow">Admin Access</p>
-        <h1 data-ph="adminPage.title">Secure Media Management Panel</h1>
-        <p data-ph="adminPage.intro">Use the custom backend service to authenticate staff and manage gallery/message media.</p>
-        <div class="grid-2">
-          <article class="card">
-            <h3>Admin Login</h3>
-            <form class="form-grid" data-login-form>
-              <label>
-                Email
-                <input type="email" name="email" required placeholder="admin@ncc.local">
-              </label>
-              <label>
-                Password
-                <input type="password" name="password" required minlength="8">
-              </label>
-              <button class="button primary" type="submit">Sign In</button>
-            </form>
-            <p><button class="button secondary" type="button" data-demo-login>Enter Demo Admin (No Backend)</button></p>
-            <p><button class="button secondary" type="button" data-demo-reset>Reset Demo Data</button></p>
-            <p class="muted" data-auth-status>Please login.</p>
-          </article>
-          <article class="card">
-            <h3>Backend Setup</h3>
-            <p>Run backend at <code>http://localhost:4000</code> and set secure environment values before production.</p>
-            <p class="muted">Default local credentials are controlled by backend environment variables.</p>
-            <p class="pill" data-mode-badge>Backend Mode</p>
-          </article>
-        </div>
-
-        <section class="section" data-dashboard hidden>
-          <div class="section-title-row">
-            <h2>Observability</h2>
-            <span class="pill">System Health + Activity</span>
-          </div>
-          <div class="metric-grid">
-            <article class="card metric">
-              <h3>Backend Health</h3>
-              <strong data-metric-health>Unknown</strong>
-            </article>
-            <article class="card metric">
-              <h3>Media Items</h3>
-              <strong data-metric-media>0</strong>
-            </article>
-            <article class="card metric">
-              <h3>Audit Events</h3>
-              <strong data-metric-audit>0</strong>
-            </article>
-          </div>
-
-          <div class="section-title-row">
-            <h2>Media Upload</h2>
-            <span class="pill">Role Protected</span>
-          </div>
-          <article class="card">
-            <form class="form-grid" data-upload-form>
-              <label>Title <input type="text" name="title" required></label>
-              <label>Speaker <input type="text" name="speaker" placeholder="Pastor"></label>
-              <label>Description <textarea name="description"></textarea></label>
-              <label>Platform URL <input type="url" name="platformUrl" placeholder="https://www.youtube.com/watch?v=..."></label>
-              <label>Tags (comma separated) <input type="text" name="tags" placeholder="sermon,sunday"></label>
-              <label>File <input type="file" name="file" required></label>
-              <button class="button primary" type="submit">Upload Media</button>
-            </form>
-          </article>
-
-          <div class="section-title-row">
-            <h2>Media Library</h2>
-            <span class="pill">Draft -> Review -> Publish</span>
-          </div>
-          <article class="card table-wrap">
-            <table>
-              <thead>
-                <tr><th>Title</th><th>Status</th><th>Speaker</th><th>Actions</th></tr>
-              </thead>
-              <tbody data-media-body></tbody>
-            </table>
-          </article>
-
-          <div class="section-title-row">
-            <h2>Audit Trail</h2>
-            <span class="pill">Recent Events</span>
-          </div>
-          <article class="card">
-            <ul class="meta-list" data-audit-list></ul>
-          </article>
-
-          <div class="section-title-row">
-            <h2>Ministry CRM Lite</h2>
-            <span class="pill">Visitors + Follow-Up</span>
-          </div>
-          <div class="grid-2">
-            <article class="card">
-              <form class="form-grid" data-crm-form>
-                <label>Name <input type="text" name="name" required></label>
-                <label>Email <input type="email" name="email" required></label>
-                <label>Interest
-                  <select name="interest">
-                    <option>First-Time Visitor</option>
-                    <option>Membership</option>
-                    <option>Volunteer</option>
-                    <option>Prayer Request</option>
-                  </select>
-                </label>
-                <button class="button primary" type="submit">Add Visitor Record</button>
-              </form>
-            </article>
-            <article class="card">
-              <h3>Follow-Up Queue</h3>
-              <ul class="meta-list" data-crm-list></ul>
-            </article>
-          </div>
-        </section>
+        <p class="eyebrow">Staff</p>
+        <h1>Staff portal coming soon</h1>
+        <p class="muted">This area is reserved for internal tools. Public visitors can use the main menu to explore messages, events, and the gallery.</p>
+        <p><a class="button secondary" href="./index.html">Return home</a></p>
       </div>
     </main>
     <footer class="site-footer"><div class="container row"><p class="muted"><span data-ph="branding.fullName">New Community Church</span>, <span data-ph="contact.cityState">Suffolk VA</span></p><p class="muted">Copyright <span data-year></span> NCC Family</p></div></footer>
     <script src="./assets/js/site.js?v=20260412"></script>
     <script src="./assets/js/placeholders.js"></script>
-    <script src="./assets/js/admin.js"></script>
   </body>
 </html>

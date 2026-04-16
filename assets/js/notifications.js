@@ -19,7 +19,7 @@ function initNotifications() {
       notifyStatus.textContent = "Current permission: " + permission;
       if (permission === "granted") {
         new Notification("NCC Alerts Enabled", {
-          body: "You will receive important demo updates for live services."
+          body: "You will receive reminders for live services and church updates."
         });
       }
     } catch (error) {

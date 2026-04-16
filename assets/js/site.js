@@ -1,22 +1,12 @@
 (function initSite() {
-  const unlockKey = "ncc_site_unlocked";
   const lockRoute = "under-construction.html";
   const themeKey = "ncc_theme";
-  function enforceSiteGate() {
-    const currentPath = window.location.pathname || "";
-    const isConstruction = currentPath.toLowerCase().endsWith("/" + lockRoute) || currentPath.toLowerCase().endsWith(lockRoute);
-    const isUnlocked = localStorage.getItem(unlockKey) === "1";
-    if (!isUnlocked && !isConstruction) {
-      const next = window.location.pathname.split("/").pop() || "index.html";
-      window.location.href = "./" + lockRoute + "?next=" + encodeURIComponent("./" + next);
-    }
-  }
 
   const navToggle = document.querySelector("[data-nav-toggle]");
   const nav = document.querySelector("[data-main-nav]");
   const headerContainer = document.querySelector(".site-header .container");
-  const brandMarkSrc = "./assets/images/minilogo.png";
-  const brandHeroSrc = "./assets/images/updated.png";
+  const brandMarkSrc = "./assets/newlogoset/crest%20no%20back.png";
+  const brandHeroSrc = "./assets/newlogoset/001_A_logo_for_NCC_New_Community_Church_Suffolk_VA_6nZsPeAi.png";
 
   function applyTheme(theme) {
     document.documentElement.setAttribute("data-theme", theme);
@@ -56,44 +46,7 @@
         img.src = brandHeroSrc;
         return;
       }
-      if (
-        src.indexOf("logo-mark.svg") !== -1 ||
-        src.indexOf("logo-wordmark.svg") !== -1 ||
-        src.indexOf("churchlogo.svg") !== -1 ||
-        src.indexOf("churchlogo.png") !== -1 ||
-        src.indexOf("churchlogoblackbackground.svg") !== -1 ||
-        src.indexOf("churchlogoblackbackground.png") !== -1
-      ) {
-        if (img.closest(".hub-section") || img.closest(".showcase-wrap")) {
-          img.src = brandHeroSrc;
-        } else {
-          img.src = brandMarkSrc;
-        }
-      }
     });
-  }
-
-  function setupLockToggle() {
-    if (!headerContainer) {
-      return;
-    }
-    const currentPath = window.location.pathname || "";
-    const isConstruction = currentPath.toLowerCase().endsWith("/" + lockRoute) || currentPath.toLowerCase().endsWith(lockRoute);
-    if (isConstruction) {
-      return;
-    }
-
-    const lockButton = document.createElement("button");
-    lockButton.type = "button";
-    lockButton.className = "lock-toggle";
-    lockButton.setAttribute("aria-label", "Lock site again");
-    lockButton.textContent = "Lock Site";
-    lockButton.addEventListener("click", function onLockSite() {
-      localStorage.removeItem(unlockKey);
-      window.location.href = "./" + lockRoute;
-    });
-
-    headerContainer.insertBefore(lockButton, nav || navToggle || null);
   }
 
   function setupAdminTree() {
@@ -101,32 +54,8 @@
       return;
     }
 
-    const navList = nav.querySelector("ul");
-    if (!navList || navList.querySelector(".nav-tree")) {
-      return;
-    }
-
-    const adminAnchor = navList.querySelector('a[href$="admin.html"]');
-    const colorsAnchor = navList.querySelector('a[href$="colors.html"]');
-
-    const adminText = adminAnchor ? (adminAnchor.textContent || "Admin") : "Admin";
-    const adminHref = adminAnchor ? (adminAnchor.getAttribute("href") || "./admin.html") : "./admin.html";
-    const colorsText = colorsAnchor ? (colorsAnchor.textContent || "Colors") : "Colors";
-    const colorsHref = colorsAnchor ? (colorsAnchor.getAttribute("href") || "./colors.html") : "./colors.html";
-
-    const adminLi = adminAnchor ? adminAnchor.closest("li") : null;
-    if (adminLi) adminLi.remove();
-    const colorsLi = colorsAnchor ? colorsAnchor.closest("li") : null;
-    if (colorsLi) colorsLi.remove();
-
-    const wrapper = document.createElement("li");
-    wrapper.className = "nav-tree";
-    wrapper.innerHTML =
-      '<details><summary>More</summary><div class="nav-tree-menu">' +
-      '<a href="' + colorsHref + '">' + colorsText + "</a>" +
-      '<a href="' + adminHref + '">' + adminText + "</a>" +
-      "</div></details>";
-    navList.appendChild(wrapper);
+    // Admin/brand hub navigation is intentionally not exposed in production nav.
+    return;
   }
 
   function setupGiveNavEnhancement() {
@@ -719,6 +648,7 @@
 
   const headerVideoIndexKey = "ncc_header_video_index";
   const headerManifestUrl = "./assets/headersrc/manifest.json";
+  const headerPageMapUrl = "./assets/headersrc/page-headers.json";
   const headerVideoFallback = "./assets/headersrc/newhero.mp4";
 
   function headerVideoMime(src) {
@@ -761,6 +691,11 @@
     return raw.filter(function (item) {
       return typeof item === "string" && isSafeHeaderVideoSrc(item);
     });
+  }
+
+  function normalizeHeaderPageMap(data) {
+    const pages = data && typeof data === "object" ? data.pages : null;
+    return pages && typeof pages === "object" ? pages : {};
   }
 
   function nextHeaderVideoIndex(length) {
@@ -810,7 +745,7 @@
       const hero = document.createElement("section");
       hero.className = "global-video-hero";
       hero.innerHTML =
-        '<video class="global-video-hero__video" autoplay muted loop playsinline preload="metadata" poster="./assets/images/updated.png">' +
+        '<video class="global-video-hero__video" autoplay muted loop playsinline preload="metadata" poster="./assets/newlogoset/001_A_logo_for_NCC_New_Community_Church_Suffolk_VA_6nZsPeAi.png">' +
         '<source src="' +
         srcAttr +
         '" type="' +
@@ -828,14 +763,33 @@
       main.insertBefore(hero, main.firstChild);
     }
 
-    fetch(headerManifestUrl, { cache: "no-store" })
+    const pageFile = (window.location.pathname.split("/").pop() || "index.html").trim();
+
+    fetch(headerPageMapUrl, { cache: "no-store" })
       .then(function (res) {
+        if (!res.ok) {
+          throw new Error("page map http");
+        }
+        return res.json();
+      })
+      .then(function (data) {
+        const map = normalizeHeaderPageMap(data);
+        const pinned = map[pageFile];
+        if (typeof pinned === "string" && isSafeHeaderVideoSrc(pinned)) {
+          mountHero(pinned);
+          return null;
+        }
+        return fetch(headerManifestUrl, { cache: "no-store" });
+      })
+      .then(function (res) {
+        if (!res) return;
         if (!res.ok) {
           throw new Error("manifest http");
         }
         return res.json();
       })
       .then(function (data) {
+        if (!data) return;
         const list = normalizeHeaderManifest(data);
         if (!list.length) {
           throw new Error("manifest empty");
@@ -860,11 +814,9 @@
     yearNode.textContent = String(new Date().getFullYear());
   }
 
-  enforceSiteGate();
   setupGlobalBrandAssets();
   setupAmbientBackground();
   setupThemeToggle();
-  setupLockToggle();
   setupInspirationNavLink();
   setupGiveNavEnhancement();
   setupAdminTree();

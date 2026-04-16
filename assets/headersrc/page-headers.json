@@ -1,0 +1,14 @@
+{
+    "pages":  {
+                  "give.html":  "./assets/headersrc/hero2.mp4",
+                  "index.html":  "./assets/headersrc/hero2.mp4",
+                  "statement-of-faith.html":  "./assets/headersrc/newhero.mp4",
+                  "about.html":  "./assets/headersrc/newhero.mp4",
+                  "messages.html":  "./assets/headersrc/hero2.mp4",
+                  "ministries.html":  "./assets/headersrc/copy_300D1CBD-CF16-421A-B69B-3A34BCD7ED97.mov",
+                  "events.html":  "./assets/headersrc/newhero.mp4",
+                  "anthony-inspiration.html":  "./assets/headersrc/newhero.mp4",
+                  "contact.html":  "./assets/headersrc/hero2.mp4",
+                  "gallery.html":  "./assets/headersrc/newhero.mp4"
+              }
+}
