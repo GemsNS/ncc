@@ -168,7 +168,7 @@ a {
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  min-height: 74px;
+  min-height: 86px;
 }
 
 .brand {
@@ -180,8 +180,8 @@ a {
 
 .brand img {
   width: auto;
-  height: 42px;
-  max-width: min(46vw, 250px);
+  height: 58px;
+  max-width: min(52vw, 280px);
   object-fit: contain;
 }
 
@@ -1003,7 +1003,7 @@ p {
 
 .story-sticky {
   position: sticky;
-  top: 92px;
+  top: 104px;
 }
 
 .story-stack {
@@ -1828,7 +1828,7 @@ body.focus-mode .ticker-shell {
 
   .main-nav {
     position: absolute;
-    inset: 74px 1rem auto 1rem;
+    inset: 86px 1rem auto 1rem;
     border-radius: var(--radius);
     background: rgba(15, 15, 23, 0.96);
     border: 1px solid var(--surface-border);

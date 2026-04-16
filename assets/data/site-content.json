@@ -5,8 +5,8 @@
     "address": "5112 Godwin Blvd, Suffolk, VA 23434",
     "phone": "(757) 434-6231",
     "serviceTimes": [
-      "Sunday at 11:00 AM (Zoom)",
-      "Wednesday at 7:00 PM (Zoom)"
+      "Sunday at 11:00 AM",
+      "Wednesday at 7:00 PM"
     ]
   },
   "placeholders": {
@@ -31,7 +31,7 @@
     "home": {
       "heroTitle": "We Are Building Faith + Community In Suffolk",
       "heroCopy": "New Community Church exists to serve people at every stage of faith with Christ-centered teaching, care, and digital access to worship throughout the week.",
-      "heroTimes": "Join us on Sunday at 11:00 AM and Wednesday at 7:00 PM via Zoom.",
+      "heroTimes": "Join us on Sunday at 11:00 AM and Wednesday at 7:00 PM.",
       "ctaWatch": "Watch Latest Message",
       "ctaVisit": "Plan Your Visit",
       "heroImage": "./assets/newlogoset/001_A_logo_for_NCC_New_Community_Church_Suffolk_VA_6nZsPeAi.png",
@@ -55,7 +55,7 @@
       "pageTitle": "Upcoming Church Gatherings",
       "sundayTitle": "Sunday Worship",
       "sundayTime": "Every Sunday at 11:00 AM",
-      "sundayCopy": "Primary gathering with in-person and Zoom participation options.",
+      "sundayCopy": "Primary gathering with in-person participation.",
       "wednesdayTitle": "Wednesday Midweek",
       "wednesdayTime": "Every Wednesday at 7:00 PM",
       "wednesdayCopy": "A focused Bible teaching and prayer experience."
@@ -133,7 +133,7 @@
       {
         "type": "ministry",
         "label": "Digital Campus",
-        "value": "YouTube + Zoom Active"
+        "value": "YouTube live"
       },
       {
         "type": "giving",

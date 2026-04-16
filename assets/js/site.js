@@ -62,6 +62,39 @@
     return;
   }
 
+  function setupStaffPortalFooterLink() {
+    if (document.querySelector("[data-staff-admin-link]")) {
+      return;
+    }
+    const pageFile = (window.location.pathname.split("/").pop() || "").trim().toLowerCase();
+    if (pageFile === "admin.html") {
+      return;
+    }
+    const row = document.querySelector(".site-footer .container.row");
+    if (!row) {
+      return;
+    }
+
+    const wrap = document.createElement("p");
+    wrap.className = "muted";
+    const anchor = document.createElement("a");
+    anchor.href = "./admin.html";
+    anchor.setAttribute("data-staff-admin-link", "");
+    anchor.textContent = "Staff · Events admin";
+    wrap.appendChild(anchor);
+
+    const paragraphs = Array.from(row.querySelectorAll("p"));
+    const copyrightP = paragraphs.find(function (p) {
+      return /Copyright/i.test(p.textContent || "");
+    });
+    if (copyrightP && copyrightP.parentNode) {
+      copyrightP.parentNode.insertBefore(wrap, copyrightP);
+      return;
+    }
+
+    row.appendChild(wrap);
+  }
+
   function setupInspirationNavLink() {
     if (!nav) {
       return;
@@ -275,6 +308,7 @@
     });
     links.push({ href: "./brand.html", label: "Brand Guide" });
     links.push({ href: "./colors.html", label: "Brand Hub" });
+    links.push({ href: "./admin.html", label: "Staff · Events admin" });
 
     const palette = document.createElement("div");
     palette.className = "command-palette";
@@ -804,4 +838,5 @@
   setupFaithWidget();
   setupPrayerChat();
   setupEmbedReliability();
+  setupStaffPortalFooterLink();
 })();

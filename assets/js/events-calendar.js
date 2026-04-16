@@ -90,14 +90,14 @@
       {
         title: "Sunday Worship",
         category: "Weekly Gathering",
-        location: "NCC Suffolk + Zoom",
+        location: "NCC Suffolk",
         description: "Primary worship gathering with biblical teaching and community prayer.",
         startAt: sunday.toISOString()
       },
       {
         title: "Wednesday Midweek",
         category: "Bible Teaching",
-        location: "NCC Suffolk + Zoom",
+        location: "NCC Suffolk",
         description: "Midweek teaching and prayer focused on spiritual growth.",
         startAt: wednesday.toISOString()
       }
