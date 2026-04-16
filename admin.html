@@ -8,20 +8,107 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./assets/css/styles.css?v=20260410">
+    <link rel="stylesheet" href="./assets/css/styles.css?v=20260416">
   </head>
   <body>
-    <header class="site-header"><div class="container"><a class="brand" href="./index.html"><img src="./assets/newlogoset/crest%20no%20back.png" alt="NCC logo"><div><strong data-ph="branding.shortName">NCC Family</strong><span data-ph="contact.cityState">Suffolk, Virginia</span></div></a><button class="nav-toggle" data-nav-toggle aria-expanded="false" aria-label="Toggle site menu">☰</button><nav class="main-nav" data-main-nav><ul><li><a href="./index.html">Home</a></li><li><a href="./statement-of-faith.html">Faith</a></li><li><a href="./about.html">About</a></li><li><a href="./ministries.html">Ministries</a></li><li><a href="./give.html">GIVE</a></li><li><a href="./events.html">Events</a></li><li><a href="./messages.html">Messages</a></li><li><a href="./anthony-inspiration.html">Inspiration</a></li><li><a href="./gallery.html">Gallery</a></li><li><a href="./contact.html">Contact</a></li></ul></nav></div></header>
+    <header class="site-header"><div class="container"><a class="brand" href="./index.html"><img src="./assets/newlogoset/004_In_a_minimalist_logo_style_the_emblem_features_zAIQkKHc.png" alt="NCC logo"><div><strong data-ph="branding.shortName">NCC Family</strong><span data-ph="contact.cityState">Suffolk, Virginia</span></div></a><button class="nav-toggle" data-nav-toggle aria-expanded="false" aria-label="Toggle site menu">☰</button><nav class="main-nav" data-main-nav><ul><li><a href="./index.html">Home</a></li><li><a href="./statement-of-faith.html">Faith</a></li><li><a href="./about.html">About</a></li><li><a href="./ministries.html">Ministries</a></li><li><a href="./give.html">Give</a></li><li><a href="./events.html">Events</a></li><li><a href="./messages.html">Messages</a></li><li><a href="./anthony-inspiration.html">Inspiration</a></li><li><a href="./gallery.html">Gallery</a></li><li><a href="./contact.html">Contact</a></li></ul></nav></div></header>
     <main class="section">
       <div class="container">
         <p class="eyebrow">Staff</p>
-        <h1>Staff portal coming soon</h1>
-        <p class="muted">This area is reserved for internal tools. Public visitors can use the main menu to explore messages, events, and the gallery.</p>
-        <p><a class="button secondary" href="./index.html">Return home</a></p>
+        <h1>Events Admin Panel</h1>
+        <p class="muted">Login to create, update, publish, and archive calendar events for the public events page.</p>
+
+        <section class="section">
+          <article class="card">
+            <h2>Admin Login</h2>
+            <form class="form-grid" data-admin-login-form>
+              <label>Email
+                <input type="email" name="email" autocomplete="username" required>
+              </label>
+              <label>Password
+                <input type="password" name="password" autocomplete="current-password" required>
+              </label>
+              <button class="button primary" type="submit">Sign in</button>
+            </form>
+            <p class="muted" data-admin-auth-status>Not signed in.</p>
+          </article>
+        </section>
+
+        <section class="section" data-admin-events-shell hidden>
+          <div class="grid-2">
+            <article class="card">
+              <h2>Create Event</h2>
+              <form class="form-grid" data-admin-event-form>
+                <label>Title
+                  <input type="text" name="title" maxlength="140" required>
+                </label>
+                <label>Category
+                  <input type="text" name="category" maxlength="80" placeholder="Weekly Gathering" required>
+                </label>
+                <label>Location
+                  <input type="text" name="location" maxlength="180" placeholder="NCC Suffolk + Zoom" required>
+                </label>
+                <label>Start Date/Time
+                  <input type="datetime-local" name="startAtLocal" required>
+                </label>
+                <label>End Date/Time (optional)
+                  <input type="datetime-local" name="endAtLocal">
+                </label>
+                <label>Status
+                  <select name="status">
+                    <option value="draft">Draft</option>
+                    <option value="published">Published</option>
+                    <option value="archived">Archived</option>
+                  </select>
+                </label>
+                <label>Description
+                  <textarea name="description" maxlength="1000" required></textarea>
+                </label>
+                <button class="button primary" type="submit">Save Event</button>
+              </form>
+            </article>
+            <article class="card">
+              <h2>Publishing Notes</h2>
+              <ul class="meta-list">
+                <li><strong>Draft:</strong> visible in admin only.</li>
+                <li><strong>Published:</strong> shown on the public events page.</li>
+                <li><strong>Archived:</strong> hidden from public and upcoming list.</li>
+              </ul>
+              <p class="muted">After publishing, refresh `Events` to confirm the update appears in order by date.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="section" data-admin-events-shell hidden>
+          <article class="card">
+            <div class="section-title-row">
+              <h2>Manage Events</h2>
+              <span class="pill" data-admin-event-count>0 records</span>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Title</th>
+                    <th>When</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody data-admin-event-rows>
+                  <tr>
+                    <td colspan="4" class="muted">Login to load events.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </article>
+        </section>
       </div>
     </main>
     <footer class="site-footer"><div class="container row"><p class="muted"><span data-ph="branding.fullName">New Community Church</span>, <span data-ph="contact.cityState">Suffolk VA</span></p><p class="muted">Copyright <span data-year></span> NCC Family</p></div></footer>
-    <script src="./assets/js/site.js?v=20260412"></script>
+    <script src="./assets/js/site.js?v=20260416"></script>
     <script src="./assets/js/placeholders.js"></script>
+    <script src="./assets/js/admin-events.js?v=20260416"></script>
   </body>
 </html>

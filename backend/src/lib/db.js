@@ -6,7 +6,8 @@ const dataDir = path.join(__dirname, "..", "..", "data");
 const files = {
   users: path.join(dataDir, "users.json"),
   media: path.join(dataDir, "media.json"),
-  audit: path.join(dataDir, "audit.json")
+  audit: path.join(dataDir, "audit.json"),
+  events: path.join(dataDir, "events.json")
 };
 
 function ensureDir() {
@@ -36,6 +37,7 @@ function initDataStore(defaultAdmin) {
   ensureFile(files.users, [defaultAdmin]);
   ensureFile(files.media, []);
   ensureFile(files.audit, []);
+  ensureFile(files.events, []);
 }
 
 function getUsers() {
@@ -62,6 +64,14 @@ function saveAuditLogs(logs) {
   writeJson(files.audit, logs);
 }
 
+function getEvents() {
+  return readJson(files.events, []);
+}
+
+function saveEvents(events) {
+  writeJson(files.events, events);
+}
+
 module.exports = {
   initDataStore,
   getUsers,
@@ -69,5 +79,7 @@ module.exports = {
   getMedia,
   saveMedia,
   getAuditLogs,
-  saveAuditLogs
+  saveAuditLogs,
+  getEvents,
+  saveEvents
 };

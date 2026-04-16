@@ -287,7 +287,7 @@ function renderMediaCards(items) {
         item.thumbnail +
         '" alt="' +
         item.title +
-        ' thumbnail" loading="lazy" onerror="this.onerror=null;this.src=\'./assets/newlogoset/crest%20no%20back.png\';">' +
+        ' thumbnail" loading="lazy" onerror="this.onerror=null;this.src=\'./assets/newlogoset/004_In_a_minimalist_logo_style_the_emblem_features_zAIQkKHc.png\';">' +
         '<div class="content">' +
         '<span class="pill">' +
         item.date +

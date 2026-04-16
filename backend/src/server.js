@@ -9,6 +9,7 @@ const { initDataStore } = require("./lib/db");
 const authRoutes = require("./routes/auth");
 const mediaRoutes = require("./routes/media");
 const adminRoutes = require("./routes/admin");
+const eventRoutes = require("./routes/events");
 
 const app = express();
 
@@ -43,6 +44,7 @@ app.get("/api/health", (req, res) => {
 app.use("/api/auth", authRoutes);
 app.use("/api/media", mediaRoutes);
 app.use("/api/admin", adminRoutes);
+app.use("/api/events", eventRoutes);
 
 app.use((err, req, res, next) => {
   if (err && err.code === "LIMIT_FILE_SIZE") {

@@ -5,7 +5,7 @@
   const navToggle = document.querySelector("[data-nav-toggle]");
   const nav = document.querySelector("[data-main-nav]");
   const headerContainer = document.querySelector(".site-header .container");
-  const brandMarkSrc = "./assets/newlogoset/crest%20no%20back.png";
+  const brandMarkSrc = "./assets/newlogoset/004_In_a_minimalist_logo_style_the_emblem_features_zAIQkKHc.png";
   const brandHeroSrc = "./assets/newlogoset/001_A_logo_for_NCC_New_Community_Church_Suffolk_VA_6nZsPeAi.png";
 
   function applyTheme(theme) {
@@ -56,35 +56,6 @@
 
     // Admin/brand hub navigation is intentionally not exposed in production nav.
     return;
-  }
-
-  function setupGiveNavEnhancement() {
-    if (!nav) {
-      return;
-    }
-    const navList = nav.querySelector("ul");
-    if (!navList) {
-      return;
-    }
-    const giveAnchor = navList.querySelector('a[href$="give.html"]');
-    if (!giveAnchor) {
-      return;
-    }
-
-    giveAnchor.classList.add("nav-give-link");
-    const giveLi = giveAnchor.closest("li");
-    if (!giveLi) {
-      return;
-    }
-
-    const listItems = Array.from(navList.children);
-    const currentIndex = listItems.indexOf(giveLi);
-    const targetIndex = 3;
-    if (currentIndex !== targetIndex && targetIndex >= 0) {
-      navList.removeChild(giveLi);
-      const updatedItems = Array.from(navList.children);
-      navList.insertBefore(giveLi, updatedItems[targetIndex] || null);
-    }
   }
 
   function setupInspirationNavLink() {
@@ -818,7 +789,6 @@
   setupAmbientBackground();
   setupThemeToggle();
   setupInspirationNavLink();
-  setupGiveNavEnhancement();
   setupAdminTree();
   setupGlobalVideoHero();
   setupInteractiveHero();
