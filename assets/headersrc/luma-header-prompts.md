@@ -21,7 +21,6 @@ Output: seamless hero-style footage that still reads clearly with a dark overlay
 - `events.html`: Subject: event setup and welcome moments, chairs being arranged, greeters, families arriving, anticipation.
 - `livestream.html`: Subject: pastor preaching, congregation engaged, Bible teaching focus, cinematic movement centered on the message moment.
 - `anthony-inspiration.html`: Subject: pastoral encouragement in reflective scenes, walking outdoors, hopeful devotional tone.
-- `gallery.html`: Subject: montage of worship, fellowship, candid smiles, outreach moments, dynamic highlight-reel feel.
 - `give.html`: Subject: dignified generosity through service, helping hands, community support, mission-centered visuals.
 - `contact.html`: Subject: warm hospitality, greeters at doors, friendly conversations, welcoming church atmosphere.
 

@@ -191,7 +191,7 @@ async function loadHomeFeaturedVideos() {
             '<a class="button secondary" href="' +
             item.watchUrl +
             '" target="_blank" rel="noopener noreferrer">Open on YouTube</a>' +
-            '<a class="button secondary" href="./gallery.html#feeds">Gallery feeds</a>' +
+            '<a class="button secondary" href="./livestream.html">Watch live</a>' +
             "</p>" +
             "</div>" +
             "</article>"
@@ -224,7 +224,7 @@ async function loadHomeFeaturedVideos() {
           subLocal +
           "</p>" +
           '<p class="home-featured-card__actions">' +
-          '<a class="button secondary" href="./gallery.html#feeds">Open gallery feeds</a>' +
+          '<a class="button secondary" href="./livestream.html">Watch live</a>' +
           "</p>" +
           "</div>" +
           "</article>"

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<events version="1">
+  <!--
+    Admin-panel bridge format (XML)
+    - start/end: ISO-8601 local datetime or UTC (e.g. 2026-04-25T18:00 or 2026-04-25T22:00Z)
+    - category/location/url optional
+  -->
+  <event
+    id="community-outreach-001"
+    title="Community Outreach"
+    category="Outreach"
+    location="NCC Suffolk"
+    start="2026-04-25T10:00"
+    end="2026-04-25T12:00"
+    description="Join us as we serve our neighbors with practical love and prayer." />
+  <event
+    id="leaders-huddle-001"
+    title="Leadership Huddle"
+    category="Leaders"
+    location="NCC Suffolk"
+    start="2026-04-28T19:30"
+    description="Training + alignment for ministry leaders and volunteers." />
+</events>
+

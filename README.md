@@ -106,7 +106,7 @@ This changelog summarizes all major implementation work completed for the NCC re
 
 ### Phase 2 - Site Build and Page Expansion
 
-- Implemented/expanded key pages: `index.html`, `about.html`, `ministries.html`, `livestream.html`, `gallery.html`, `events.html`, `contact.html`, `give.html`, `brand.html`, `colors.html`, `admin.html`.
+- Implemented/expanded key pages: `index.html`, `about.html`, `ministries.html`, `livestream.html`, `events.html`, `contact.html`, `give.html`, `brand.html`, `colors.html`, `admin.html`.
 - Added stronger section architecture and richer content blocks across the site.
 - Converted multiple "empty" sections into narrative, media-supported experiences.
 

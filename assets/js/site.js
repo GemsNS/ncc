@@ -111,9 +111,9 @@
       }
       const li = document.createElement("li");
       li.innerHTML = '<a href="./' + href + '">' + label + "</a>";
-      const galleryLi = navList.querySelector('a[href$="gallery.html"]');
-      if (galleryLi && galleryLi.closest("li")) {
-        navList.insertBefore(li, galleryLi.closest("li"));
+      const contactLi = navList.querySelector('a[href$="contact.html"]');
+      if (contactLi && contactLi.closest("li")) {
+        navList.insertBefore(li, contactLi.closest("li"));
       } else {
         navList.appendChild(li);
       }
