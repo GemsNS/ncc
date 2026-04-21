@@ -7,7 +7,7 @@
   const headerContainer = document.querySelector(".site-header .container");
   const brandMarkSrc = "./assets/newlogoset/ncc-mark-primary-light.png";
   const brandMarkDarkSrc = "./assets/newlogoset/ncc-mark-white-dark.png";
-  const brandHeroSrc = "./assets/newlogoset/ncc-lockup-horizontal-dark.png";
+  const brandHeroSrc = "./assets/newlogoset/home-hero-logo-panel.png";
 
   function applyTheme(theme) {
     document.documentElement.setAttribute("data-theme", theme);
