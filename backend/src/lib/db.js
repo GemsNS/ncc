@@ -8,7 +8,8 @@ const files = {
   media: path.join(dataDir, "media.json"),
   audit: path.join(dataDir, "audit.json"),
   events: path.join(dataDir, "events.json"),
-  prayerInbox: path.join(dataDir, "prayer-inbox.json")
+  prayerInbox: path.join(dataDir, "prayer-inbox.json"),
+  blogPosts: path.join(dataDir, "blog-posts.json")
 };
 
 function ensureDir() {
@@ -42,6 +43,7 @@ function initDataStore(defaultAdmin) {
   ensureFile(files.audit, []);
   ensureFile(files.events, []);
   ensureFile(files.prayerInbox, []);
+  ensureFile(files.blogPosts, []);
 }
 
 function getUsers() {
@@ -84,6 +86,14 @@ function savePrayerInbox(items) {
   writeJson(files.prayerInbox, items);
 }
 
+function getBlogPosts() {
+  return readJson(files.blogPosts, []);
+}
+
+function saveBlogPosts(items) {
+  writeJson(files.blogPosts, items);
+}
+
 module.exports = {
   initDataStore,
   getUsers,
@@ -95,5 +105,7 @@ module.exports = {
   getEvents,
   saveEvents,
   getPrayerInbox,
-  savePrayerInbox
+  savePrayerInbox,
+  getBlogPosts,
+  saveBlogPosts
 };

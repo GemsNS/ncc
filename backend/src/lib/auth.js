@@ -10,7 +10,9 @@ function verifyPassword(password, hash) {
 }
 
 function signToken(payload) {
-  const secret = process.env.JWT_SECRET;
+  const nodeEnv = String(process.env.NODE_ENV || "production").toLowerCase();
+  const secret =
+    process.env.JWT_SECRET || (nodeEnv === "development" ? "dev-only-secret-change-me" : "");
   if (!secret) {
     throw new Error("JWT_SECRET is required");
   }
@@ -18,7 +20,9 @@ function signToken(payload) {
 }
 
 function verifyToken(token) {
-  const secret = process.env.JWT_SECRET;
+  const nodeEnv = String(process.env.NODE_ENV || "production").toLowerCase();
+  const secret =
+    process.env.JWT_SECRET || (nodeEnv === "development" ? "dev-only-secret-change-me" : "");
   if (!secret) {
     throw new Error("JWT_SECRET is required");
   }

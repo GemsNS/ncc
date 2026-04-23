@@ -12,6 +12,7 @@ const mediaRoutes = require("./routes/media");
 const adminRoutes = require("./routes/admin");
 const eventRoutes = require("./routes/events");
 const prayerRoutes = require("./routes/prayer");
+const blogRoutes = require("./routes/blog");
 const publicRoutes = require("./routes/public");
 const adminSiteConfigRoutes = require("./routes/admin-site-config");
 
@@ -85,8 +86,16 @@ app.use("/api/media", mediaRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/events", eventRoutes);
 app.use("/api/prayer", prayerRoutes);
+app.use("/api/blog", blogRoutes);
 
 app.use((err, req, res, next) => {
+  if (nodeEnv === "development") {
+    // eslint-disable-next-line no-console
+    console.error(err);
+  }
+  if (err && (err.statusCode === 400 || err.type === "entity.parse.failed")) {
+    return res.status(400).json({ error: "Invalid JSON body" });
+  }
   if (err && err.code === "LIMIT_FILE_SIZE") {
     return res.status(413).json({ error: "File exceeds 25MB limit" });
   }

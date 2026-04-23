@@ -2089,3 +2089,42 @@ body.focus-mode .ticker-shell {
     grid-template-columns: 1fr;
   }
 }
+
+.blog-stack {
+  display: grid;
+  gap: 1rem;
+}
+
+.blog-post__meta {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  align-items: center;
+  margin: 0 0 0.65rem 0;
+}
+
+.blog-post__title {
+  margin: 0 0 0.35rem 0;
+}
+
+.blog-post__body {
+  color: var(--soft-white);
+}
+
+.blog-post__body p {
+  color: var(--soft-white);
+}
+
+.blog-post__body h2,
+.blog-post__body h3 {
+  margin-top: 1.1rem;
+}
+
+.blog-post__body a {
+  color: var(--accent-cyan);
+  text-decoration: none;
+}
+
+.blog-post__body a:hover {
+  text-decoration: underline;
+}

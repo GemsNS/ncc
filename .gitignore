@@ -7,4 +7,5 @@ backend/data/audit.json
 backend/data/events.json
 backend/data/prayer-inbox.json
 backend/data/site-config.json
+backend/data/blog-posts.json
 assets/config/runtime.json

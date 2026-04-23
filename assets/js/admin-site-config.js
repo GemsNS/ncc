@@ -1,10 +1,12 @@
 (function initAdminSiteConfig() {
   const tokenKey = "ncc_admin_token";
+  const modeKey = "ncc_admin_mode";
   const textarea = document.querySelector("[data-admin-site-config-text]");
   const statusEl = document.querySelector("[data-admin-site-config-status]");
   const loadBtn = document.querySelector("[data-admin-site-config-load]");
   const saveBtn = document.querySelector("[data-admin-site-config-save]");
   var authListenerAttached = false;
+  const demoSiteKey = "ncc_demo_site_config";
 
   function apiRoot() {
     return String(window.NCC_API_BASE || "/api").replace(/\/$/, "");
@@ -42,7 +44,55 @@
     return localStorage.getItem(tokenKey);
   }
 
+  function getMode() {
+    return sessionStorage.getItem(modeKey) || "backend";
+  }
+
+  function demoGetConfig() {
+    try {
+      const raw = localStorage.getItem(demoSiteKey);
+      if (raw) return JSON.parse(raw);
+    } catch (err) {
+      /* ignore */
+    }
+    return null;
+  }
+
+  function demoSaveConfig(value) {
+    localStorage.setItem(demoSiteKey, JSON.stringify(value, null, 2));
+  }
+
   async function request(path, options) {
+    if (getMode() === "demo") {
+      if (path === "/admin/site-config" && (!options || !options.method || options.method === "GET")) {
+        const existing = demoGetConfig();
+        return (
+          existing || {
+            version: 1,
+            updatedAt: new Date().toISOString(),
+            live: {
+              statusSource: "manual",
+              manualStatus: "starting_soon",
+              tickerItems: [],
+              serviceTimeline: { live: [], starting_soon: [], offline: [] },
+              links: { youtubeWatch: "https://www.youtube.com/@NCCSUFFOLK", zoom: "https://zoom.us/" }
+            },
+            videoSlots: {},
+            homeFeaturedVideos: { videos: [] },
+            mediaArchive: [],
+            sermonNotes: [],
+            calendar: { xmlUrl: "./assets/data/events.xml" }
+          }
+        );
+      }
+      if (path === "/admin/site-config" && options && String(options.method || "").toUpperCase() === "PUT") {
+        const body = options.body ? JSON.parse(String(options.body)) : {};
+        demoSaveConfig(body);
+        return body;
+      }
+      throw new Error("Demo mode: unsupported action");
+    }
+
     const token = getToken();
     const headers = {
       "Content-Type": "application/json",

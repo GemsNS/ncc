@@ -41,6 +41,9 @@
               <button class="button primary" type="submit">Sign in</button>
             </form>
             <p class="muted" data-admin-auth-status>Not signed in.</p>
+            <div style="margin-top: 0.75rem;">
+              <button class="button secondary" type="button" data-admin-demo-enable>Use demo mode (GitHub Pages)</button>
+            </div>
           </article>
         </section>
 
@@ -157,6 +160,60 @@
             </div>
           </article>
         </section>
+
+        <section class="section" data-admin-blog-shell hidden>
+          <div class="grid-2">
+            <article class="card">
+              <h2>Create blog post (markdown)</h2>
+              <form class="form-grid" data-admin-blog-form>
+                <label>Title
+                  <input type="text" name="title" maxlength="160" required>
+                </label>
+                <label>Author
+                  <input type="text" name="author" maxlength="120" placeholder="NCC Staff">
+                </label>
+                <label>Status
+                  <select name="status">
+                    <option value="draft">Draft</option>
+                    <option value="published">Published</option>
+                    <option value="archived">Archived</option>
+                  </select>
+                </label>
+                <label>Body (Markdown)
+                  <textarea name="bodyMd" rows="10" maxlength="20000" placeholder="## Heading&#10;&#10;Write your post..." required></textarea>
+                </label>
+                <button class="button primary" type="submit">Save Post</button>
+              </form>
+              <p class="muted" data-admin-blog-status></p>
+              <p class="muted">Preview at <code>blog.html</code> (not linked in menus).</p>
+            </article>
+
+            <article class="card">
+              <div class="section-title-row">
+                <h2>Manage blog</h2>
+                <span class="pill" data-admin-blog-count>0 posts</span>
+              </div>
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Title</th>
+                      <th>Slug</th>
+                      <th>Status</th>
+                      <th>Published</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody data-admin-blog-rows>
+                    <tr>
+                      <td colspan="5" class="muted">Sign in to load posts.</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </article>
+          </div>
+        </section>
       </div>
     </main>
     <footer class="site-footer"><div class="container row"><p class="muted"><span data-ph="branding.fullName">New Community Church</span>, <span data-ph="contact.cityState">Suffolk VA</span></p><p class="muted">Copyright <span data-year></span> NCC Family</p></div></footer>
@@ -164,5 +221,6 @@
     <script src="./assets/js/placeholders.js"></script>
     <script src="./assets/js/admin-events.js?v=20260422"></script>
     <script src="./assets/js/admin-site-config.js?v=20260422"></script>
+    <script src="./assets/js/admin-blog.js?v=20260423"></script>
   </body>
 </html>
