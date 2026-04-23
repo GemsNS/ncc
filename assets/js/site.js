@@ -1,4 +1,96 @@
 (function initSite() {
+  if (!window.__NCC_RUNTIME_LOADED) {
+    var defaultApi = "/api";
+    window.__NCC_RUNTIME_LOADED = fetch("./assets/config/runtime.json", { cache: "no-store" })
+      .then(function (res) {
+        if (!res.ok) {
+          throw new Error("runtime http");
+        }
+        return res.json();
+      })
+      .then(function (cfg) {
+        if (cfg && cfg.apiBase) {
+          window.NCC_API_BASE = String(cfg.apiBase).replace(/\/$/, "");
+        } else if (!window.NCC_API_BASE) {
+          window.NCC_API_BASE = defaultApi;
+        }
+        window.NCC_RUNTIME = cfg || {};
+        return window.NCC_RUNTIME;
+      })
+      .catch(function () {
+        if (!window.NCC_API_BASE) {
+          window.NCC_API_BASE = defaultApi;
+        }
+        window.NCC_RUNTIME = window.NCC_RUNTIME || {};
+        return window.NCC_RUNTIME;
+      });
+  }
+
+  window.__NCC_SITE_CONFIG_PROMISE = null;
+  window.ensureNccSitePublicConfig = function ensureNccSitePublicConfig() {
+    if (window.__NCC_SITE_CONFIG_PROMISE) {
+      return window.__NCC_SITE_CONFIG_PROMISE;
+    }
+    var api = String(window.NCC_API_BASE || "").replace(/\/$/, "");
+    if (!api) {
+      window.__NCC_SITE_CONFIG = null;
+      window.__NCC_SITE_CONFIG_PROMISE = Promise.resolve(null);
+      return window.__NCC_SITE_CONFIG_PROMISE;
+    }
+    window.__NCC_SITE_CONFIG_PROMISE = fetch(api + "/public/site-config", { cache: "no-store" })
+      .then(function (res) {
+        if (!res.ok) {
+          throw new Error("site-config http");
+        }
+        return res.json();
+      })
+      .then(function (json) {
+        window.__NCC_SITE_CONFIG = json;
+        return json;
+      })
+      .catch(function () {
+        window.__NCC_SITE_CONFIG = null;
+        return null;
+      });
+    return window.__NCC_SITE_CONFIG_PROMISE;
+  };
+
+  function applyNccManagedEmbedsFromConfig() {
+    var cfg = window.__NCC_SITE_CONFIG;
+    if (!cfg) {
+      return;
+    }
+    if (cfg.videoSlots && typeof cfg.videoSlots === "object") {
+      Object.keys(cfg.videoSlots).forEach(function (slotId) {
+        var entry = cfg.videoSlots[slotId];
+        var el = document.querySelector('[data-ncc-video="' + slotId + '"]');
+        if (!el || el.tagName !== "IFRAME") {
+          return;
+        }
+        if (entry && entry.embedUrl) {
+          el.setAttribute("src", String(entry.embedUrl));
+        }
+        if (entry && entry.title) {
+          el.setAttribute("title", String(entry.title));
+        }
+        if (entry && entry.overlay) {
+          el.setAttribute("data-ncc-embed-overlay", String(entry.overlay));
+        }
+      });
+    }
+    if (cfg.live && cfg.live.links && typeof cfg.live.links === "object") {
+      document.querySelectorAll("[data-ncc-link]").forEach(function (node) {
+        var key = node.getAttribute("data-ncc-link");
+        if (!key || !cfg.live.links[key]) {
+          return;
+        }
+        node.setAttribute("href", String(cfg.live.links[key]));
+      });
+    }
+  }
+
+  window.__NCC_APPLY_MANAGED_EMBEDS = applyNccManagedEmbedsFromConfig;
+
   const lockRoute = "under-construction.html";
   const themeKey = "ncc_theme";
 
@@ -80,7 +172,7 @@
     const anchor = document.createElement("a");
     anchor.href = "./admin.html";
     anchor.setAttribute("data-staff-admin-link", "");
-    anchor.textContent = "Staff · Events admin";
+    anchor.textContent = "Staff admin";
     wrap.appendChild(anchor);
 
     const paragraphs = Array.from(row.querySelectorAll("p"));
@@ -428,7 +520,7 @@
       '<p class="muted" data-prayer-status>Checking availability...</p>' +
       '<div class="prayer-chat-log" data-prayer-log></div>' +
       '<form class="prayer-chat-form" data-prayer-form>' +
-      '<input data-prayer-input type="text" placeholder="Share your prayer request..." />' +
+      '<input data-prayer-input type="text" aria-label="Prayer request message" placeholder="Share your prayer request..." />' +
       '<button type="submit" class="button primary">Send</button>' +
       "</form>" +
       '<p class="muted" data-prayer-actions></p>' +
@@ -527,6 +619,33 @@
         appendBubble("bot", "I can still pray with you here. Share your request any time.");
       });
 
+    function getPrayerSessionId() {
+      try {
+        var key = "ncc_prayer_session";
+        var existing = window.localStorage.getItem(key);
+        if (existing && String(existing).length >= 8) {
+          return String(existing);
+        }
+        var id =
+          window.crypto && typeof window.crypto.randomUUID === "function"
+            ? window.crypto.randomUUID()
+            : "sess-" + String(Date.now()) + "-" + String(Math.random()).slice(2, 10);
+        window.localStorage.setItem(key, id);
+        return id;
+      } catch (err) {
+        return "sess-" + String(Date.now());
+      }
+    }
+
+    function useBackendPrayer() {
+      var rt = window.NCC_RUNTIME || {};
+      var pc = rt.prayerChat || rt.prayer || {};
+      if (pc.useBackendAi === false) {
+        return false;
+      }
+      return !!window.NCC_API_BASE;
+    }
+
     if (formNode) {
       formNode.addEventListener("submit", function onPrayerSubmit(event) {
         event.preventDefault();
@@ -534,17 +653,68 @@
           return;
         }
         const text = inputNode ? inputNode.value.trim() : "";
-        if (!text) return;
+        if (!text) {
+          return;
+        }
         appendBubble("user", text);
-        if (inputNode) inputNode.value = "";
-        window.setTimeout(function () {
-          appendBubble("bot", helperReply(text));
-        }, 260);
+        if (inputNode) {
+          inputNode.value = "";
+        }
+
+        function replyLocal() {
+          window.setTimeout(function () {
+            appendBubble("bot", helperReply(text));
+          }, 200);
+        }
+
+        if (!useBackendPrayer()) {
+          replyLocal();
+          return;
+        }
+
+        var apiRoot = String(window.NCC_API_BASE || "").replace(/\/$/, "");
+        var sendBtn = formNode.querySelector("button[type='submit']");
+        if (sendBtn) {
+          sendBtn.disabled = true;
+        }
+
+        fetch(apiRoot + "/prayer/chat", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            message: text,
+            sessionId: getPrayerSessionId()
+          })
+        })
+          .then(function (res) {
+            if (!res.ok) {
+              throw new Error("prayer api");
+            }
+            return res.json();
+          })
+          .then(function (data) {
+            if (data && data.sessionId) {
+              try {
+                window.localStorage.setItem("ncc_prayer_session", String(data.sessionId));
+              } catch (err) {
+                /* ignore */
+              }
+            }
+            appendBubble("bot", (data && data.reply) || helperReply(text));
+          })
+          .catch(function () {
+            appendBubble("bot", helperReply(text));
+          })
+          .finally(function () {
+            if (sendBtn) {
+              sendBtn.disabled = false;
+            }
+          });
       });
     }
   }
 
-  function setupEmbedReliability() {
+  function wrapNewEmbedIframes() {
     const embeds = Array.from(document.querySelectorAll("iframe"));
     if (!embeds.length) {
       return;
@@ -576,8 +746,24 @@
         ? "620px"
         : frame.classList.contains("video-frame")
           ? "365px"
-          : "340px";
+          : frame.classList.contains("home-featured-card__embed")
+            ? "220px"
+            : "340px";
       wrapper.style.minHeight = preferredMinHeight;
+
+      const slotId = frame.getAttribute("data-ncc-video");
+      const slotCfg =
+        window.__NCC_SITE_CONFIG &&
+        window.__NCC_SITE_CONFIG.videoSlots &&
+        slotId &&
+        window.__NCC_SITE_CONFIG.videoSlots[slotId];
+      const overlayMode =
+        (slotCfg && slotCfg.overlay) ||
+        frame.getAttribute("data-ncc-embed-overlay") ||
+        "auto";
+      const offTitle = (slotCfg && slotCfg.offlineTitle) || "Offline";
+      const offMsg =
+        (slotCfg && slotCfg.offlineMessage) || "This media embed is currently unavailable.";
 
       const cover = document.createElement("div");
       cover.className = "embed-offline";
@@ -585,10 +771,18 @@
       cover.innerHTML =
         '<div class="embed-offline-card">' +
         '<span class="embed-dot"></span>' +
-        "<strong>Offline</strong>" +
-        "<p>This media embed is currently unavailable.</p>" +
+        "<strong></strong>" +
+        '<p class="embed-offline-msg"></p>' +
         '<button type="button" class="button secondary" data-embed-retry>Retry Connection</button>' +
         "</div>";
+      const titleStrong = cover.querySelector("strong");
+      const msgP = cover.querySelector(".embed-offline-msg");
+      if (titleStrong) {
+        titleStrong.textContent = offTitle;
+      }
+      if (msgP) {
+        msgP.textContent = offMsg;
+      }
 
       frame.parentNode.insertBefore(wrapper, frame);
       wrapper.appendChild(frame);
@@ -636,7 +830,11 @@
         showOffline();
       });
 
-      if (!src) {
+      if (overlayMode === "force-offline") {
+        showOffline();
+      } else if (overlayMode === "force-online") {
+        showOnline();
+      } else if (!src) {
         showOffline();
       } else {
         startTimeout();
@@ -649,11 +847,19 @@
           const originalSrc = frame.getAttribute("data-embed-src-base") || src;
           const bust = originalSrc.indexOf("?") === -1 ? "?" : "&";
           frame.setAttribute("src", originalSrc + bust + "retry=" + Date.now());
-          startTimeout();
+          if (overlayMode !== "force-offline" && overlayMode !== "force-online") {
+            startTimeout();
+          }
         });
       }
     });
   }
+
+  function setupEmbedReliability() {
+    wrapNewEmbedIframes();
+  }
+
+  window.__NCC_WRAP_NEW_EMBEDS = wrapNewEmbedIframes;
 
   const headerVideoIndexKey = "ncc_header_video_index";
   const headerManifestUrl = "./assets/headersrc/manifest.json";
@@ -836,7 +1042,20 @@
   setupQuickActions();
   setupCommandPalette();
   setupFaithWidget();
-  setupPrayerChat();
-  setupEmbedReliability();
+  window.__NCC_RUNTIME_LOADED
+    .catch(function () {
+      return {};
+    })
+    .then(function () {
+      return window.ensureNccSitePublicConfig();
+    })
+    .catch(function () {
+      return null;
+    })
+    .then(function () {
+      applyNccManagedEmbedsFromConfig();
+      setupEmbedReliability();
+      setupPrayerChat();
+    });
   setupStaffPortalFooterLink();
 })();

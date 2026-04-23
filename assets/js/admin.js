@@ -1,4 +1,4 @@
-const API_BASE = window.NCC_API_BASE || "http://localhost:4000/api";
+const API_BASE = window.NCC_API_BASE || "/api";
 const storageKey = "ncc_admin_token";
 const modeKey = "ncc_admin_mode";
 const demoMediaKey = "ncc_demo_media";

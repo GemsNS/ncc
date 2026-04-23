@@ -24,17 +24,23 @@ function byStartDateAsc(a, b) {
   return new Date(a.startAt).getTime() - new Date(b.startAt).getTime();
 }
 
-router.get("/", (req, res) => {
+router.get("/", (req, res, next) => {
   const includeAll = String(req.query.includeAll || "").toLowerCase() === "true";
   const now = Date.now();
 
   let events = getEvents().slice().sort(byStartDateAsc);
   if (!includeAll) {
     events = events.filter((item) => item.status === "published");
+    events = events.filter((item) => new Date(item.startAt).getTime() >= now);
+    return res.json(events);
   }
 
-  const upcoming = events.filter((item) => new Date(item.startAt).getTime() >= now);
-  return res.json(upcoming);
+  return requireAuth(req, res, function afterAuth(err) {
+    if (err) return next(err);
+    return requireRole("super_admin", "editor", "publisher")(req, res, function afterRole() {
+      return res.json(events);
+    });
+  });
 });
 
 router.post("/", requireAuth, requireRole("super_admin", "editor", "publisher"), (req, res) => {

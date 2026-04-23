@@ -78,6 +78,10 @@ The project now includes a custom Node.js backend in `backend/` for:
 3. Copy `.env.example` to `.env` and set secure values
 4. `npm start`
 
+### cPanel deployment
+
+See `docs/deploy-cpanel.md`.
+
 Backend default local URL: `http://localhost:4000`
 
 ### Admin Panel

@@ -35,15 +35,28 @@ const patchSchema = z.object({
   tags: z.array(z.string().min(1).max(40)).optional()
 });
 
-router.get("/", (req, res) => {
+router.get("/", (req, res, next) => {
   const status = req.query.status;
+  const includeAll = String(req.query.includeAll || "").toLowerCase() === "true";
   const media = getMedia();
 
-  if (status && typeof status === "string") {
-    return res.json(media.filter((item) => item.status === status));
+  if (!includeAll) {
+    const published = media.filter((item) => item.status === "published");
+    if (status && typeof status === "string") {
+      return res.json(published.filter((item) => item.status === status));
+    }
+    return res.json(published);
   }
 
-  return res.json(media);
+  return requireAuth(req, res, function afterAuth(err) {
+    if (err) return next(err);
+    return requireRole("super_admin", "editor", "publisher")(req, res, function afterRole() {
+      if (status && typeof status === "string") {
+        return res.json(media.filter((item) => item.status === status));
+      }
+      return res.json(media);
+    });
+  });
 });
 
 router.post(

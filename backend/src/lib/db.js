@@ -7,7 +7,8 @@ const files = {
   users: path.join(dataDir, "users.json"),
   media: path.join(dataDir, "media.json"),
   audit: path.join(dataDir, "audit.json"),
-  events: path.join(dataDir, "events.json")
+  events: path.join(dataDir, "events.json"),
+  prayerInbox: path.join(dataDir, "prayer-inbox.json")
 };
 
 function ensureDir() {
@@ -29,7 +30,9 @@ function readJson(filePath, fallback) {
 }
 
 function writeJson(filePath, value) {
-  fs.writeFileSync(filePath, JSON.stringify(value, null, 2), "utf8");
+  const tmpPath = filePath + ".tmp";
+  fs.writeFileSync(tmpPath, JSON.stringify(value, null, 2), "utf8");
+  fs.renameSync(tmpPath, filePath);
 }
 
 function initDataStore(defaultAdmin) {
@@ -38,6 +41,7 @@ function initDataStore(defaultAdmin) {
   ensureFile(files.media, []);
   ensureFile(files.audit, []);
   ensureFile(files.events, []);
+  ensureFile(files.prayerInbox, []);
 }
 
 function getUsers() {
@@ -72,6 +76,14 @@ function saveEvents(events) {
   writeJson(files.events, events);
 }
 
+function getPrayerInbox() {
+  return readJson(files.prayerInbox, []);
+}
+
+function savePrayerInbox(items) {
+  writeJson(files.prayerInbox, items);
+}
+
 module.exports = {
   initDataStore,
   getUsers,
@@ -81,5 +93,7 @@ module.exports = {
   getAuditLogs,
   saveAuditLogs,
   getEvents,
-  saveEvents
+  saveEvents,
+  getPrayerInbox,
+  savePrayerInbox
 };

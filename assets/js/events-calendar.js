@@ -4,8 +4,12 @@
     return;
   }
 
-  const apiBase = window.NCC_API_BASE || "http://localhost:4000/api";
-  const xmlUrl = "./assets/data/events.xml";
+  function startCalendar() {
+  const apiBase = window.NCC_API_BASE || "/api";
+  var xmlUrl = "./assets/data/events.xml";
+  if (window.__NCC_SITE_CONFIG && window.__NCC_SITE_CONFIG.calendar && window.__NCC_SITE_CONFIG.calendar.xmlUrl) {
+    xmlUrl = String(window.__NCC_SITE_CONFIG.calendar.xmlUrl);
+  }
 
   function escapeHtml(text) {
     return String(text || "")
@@ -469,5 +473,28 @@
   }
 
   mount(new Date());
+  }
+
+  const waitRuntime = window.__NCC_RUNTIME_LOADED;
+  if (waitRuntime && typeof waitRuntime.then === "function") {
+    waitRuntime
+      .catch(function () {
+        return {};
+      })
+      .then(function () {
+        if (typeof window.ensureNccSitePublicConfig === "function") {
+          return window.ensureNccSitePublicConfig();
+        }
+        return null;
+      })
+      .catch(function () {
+        return null;
+      })
+      .then(function () {
+        startCalendar();
+      });
+  } else {
+    startCalendar();
+  }
 })();
 

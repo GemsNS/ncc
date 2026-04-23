@@ -4,3 +4,7 @@ backend/uploads/*
 backend/data/users.json
 backend/data/media.json
 backend/data/audit.json
+backend/data/events.json
+backend/data/prayer-inbox.json
+backend/data/site-config.json
+assets/config/runtime.json

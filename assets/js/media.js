@@ -123,6 +123,9 @@ async function enrichYoutubeTitlesFromOembed(list) {
 }
 
 async function readHomeFeaturedPayload() {
+  if (window.__NCC_SITE_CONFIG && window.__NCC_SITE_CONFIG.homeFeaturedVideos) {
+    return window.__NCC_SITE_CONFIG.homeFeaturedVideos;
+  }
   let data = null;
   try {
     const res = await fetch("./assets/data/home-featured-videos.json", { cache: "no-store" });
@@ -244,9 +247,14 @@ async function loadMediaCards() {
   }
 
   try {
-    const response = await fetch("./assets/data/site-content.json", { cache: "no-store" });
-    const data = await response.json();
-    const items = (data && data.mediaArchive) || [];
+    let items = [];
+    if (window.__NCC_SITE_CONFIG && Array.isArray(window.__NCC_SITE_CONFIG.mediaArchive)) {
+      items = window.__NCC_SITE_CONFIG.mediaArchive;
+    } else {
+      const response = await fetch("./assets/data/site-content.json", { cache: "no-store" });
+      const data = await response.json();
+      items = (data && data.mediaArchive) || [];
+    }
 
     const normalizedItems = items.map(function normalize(item) {
       return {
@@ -350,9 +358,14 @@ async function initSermonNotes() {
   }
 
   try {
-    const response = await fetch("./assets/data/site-content.json");
-    const data = await response.json();
-    const notes = data.sermonNotes || [];
+    let notes = [];
+    if (window.__NCC_SITE_CONFIG && Array.isArray(window.__NCC_SITE_CONFIG.sermonNotes)) {
+      notes = window.__NCC_SITE_CONFIG.sermonNotes;
+    } else {
+      const response = await fetch("./assets/data/site-content.json");
+      const data = await response.json();
+      notes = data.sermonNotes || [];
+    }
     notesList.innerHTML = notes
       .map((item) => "<li><strong>" + item.timestamp + "</strong> - " + item.point + "</li>")
       .join("");
@@ -361,5 +374,21 @@ async function initSermonNotes() {
   }
 }
 
-loadHomeFeaturedVideos();
-loadMediaCards();
+async function bootMediaPage() {
+  await (window.__NCC_RUNTIME_LOADED || Promise.resolve()).catch(function () {
+    return {};
+  });
+  if (typeof window.ensureNccSitePublicConfig === "function") {
+    await window.ensureNccSitePublicConfig().catch(function () {
+      return null;
+    });
+  }
+  await loadHomeFeaturedVideos();
+  if (typeof window.__NCC_WRAP_NEW_EMBEDS === "function") {
+    window.__NCC_WRAP_NEW_EMBEDS();
+  }
+  await loadMediaCards();
+  await initSermonNotes();
+}
+
+bootMediaPage();
