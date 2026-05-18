@@ -879,8 +879,6 @@ p {
 }
 
 .cal-day {
-  appearance: none;
-  border: 0;
   background: transparent;
   text-align: left;
   padding: 0.55rem 0.6rem 0.65rem;
@@ -892,6 +890,11 @@ p {
   border-right: 1px solid rgba(255, 255, 255, 0.06);
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
   cursor: pointer;
+}
+
+.cal-day:focus-visible {
+  outline: 2px solid rgba(0, 245, 255, 0.55);
+  outline-offset: -2px;
 }
 
 .cal-day:hover {
@@ -1074,6 +1077,16 @@ p {
   min-height: inherit;
   border: 0;
   display: block;
+}
+
+.giving-embed-shell {
+  min-height: 720px;
+}
+
+.giving-embed-shell .giving-embed {
+  min-height: 720px;
+  height: 82vh;
+  max-height: 1100px;
 }
 
 .embed-offline {

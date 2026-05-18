@@ -1,0 +1,21 @@
+# Alternative to PM2. Install:
+#   sudo cp deploy/systemd/ncc-backend.service /etc/systemd/system/
+#   sudo systemctl daemon-reload
+#   sudo systemctl enable --now ncc-backend
+
+[Unit]
+Description=NCC Admin Backend (Node)
+After=network.target
+
+[Service]
+Type=simple
+User=www-data
+Group=www-data
+WorkingDirectory=/var/www/wearencc/backend
+EnvironmentFile=/var/www/wearencc/backend/.env
+ExecStart=/usr/bin/node src/server.js
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

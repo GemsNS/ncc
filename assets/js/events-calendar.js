@@ -190,9 +190,9 @@
       3,
       19,
       0,
-      "Wednesday Meeting",
+      "Midweek Bible Study Refuel",
       "Midweek",
-      "Midweek Bible teaching and prayer to strengthen your walk through the week."
+      "Every Wednesday at 7:00 PM — hybrid (in person and virtual). Refuel your spirit, refocus on God, renew your faith. Request the virtual access code via an information card."
     );
 
     return items;
@@ -282,7 +282,7 @@
               ? '<span class="cal-more">+' + escapeHtml(String(items.length - 3)) + " more</span>"
               : "";
           return (
-            '<button type="button" class="cal-day' +
+            '<div role="gridcell" tabindex="0" class="cal-day' +
             (inMonth ? "" : " is-out") +
             (isToday ? " is-today" : "") +
             '" data-cal-day="' +
@@ -295,7 +295,7 @@
             chips +
             more +
             "</span>" +
-            "</button>"
+            "</div>"
           );
         })
         .join("") +
@@ -325,7 +325,7 @@
       if (!items.length) {
         panelList.innerHTML =
           '<article class="cal-detail muted">No scheduled events for this day.</article>' +
-          '<article class="cal-detail"><strong>Weekly Schedule</strong><p class="muted">Sunday Church · 11:00 AM<br/>Wednesday Meeting · 7:00 PM</p></article>';
+          '<article class="cal-detail"><strong>Weekly Schedule</strong><p class="muted">Sunday Church · 11:00 AM<br/>Midweek Bible Study Refuel · 7:00 PM</p></article>';
         return;
       }
       panelList.innerHTML =
@@ -361,7 +361,7 @@
             );
           })
           .join("") +
-        '<article class="cal-detail"><strong>Weekly Schedule</strong><p class="muted">Sunday Church · 11:00 AM<br/>Wednesday Meeting · 7:00 PM</p></article>';
+        '<article class="cal-detail"><strong>Weekly Schedule</strong><p class="muted">Sunday Church · 11:00 AM<br/>Midweek Bible Study Refuel · 7:00 PM</p></article>';
     }
 
     function pickDefaultDay() {
@@ -378,14 +378,28 @@
 
     let selectedKey = pickDefaultDay();
     setPanelForDayKey(selectedKey);
-    dayButtons.forEach(function (btn) {
-      btn.classList.toggle("is-selected", btn.getAttribute("data-cal-day") === selectedKey);
-      btn.addEventListener("click", function () {
-        selectedKey = btn.getAttribute("data-cal-day") || selectedKey;
-        dayButtons.forEach(function (b) {
-          b.classList.toggle("is-selected", b === btn);
-        });
-        setPanelForDayKey(selectedKey);
+    function selectDayCell(cell) {
+      selectedKey = cell.getAttribute("data-cal-day") || selectedKey;
+      dayButtons.forEach(function (b) {
+        const isSelected = b === cell;
+        b.classList.toggle("is-selected", isSelected);
+        b.setAttribute("aria-selected", isSelected ? "true" : "false");
+      });
+      setPanelForDayKey(selectedKey);
+    }
+
+    dayButtons.forEach(function (cell) {
+      const isSelected = cell.getAttribute("data-cal-day") === selectedKey;
+      cell.classList.toggle("is-selected", isSelected);
+      cell.setAttribute("aria-selected", isSelected ? "true" : "false");
+      cell.addEventListener("click", function () {
+        selectDayCell(cell);
+      });
+      cell.addEventListener("keydown", function (e) {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          selectDayCell(cell);
+        }
       });
     });
 
@@ -410,24 +424,42 @@
     });
   }
 
+  function mergeEventsById(primary, secondary) {
+    const map = {};
+    (primary || []).concat(secondary || []).forEach(function (evt) {
+      if (!evt || !evt.id) return;
+      map[evt.id] = evt;
+    });
+    return Object.keys(map).map(function (id) {
+      return map[id];
+    });
+  }
+
   function loadEventsForRange(gridStart, gridEnd) {
-    return fetchApiEvents()
+    const apiPromise = fetchApiEvents()
       .then(function (items) {
         return normalizeItems(items);
       })
       .catch(function () {
-        return fetchXmlEvents().then(function (xmlItems) {
-          return normalizeItems(xmlItems);
-        });
-      })
-      .then(function (items) {
-        const weekly = buildWeeklyDefaults(gridStart, gridEnd);
-        const combined = normalizeItems(items.concat(weekly));
-        // Keep only events that intersect the visible grid range (start inside range).
-        return combined.filter(function (evt) {
-          return evt.startAt.getTime() >= gridStart.getTime() && evt.startAt.getTime() <= gridEnd.getTime();
-        });
+        return [];
       });
+
+    const xmlPromise = fetchXmlEvents()
+      .then(function (xmlItems) {
+        return normalizeItems(xmlItems);
+      })
+      .catch(function () {
+        return [];
+      });
+
+    return Promise.all([apiPromise, xmlPromise]).then(function (parts) {
+      const merged = mergeEventsById(parts[0], parts[1]);
+      const weekly = buildWeeklyDefaults(gridStart, gridEnd);
+      const combined = normalizeItems(merged.concat(weekly));
+      return combined.filter(function (evt) {
+        return evt.startAt.getTime() >= gridStart.getTime() && evt.startAt.getTime() <= gridEnd.getTime();
+      });
+    });
   }
 
   function mount(initialDate) {

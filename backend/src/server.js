@@ -19,10 +19,16 @@ const adminSiteConfigRoutes = require("./routes/admin-site-config");
 const app = express();
 
 const port = Number(process.env.PORT || 4000);
+const host = String(process.env.HOST || "127.0.0.1").trim();
 const uploadsDir = path.join(__dirname, "..", "uploads");
 const nodeEnv = String(process.env.NODE_ENV || "production").toLowerCase();
+const isProduction = nodeEnv === "production";
 const adminEmail = process.env.ADMIN_EMAIL || "admin@ncc.local";
 const adminPassword = process.env.ADMIN_PASSWORD || "";
+
+if (process.env.TRUST_PROXY === "1" || process.env.TRUST_PROXY === "true") {
+  app.set("trust proxy", 1);
+}
 
 function requireEnv(name) {
   const value = String(process.env[name] || "").trim();
@@ -69,8 +75,13 @@ app.use(
     }
   })
 );
-app.use(helmet());
-app.use(morgan("dev"));
+app.use(
+  helmet({
+    crossOriginResourcePolicy: { policy: "cross-origin" }
+  })
+);
+app.use(morgan(isProduction ? "combined" : "dev"));
+app.disable("x-powered-by");
 app.use(express.json({ limit: "2mb" }));
 app.use("/uploads", express.static(uploadsDir));
 
@@ -102,9 +113,11 @@ app.use((err, req, res, next) => {
   return res.status(500).json({ error: "Internal server error" });
 });
 
-app.listen(port, () => {
+app.listen(port, host, () => {
   process.stdout.write(
-    "NCC backend running on http://localhost:" + port + "\n" +
-      "Default admin: " + adminEmail + " (change via env vars)\n"
+    "NCC backend listening on http://" + host + ":" + port + " (" + nodeEnv + ")\n"
   );
+  if (!isProduction) {
+    process.stdout.write("Admin login email: " + adminEmail + "\n");
+  }
 });

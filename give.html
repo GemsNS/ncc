@@ -16,7 +16,29 @@
       <div class="container">
         <p class="eyebrow">Give Now</p>
         <h1>Online Giving</h1>
-        <p class="center muted">Cash App Scan Above QR Code</p>
+        <p class="center muted">Give securely online, or use Cash App below.</p>
+
+        <section class="section" aria-label="Sharefaith online giving">
+          <div class="section-title-row">
+            <h2>Give Online</h2>
+          </div>
+          <div class="embed-shell giving-embed-shell">
+            <iframe
+              class="embed-frame giving-embed"
+              src="https://app.sharefaith.com/app/giving/halopays-2746"
+              title="Give to New Community Church"
+              loading="lazy"
+              allow="payment *; fullscreen"
+              referrerpolicy="strict-origin-when-cross-origin"></iframe>
+          </div>
+          <p class="center muted" style="margin-top: 1rem;">
+            <a
+              class="button secondary"
+              href="https://app.sharefaith.com/app/giving/halopays-2746"
+              target="_blank"
+              rel="noopener noreferrer">Open giving form in a new tab</a>
+          </p>
+        </section>
 
         <section class="section">
           <div class="grid-2">
@@ -45,39 +67,10 @@
             </article>
           </div>
         </section>
-
-        <section class="section">
-          <div class="section-title-row">
-            <h2>Sharefaith Giving (Static API)</h2>
-            <span class="pill">Preview Endpoints</span>
-          </div>
-          <article class="card">
-            <div class="grid-2">
-              <div>
-                <h3>Generosity in Action</h3>
-                <p class="muted">Giving is part of worship and community care. This supporting artwork is intentionally subtle to keep focus on practical giving options.</p>
-              </div>
-              <div>
-                <img class="support-art-img" src="./assets/images/artwork/hands-cupped.png" alt="Watercolor cupped hands representing generosity">
-              </div>
-            </div>
-          </article>
-          <div class="grid-3" data-sharefaith-methods></div>
-          <article class="card">
-            <h3>Platform Summary</h3>
-            <p class="muted" data-sharefaith-platform>Loading platform details...</p>
-            <p><a class="button secondary" href="https://www.sharefaith.com/church-giving-software/?srsltid=AfmBOorBUEFzUX5BSCZXh32IXUo5zo54pRa9Z0dalJQCaUGesPoVJ22m" target="_blank" rel="noopener noreferrer">View Sharefaith Product</a></p>
-          </article>
-          <article class="card">
-            <h3>Testimonials</h3>
-            <ul class="meta-list" data-sharefaith-testimonials></ul>
-          </article>
-        </section>
       </div>
     </main>
     <footer class="site-footer"><div class="container row"><p class="muted"><span data-ph="branding.fullName">New Community Church</span>, <span data-ph="contact.cityState">Suffolk VA</span></p><p class="muted">Copyright <span data-year></span> NCC Family</p></div></footer>
     <script src="./assets/js/site.js?v=20260417"></script>
     <script src="./assets/js/placeholders.js"></script>
-    <script src="./assets/js/sharefaith-giving.js"></script>
   </body>
 </html>

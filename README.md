@@ -78,6 +78,10 @@ The project now includes a custom Node.js backend in `backend/` for:
 3. Copy `.env.example` to `.env` and set secure values
 4. `npm start`
 
+### Production deployment (wearencc.org / Ubuntu)
+
+See **`docs/deploy-ubuntu-wearencc.md`** — nginx + Node + PM2 step-by-step.
+
 ### cPanel deployment
 
 See `docs/deploy-cpanel.md`.

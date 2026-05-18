@@ -4,8 +4,12 @@
   "private": true,
   "description": "NCC Phase 4 custom backend and admin APIs",
   "main": "src/server.js",
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
-    "start": "node src/server.js"
+    "start": "node src/server.js",
+    "import-events-xml": "node scripts/import-events-xml.js"
   },
   "dependencies": {
     "bcryptjs": "^3.0.3",

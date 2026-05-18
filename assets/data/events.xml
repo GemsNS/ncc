@@ -1,10 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <events version="1">
   <!--
-    Admin-panel bridge format (XML)
-    - start/end: ISO-8601 local datetime or UTC (e.g. 2026-04-25T18:00 or 2026-04-25T22:00Z)
-    - category/location/url optional
+    Church announcements (from 42626announcements.pptx — bulletin week of Apr 26, 2026)
+    start/end: ISO-8601 local datetime (e.g. 2026-04-26T12:15)
   -->
+
+  <event
+    id="youth-choir-mothers-day-2026"
+    title="Youth Choir for Mother's Day"
+    category="Youth"
+    location="Fellowship Hall"
+    start="2026-04-26T12:15"
+    end="2026-04-26T13:00"
+    description="Meeting immediately after church. Please escort your child for details." />
+
+  <event
+    id="volunteer-team-needed-2026"
+    title="Team Members Needed"
+    category="Announcement"
+    location="NCC Suffolk"
+    start="2026-04-26T11:00"
+    description="Serving opportunities: ushers, parking attendants, youth workers, social media, sound and video, facility maintenance, outreach coordinator, senior ministry, youth ministry coordinator, teen ministry coordinator. Contact New Community Church to sign up." />
+
+  <event
+    id="mothers-day-breakfast-2026"
+    title="Mother's Day Breakfast"
+    category="Fellowship"
+    location="Fellowship Hall"
+    start="2026-05-10T09:15"
+    end="2026-05-10T11:00"
+    description="In-person and virtual. A Mother is to be Honored." />
+
+  <event
+    id="mens-prayer-breakfast-2026-05-23"
+    title="Men's Prayer Breakfast"
+    category="Men's Ministry"
+    location="NCC Suffolk"
+    start="2026-05-23T08:30"
+    end="2026-05-23T10:30"
+    description="Join us for fellowship, prayer, and a hearty breakfast." />
+
+  <event
+    id="giving-offering-box-june-2026"
+    title="New Offering Box (Starting June)"
+    category="Announcement"
+    location="Sanctuary hallway entrance"
+    start="2026-06-01T11:00"
+    description="Starting in June, offering buckets will not be passed during services. Tithes and offerings may be placed in the offering box in the hallway at the sanctuary entrance before service or during announcements." />
+
+  <event
+    id="yard-sale-2026-06-20"
+    title="NCC Yard Sale"
+    category="Outreach"
+    location="5112 Godwin Blvd, Suffolk, VA 23434"
+    start="2026-06-20T08:00"
+    end="2026-06-20T12:00"
+    description="Great finds, great prices, great cause. Workers needed; good items wanted; tables available to rent ($25). Let's come together to bless our community!" />
+
   <event
     id="community-outreach-001"
     title="Community Outreach"
@@ -13,6 +65,7 @@
     start="2026-04-25T10:00"
     end="2026-04-25T12:00"
     description="Join us as we serve our neighbors with practical love and prayer." />
+
   <event
     id="leaders-huddle-001"
     title="Leadership Huddle"
@@ -21,4 +74,3 @@
     start="2026-04-28T19:30"
     description="Training + alignment for ministry leaders and volunteers." />
 </events>
-

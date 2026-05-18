@@ -1,0 +1,8 @@
+{
+  "apiBase": "/api",
+  "prayerChat": {
+    "useBackendAi": true,
+    "persistThreads": true
+  },
+  "_comment": "Copy to runtime.json on the server at assets/config/runtime.json. Requires nginx (or similar) to proxy /api to the Node backend on the same host."
+}
