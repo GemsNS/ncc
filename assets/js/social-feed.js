@@ -19,9 +19,6 @@ async function initSocialFeeds() {
   const anthonyYoutubeLinks = document.querySelectorAll("[data-anthony-youtube-link]");
   const anthonyYoutubeTitle = document.querySelector("[data-anthony-youtube-title]");
   const anthonyYoutubeSummary = document.querySelector("[data-anthony-youtube-summary]");
-  const pinnacleLinks = document.querySelectorAll("[data-pinnacle-link]");
-  const pinnacleTitle = document.querySelector("[data-pinnacle-title]");
-  const pinnacleSummary = document.querySelector("[data-pinnacle-summary]");
   const wellnessLinks = document.querySelectorAll("[data-wellness-stream-link]");
   const anthonyLiveEmbed = document.querySelector("[data-anthony-live-embed]");
   const wellnessEmbed = document.querySelector("[data-wellness-embed]");
@@ -47,9 +44,6 @@ async function initSocialFeeds() {
     !anthonyYoutubeLinks.length &&
     !anthonyYoutubeTitle &&
     !anthonyYoutubeSummary &&
-    !pinnacleLinks.length &&
-    !pinnacleTitle &&
-    !pinnacleSummary &&
     !wellnessLinks.length &&
     !anthonyLiveEmbed &&
     !wellnessEmbed
@@ -165,20 +159,6 @@ async function initSocialFeeds() {
     if (anthonyYoutubeSummary) {
       anthonyYoutubeSummary.textContent =
         youtube.summary || "Watch teaching and encouragement on the Anthony M. VanDyke channel.";
-    }
-
-    const pinnacle = social.pinnaclePublishing || {};
-    const pinnacleUrl = pinnacle.url || "https://pinnaclepublishinggroup.net";
-    pinnacleLinks.forEach(function (link) {
-      link.href = pinnacleUrl;
-    });
-    if (pinnacleTitle) {
-      pinnacleTitle.textContent = pinnacle.title || "Pinnacle Publishing Group";
-    }
-    if (pinnacleSummary) {
-      pinnacleSummary.textContent =
-        pinnacle.summary ||
-        "Books and publishing resources from Pastor Anthony VanDyke.";
     }
 
     const anthony = social.anthonyFacebook || {};
