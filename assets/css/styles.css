@@ -1471,6 +1471,16 @@ p {
   color: var(--neon-cyan, #00f5d4);
 }
 
+.give-cash-qr {
+  display: block;
+  width: min(100%, 380px);
+  height: auto;
+  margin: 0.5rem auto 0;
+  border-radius: var(--radius);
+  border: 1px solid var(--surface-border);
+  background: #fff;
+}
+
 .site-footer {
   border-top: 1px solid var(--surface-border);
   margin-top: 3rem;
