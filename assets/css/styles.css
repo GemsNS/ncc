@@ -655,6 +655,135 @@ a {
   margin: 0.65rem 0 0.5rem;
 }
 
+.inspiration-page-hero {
+  padding-bottom: 2.5rem;
+}
+
+.inspiration-hero-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  gap: 1.5rem;
+  align-items: stretch;
+}
+
+.inspiration-hero-visual {
+  min-height: 340px;
+  display: grid;
+  align-content: end;
+}
+
+.inspiration-hero-portrait {
+  position: absolute;
+  z-index: 2;
+  right: 0;
+  bottom: 0;
+  width: min(52%, 280px);
+  height: auto;
+  object-fit: cover;
+  object-position: top center;
+  border-radius: var(--radius) 0 var(--radius) 0;
+  opacity: 0.92;
+  mask-image: linear-gradient(180deg, transparent 0%, black 18%);
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, black 18%);
+}
+
+.inspiration-hero-copy {
+  display: grid;
+  align-content: center;
+  gap: 0.65rem;
+  padding: 0.25rem 0;
+}
+
+.inspiration-hero-copy h1 {
+  margin: 0;
+}
+
+.inspiration-cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  margin-top: 0.35rem;
+}
+
+.inspiration-channel-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 1.75rem;
+}
+
+.inspiration-channel-card {
+  background: var(--surface-glass);
+  border: 1px solid var(--surface-border);
+  border-radius: var(--radius);
+  padding: 1.1rem 1.15rem 1.2rem;
+  display: grid;
+  gap: 0.45rem;
+  align-content: start;
+}
+
+.inspiration-channel-card--featured {
+  border-color: rgba(0, 245, 212, 0.35);
+  background: linear-gradient(165deg, rgba(0, 245, 212, 0.07), rgba(46, 66, 255, 0.1));
+}
+
+.inspiration-channel-card h3 {
+  margin: 0;
+  font-size: 1.05rem;
+}
+
+.inspiration-channel-card__label {
+  margin: 0;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--neon-cyan, #00f5d4);
+}
+
+.inspiration-channel-card .button {
+  margin-top: 0.35rem;
+  width: fit-content;
+}
+
+.inspiration-about-panel {
+  max-width: 52rem;
+}
+
+.inspiration-embed-card {
+  padding: 1rem;
+}
+
+@media (max-width: 1100px) {
+  .inspiration-channel-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 980px) {
+  .inspiration-hero-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .inspiration-hero-visual {
+    min-height: 300px;
+  }
+
+  .inspiration-hero-portrait {
+    width: min(46%, 240px);
+  }
+}
+
+@media (max-width: 560px) {
+  .inspiration-channel-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .inspiration-cta-row .button {
+    width: 100%;
+    text-align: center;
+  }
+}
+
 .animated-text-header__background {
   position: absolute;
   inset: 0;
@@ -1254,6 +1383,11 @@ p {
   color: rgba(255, 255, 255, 0.86);
 }
 
+.media-hero-stack {
+  display: grid;
+  gap: 1rem;
+}
+
 .media-hero {
   border: 1px solid var(--surface-border);
   border-radius: var(--radius);
@@ -1271,6 +1405,11 @@ p {
 .media-hero img.media-hero__portrait {
   max-height: 500px;
   object-position: center top;
+}
+
+.media-hero-stack .media-hero img:not(.media-hero__portrait) {
+  max-height: 420px;
+  object-position: center center;
 }
 
 .site-footer {

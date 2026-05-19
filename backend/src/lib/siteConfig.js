@@ -36,21 +36,9 @@ function buildInitialConfig() {
       manualStatus: live.status || "offline",
       tickerItems: Array.isArray(live.tickerItems) ? live.tickerItems : [],
       serviceTimeline: {
-        live: [
-          "Now: Worship + Opening Prayer",
-          "Next: Teaching Segment",
-          "Then: Community Prayer + Invitation"
-        ],
-        starting_soon: [
-          "Now: Countdown + Welcome Loop",
-          "Next: Host Greeting",
-          "Then: Worship Start"
-        ],
-        offline: [
-          "Now: Off-Air Replay Loop",
-          "Next: Next Service Countdown",
-          "Then: Community Announcements"
-        ]
+        live: [],
+        starting_soon: [],
+        offline: []
       },
       links: {
         youtubeWatch: ph.youtube || "https://www.youtube.com/@NCCSUFFOLK",

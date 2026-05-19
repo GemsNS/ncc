@@ -87,28 +87,32 @@ async function initLiveControlCenter() {
   }
 
   if (overlayNode) {
+    const timelineCard = overlayNode.closest("[data-live-timeline]");
     const tl = liveConfig.serviceTimeline || {};
-    const segments =
+    const key =
       dynamicStatus === "live"
-        ? tl.live || [
-            "Now: Worship + Opening Prayer",
-            "Next: Teaching Segment",
-            "Then: Community Prayer + Invitation"
-          ]
+        ? "live"
         : dynamicStatus === "starting_soon"
-          ? tl.starting_soon || [
-              "Now: Countdown + Welcome Loop",
-              "Next: Host Greeting",
-              "Then: Worship Start"
-            ]
-          : tl.offline || [
-              "Now: Off-Air Replay Loop",
-              "Next: Next Service Countdown",
-              "Then: Community Announcements"
-            ];
-    overlayNode.innerHTML = segments.map(function (segment) {
-      return "<li>" + segment + "</li>";
-    }).join("");
+          ? "starting_soon"
+          : "offline";
+    const segments = Array.isArray(tl[key]) ? tl[key].filter(Boolean) : [];
+
+    if (!segments.length) {
+      if (timelineCard) {
+        timelineCard.hidden = true;
+      }
+      overlayNode.innerHTML = "";
+      return;
+    }
+
+    if (timelineCard) {
+      timelineCard.hidden = false;
+    }
+    overlayNode.innerHTML = segments
+      .map(function (segment) {
+        return "<li>" + segment + "</li>";
+      })
+      .join("");
   }
 }
 

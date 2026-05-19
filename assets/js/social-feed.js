@@ -16,11 +16,44 @@ async function initSocialFeeds() {
   const anthonySections = document.querySelector("[data-anthony-site-sections]");
   const anthonyHomeFeed = document.querySelector("[data-anthony-home-feed]");
   const anthonyPageLinks = document.querySelectorAll("[data-anthony-page-link]");
+  const anthonyYoutubeLinks = document.querySelectorAll("[data-anthony-youtube-link]");
+  const anthonyYoutubeTitle = document.querySelector("[data-anthony-youtube-title]");
+  const anthonyYoutubeSummary = document.querySelector("[data-anthony-youtube-summary]");
+  const pinnacleLinks = document.querySelectorAll("[data-pinnacle-link]");
+  const pinnacleTitle = document.querySelector("[data-pinnacle-title]");
+  const pinnacleSummary = document.querySelector("[data-pinnacle-summary]");
   const wellnessLinks = document.querySelectorAll("[data-wellness-stream-link]");
   const anthonyLiveEmbed = document.querySelector("[data-anthony-live-embed]");
   const wellnessEmbed = document.querySelector("[data-wellness-embed]");
 
-  if (!homeFacebookImage && !facebookHighlights && !blogStatus && !homeFacebookLink && !pastorBlogLinks.length && !pastorBlogEmbed && !anthonyAbout && !anthonyQuote && !anthonyBookTitle && !anthonyBookCopy && !anthonyBooksLink && !anthonyBlogTitle && !anthonyBlogSnippet && !anthonyBlogLink && !anthonySections && !anthonyHomeFeed && !anthonyPageLinks.length && !wellnessLinks.length && !anthonyLiveEmbed && !wellnessEmbed) {
+  if (
+    !homeFacebookImage &&
+    !facebookHighlights &&
+    !blogStatus &&
+    !homeFacebookLink &&
+    !pastorBlogLinks.length &&
+    !pastorBlogEmbed &&
+    !anthonyAbout &&
+    !anthonyQuote &&
+    !anthonyBookTitle &&
+    !anthonyBookCopy &&
+    !anthonyBooksLink &&
+    !anthonyBlogTitle &&
+    !anthonyBlogSnippet &&
+    !anthonyBlogLink &&
+    !anthonySections &&
+    !anthonyHomeFeed &&
+    !anthonyPageLinks.length &&
+    !anthonyYoutubeLinks.length &&
+    !anthonyYoutubeTitle &&
+    !anthonyYoutubeSummary &&
+    !pinnacleLinks.length &&
+    !pinnacleTitle &&
+    !pinnacleSummary &&
+    !wellnessLinks.length &&
+    !anthonyLiveEmbed &&
+    !wellnessEmbed
+  ) {
     return;
   }
 
@@ -119,6 +152,33 @@ async function initSocialFeeds() {
           })
           .join("");
       }
+    }
+
+    const youtube = social.anthonyYouTube || {};
+    const youtubeUrl = youtube.channelUrl || "https://www.youtube.com/@AnthonyMVanDyke";
+    anthonyYoutubeLinks.forEach(function (link) {
+      link.href = youtubeUrl;
+    });
+    if (anthonyYoutubeTitle) {
+      anthonyYoutubeTitle.textContent = youtube.title || "YouTube";
+    }
+    if (anthonyYoutubeSummary) {
+      anthonyYoutubeSummary.textContent =
+        youtube.summary || "Watch teaching and encouragement on the Anthony M. VanDyke channel.";
+    }
+
+    const pinnacle = social.pinnaclePublishing || {};
+    const pinnacleUrl = pinnacle.url || "https://pinnaclepublishinggroup.net";
+    pinnacleLinks.forEach(function (link) {
+      link.href = pinnacleUrl;
+    });
+    if (pinnacleTitle) {
+      pinnacleTitle.textContent = pinnacle.title || "Pinnacle Publishing Group";
+    }
+    if (pinnacleSummary) {
+      pinnacleSummary.textContent =
+        pinnacle.summary ||
+        "Books and publishing resources from Pastor Anthony VanDyke.";
     }
 
     const anthony = social.anthonyFacebook || {};

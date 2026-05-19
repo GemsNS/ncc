@@ -49,7 +49,7 @@
       "liveCardTitle": "Join The Worship Stream",
       "liveCardCopy": "Stream through YouTube or join the Zoom room for direct participation.",
       "archiveTitle": "Archive",
-      "overlayTitle": "Program Runtime Overlay"
+      "overlayTitle": "Sermon Notes"
     },
     "events": {
       "pageTitle": "Upcoming Church Gatherings",
@@ -175,6 +175,16 @@
       "embedUrl": "https://anthonyinspiration.com/",
       "statusNote": "Anthony's Inspiration is live. Website feed is active and ready."
     },
+    "anthonyYouTube": {
+      "channelUrl": "https://www.youtube.com/@AnthonyMVanDyke",
+      "title": "Anthony M. VanDyke on YouTube",
+      "summary": "Teaching, encouragement, and ministry updates on video."
+    },
+    "pinnaclePublishing": {
+      "url": "https://pinnaclepublishinggroup.net",
+      "title": "Pinnacle Publishing Group",
+      "summary": "Books and publishing resources from Pastor Anthony VanDyke, including The Power of Words."
+    },
     "anthonyFacebook": {
       "pageUrl": "https://www.facebook.com/anthony.vandyke.3",
       "pageEmbedUrl": "https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fanthony.vandyke.3&tabs=timeline&width=500&height=680&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId"
@@ -197,7 +207,7 @@
       "bookSummary": "A practical guide on how communication shapes relationships, growth, and success in everyday life.",
       "latestBlogTitle": "You Can't Heal What You Hide",
       "latestBlogSnippet": "Today's inspiration message: healing begins with honest surrender, confession, and bringing hidden pain into the light.",
-      "booksUrl": "https://anthonyinspiration.com/",
+      "booksUrl": "https://pinnaclepublishinggroup.net",
       "blogUrl": "https://anthonyinspiration.com/you-cant-heal-what-you-hide/",
       "sections": ["Home", "About", "Books", "Speaking", "Inspiration", "Shop", "Contact"],
       "latestPosts": [
@@ -353,22 +363,5 @@
       "duration": "Replay"
     }
   ],
-  "sermonNotes": [
-    {
-      "timestamp": "00:02",
-      "point": "Opening prayer and call to worship"
-    },
-    {
-      "timestamp": "09:15",
-      "point": "Main scripture context and historical framing"
-    },
-    {
-      "timestamp": "21:40",
-      "point": "Practical application for family and work life"
-    },
-    {
-      "timestamp": "34:55",
-      "point": "Invitation to faith and community response"
-    }
-  ]
+  "sermonNotes": []
 }
