@@ -1412,6 +1412,38 @@ p {
   object-position: center center;
 }
 
+.contact-map-section {
+  margin-top: 1.5rem;
+}
+
+.contact-map-card {
+  padding: 1.1rem 1.15rem 1.2rem;
+}
+
+.contact-map-shell {
+  border: 1px solid var(--surface-border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.22);
+}
+
+.contact-map-embed {
+  width: 100%;
+  height: min(420px, 52vh);
+  min-height: 280px;
+  border: 0;
+  display: block;
+}
+
+.contact-map-caption {
+  margin: 0.85rem 0 0;
+  text-align: center;
+}
+
+.contact-map-caption a {
+  color: var(--neon-cyan, #00f5d4);
+}
+
 .site-footer {
   border-top: 1px solid var(--surface-border);
   margin-top: 3rem;
