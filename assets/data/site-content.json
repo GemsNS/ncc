@@ -10,6 +10,9 @@
     ]
   },
   "placeholders": {
+    "nav": {
+      "calendarEvents": "Calendar Events"
+    },
     "branding": {
       "shortName": "NCC Family",
       "fullName": "New Community Church"
@@ -20,9 +23,10 @@
       "phone": "(757) 434-6231"
     },
     "links": {
-      "youtube": "https://www.youtube.com/@NCCSUFFOLK",
+      "youtube": "https://www.youtube.com/@NCCSUFFOLK/streams",
       "zoom": "https://zoom.us/",
       "give": "https://www.nccfamily.us/",
+      "sharefaithGiving": "https://app.sharefaith.com/app/giving/halopays-2746",
       "cashApp": "https://cash.app/$NCCSuffolkVA",
       "map": "https://maps.google.com/?q=5112+Godwin+Blvd+Suffolk+VA+23434",
       "facebookPost": "https://www.facebook.com/anthony.vandyke.3/videos/3285521744795879/",
@@ -43,7 +47,8 @@
       "sharedLifeTitle": "Shared Life",
       "sharedLifeCopy": "A community where we celebrate victories and carry one another through difficult seasons.",
       "digitalReachTitle": "Digital Reach",
-      "digitalReachCopy": "Live and on-demand media experiences that extend ministry beyond Sunday gatherings."
+      "digitalReachCopy": "Live and on-demand media experiences that extend ministry beyond Sunday gatherings.",
+      "connectCalendarEventsLabel": "Calendar Events"
     },
     "messages": {
       "pageTitle": "Live Feed + Recent Teachings",
@@ -53,6 +58,7 @@
       "overlayTitle": "Sermon Notes"
     },
     "events": {
+      "eyebrow": "Calendar Events",
       "pageTitle": "Upcoming Church Gatherings",
       "sundayTitle": "Sunday Worship",
       "sundayTime": "Every Sunday at 11:00 AM",
@@ -102,7 +108,7 @@
     }
   },
   "live": {
-    "youtubeEmbedUrl": "https://www.youtube.com/embed/BfxAyy0i7tw",
+    "youtubeEmbedUrl": "https://www.youtube.com/embed/qmKZ6A8h0BE",
     "zoomUrl": "https://zoom.us/",
     "status": "starting_soon",
     "tickerItems": [
@@ -146,7 +152,30 @@
         "label": "Prayer Line",
         "value": "Open this week for requests"
       }
-    ]
+    ],
+    "statusSource": "manual",
+    "manualStatus": "starting_soon",
+    "serviceTimeline": {
+      "live": [
+        "Now: Worship + Opening Prayer",
+        "Next: Teaching Segment",
+        "Then: Community Prayer + Invitation"
+      ],
+      "starting_soon": [
+        "Now: Countdown + Welcome Loop",
+        "Next: Host Greeting",
+        "Then: Worship Start"
+      ],
+      "offline": [
+        "Now: Off-Air Replay Loop",
+        "Next: Next Service Countdown",
+        "Then: Community Announcements"
+      ]
+    },
+    "links": {
+      "youtubeWatch": "https://www.youtube.com/@NCCSUFFOLK",
+      "zoom": "https://zoom.us/"
+    }
   },
   "socialFeeds": {
     "facebookFeatured": {
@@ -182,7 +211,7 @@
       "summary": "Teaching, encouragement, and ministry updates on video."
     },
     "anthonyFacebook": {
-      "pageUrl": "https://www.facebook.com/anthony.vandyke.3",
+      "pageUrl": "https://www.facebook.com/groups/280795183113/",
       "pageEmbedUrl": "https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fanthony.vandyke.3&tabs=timeline&width=500&height=680&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId"
     },
     "wednesdayWellnessWalk": {
@@ -205,7 +234,15 @@
       "latestBlogSnippet": "Today's inspiration message: healing begins with honest surrender, confession, and bringing hidden pain into the light.",
       "booksUrl": "https://anthonyinspiration.com/",
       "blogUrl": "https://anthonyinspiration.com/you-cant-heal-what-you-hide/",
-      "sections": ["Home", "About", "Books", "Speaking", "Inspiration", "Shop", "Contact"],
+      "sections": [
+        "Home",
+        "About",
+        "Books",
+        "Speaking",
+        "Inspiration",
+        "Shop",
+        "Contact"
+      ],
       "latestPosts": [
         {
           "title": "You Can't Heal What You Hide",
@@ -236,128 +273,464 @@
   },
   "mediaArchive": [
     {
-      "title": "Grace for the Next Step",
-      "date": "Apr 01, 2026",
-      "speaker": "NCC Teaching Team",
+      "title": "A Mothers Faith Leaves a Legacy",
+      "date": "Stream 1",
+      "speaker": "Pastor Anthony VanDyke",
       "platform": "YouTube",
-      "url": "https://www.youtube.com/watch?v=BfxAyy0i7tw",
-      "thumbnail": "https://i.ytimg.com/vi/BfxAyy0i7tw/hqdefault.jpg",
-      "series": "Faith in Motion",
-      "scripture": "Philippians 4:13",
-      "tags": ["grace", "message", "ncc"],
+      "url": "https://www.youtube.com/watch?v=qmKZ6A8h0BE",
+      "thumbnail": "https://i.ytimg.com/vi/qmKZ6A8h0BE/hqdefault.jpg",
+      "series": "Sunday Livestream",
+      "scripture": "N/A",
+      "tags": [
+        "stream",
+        "sunday",
+        "ncc"
+      ],
       "duration": "Replay",
       "popularity": 100
     },
     {
-      "title": "Faith that Holds in Every Season",
-      "date": "Mar 30, 2026",
-      "speaker": "NCC Teaching Team",
+      "title": "Prepare Before Promise",
+      "date": "Stream 2",
+      "speaker": "Pastor Anthony VanDyke",
       "platform": "YouTube",
-      "url": "https://www.youtube.com/watch?v=KTaRFF97Mqs",
-      "thumbnail": "https://i.ytimg.com/vi/KTaRFF97Mqs/hqdefault.jpg",
-      "series": "Faith in Motion",
-      "scripture": "Hebrews 11:1",
-      "tags": ["teaching", "faith", "endurance"],
+      "url": "https://www.youtube.com/watch?v=xcGMonlmNwo",
+      "thumbnail": "https://i.ytimg.com/vi/xcGMonlmNwo/hqdefault.jpg",
+      "series": "Sunday Livestream",
+      "scripture": "N/A",
+      "tags": [
+        "stream",
+        "sunday",
+        "ncc"
+      ],
+      "duration": "Replay",
+      "popularity": 99
+    },
+    {
+      "title": "Healing is Holy (25 min)",
+      "date": "Stream 3",
+      "speaker": "Pastor Anthony VanDyke",
+      "platform": "YouTube",
+      "url": "https://www.youtube.com/watch?v=ZPY8LJS_Rm8",
+      "thumbnail": "https://i.ytimg.com/vi/ZPY8LJS_Rm8/hqdefault.jpg",
+      "series": "Sunday Livestream",
+      "scripture": "N/A",
+      "tags": [
+        "stream",
+        "sunday",
+        "ncc"
+      ],
+      "duration": "Replay",
+      "popularity": 98
+    },
+    {
+      "title": "Healing is Holy (preview)",
+      "date": "Stream 4",
+      "speaker": "Pastor Anthony VanDyke",
+      "platform": "YouTube",
+      "url": "https://www.youtube.com/watch?v=I9U8AbRqk0w",
+      "thumbnail": "https://i.ytimg.com/vi/I9U8AbRqk0w/hqdefault.jpg",
+      "series": "Sunday Livestream",
+      "scripture": "N/A",
+      "tags": [
+        "stream",
+        "sunday",
+        "ncc"
+      ],
+      "duration": "Replay",
+      "popularity": 97
+    },
+    {
+      "title": "Healing is Holy (55 min)",
+      "date": "Stream 5",
+      "speaker": "Pastor Anthony VanDyke",
+      "platform": "YouTube",
+      "url": "https://www.youtube.com/watch?v=YNlPhWMYwaU",
+      "thumbnail": "https://i.ytimg.com/vi/YNlPhWMYwaU/hqdefault.jpg",
+      "series": "Sunday Livestream",
+      "scripture": "N/A",
+      "tags": [
+        "stream",
+        "sunday",
+        "ncc"
+      ],
+      "duration": "Replay",
+      "popularity": 96
+    },
+    {
+      "title": "Mindset Required to Sustain Unusual Growth",
+      "date": "Stream 6",
+      "speaker": "Pastor Anthony VanDyke",
+      "platform": "YouTube",
+      "url": "https://www.youtube.com/watch?v=wHTzjSwTvMg",
+      "thumbnail": "https://i.ytimg.com/vi/wHTzjSwTvMg/hqdefault.jpg",
+      "series": "Sunday Livestream",
+      "scripture": "N/A",
+      "tags": [
+        "stream",
+        "sunday",
+        "ncc"
+      ],
       "duration": "Replay",
       "popularity": 95
     },
     {
-      "title": "Hearing God Clearly",
-      "date": "Mar 28, 2026",
-      "speaker": "NCC Teaching Team",
+      "title": "BEFORE (25 min)",
+      "date": "Stream 7",
+      "speaker": "Pastor Anthony VanDyke",
       "platform": "YouTube",
-      "url": "https://www.youtube.com/watch?v=8cDsePBO5RM",
-      "thumbnail": "https://i.ytimg.com/vi/8cDsePBO5RM/hqdefault.jpg",
-      "series": "Word and Worship",
-      "scripture": "Romans 10:17",
-      "tags": ["sermon", "word", "growth"],
+      "url": "https://www.youtube.com/watch?v=iuKVTKLhPdg",
+      "thumbnail": "https://i.ytimg.com/vi/iuKVTKLhPdg/hqdefault.jpg",
+      "series": "Sunday Livestream",
+      "scripture": "N/A",
+      "tags": [
+        "stream",
+        "sunday",
+        "ncc"
+      ],
+      "duration": "Replay",
+      "popularity": 94
+    },
+    {
+      "title": "BEFORE (22 min)",
+      "date": "Stream 8",
+      "speaker": "Pastor Anthony VanDyke",
+      "platform": "YouTube",
+      "url": "https://www.youtube.com/watch?v=RPzK7MMYe90",
+      "thumbnail": "https://i.ytimg.com/vi/RPzK7MMYe90/hqdefault.jpg",
+      "series": "Sunday Livestream",
+      "scripture": "N/A",
+      "tags": [
+        "stream",
+        "sunday",
+        "ncc"
+      ],
+      "duration": "Replay",
+      "popularity": 93
+    },
+    {
+      "title": "The Promise in the Garden",
+      "date": "Stream 9",
+      "speaker": "Pastor Anthony VanDyke",
+      "platform": "YouTube",
+      "url": "https://www.youtube.com/watch?v=GAxYgxBXJtM",
+      "thumbnail": "https://i.ytimg.com/vi/GAxYgxBXJtM/hqdefault.jpg",
+      "series": "Sunday Livestream",
+      "scripture": "N/A",
+      "tags": [
+        "stream",
+        "sunday",
+        "ncc"
+      ],
+      "duration": "Replay",
+      "popularity": 92
+    },
+    {
+      "title": "BEFORE (32 min)",
+      "date": "Stream 10",
+      "speaker": "Pastor Anthony VanDyke",
+      "platform": "YouTube",
+      "url": "https://www.youtube.com/watch?v=gZm7gf6hTTk",
+      "thumbnail": "https://i.ytimg.com/vi/gZm7gf6hTTk/hqdefault.jpg",
+      "series": "Sunday Livestream",
+      "scripture": "N/A",
+      "tags": [
+        "stream",
+        "sunday",
+        "ncc"
+      ],
+      "duration": "Replay",
+      "popularity": 91
+    },
+    {
+      "title": "Are You Built to Carry the Weight (33 min)",
+      "date": "Stream 11",
+      "speaker": "Pastor Anthony VanDyke",
+      "platform": "YouTube",
+      "url": "https://www.youtube.com/watch?v=kmgQi6fmHms",
+      "thumbnail": "https://i.ytimg.com/vi/kmgQi6fmHms/hqdefault.jpg",
+      "series": "Sunday Livestream",
+      "scripture": "N/A",
+      "tags": [
+        "stream",
+        "sunday",
+        "ncc"
+      ],
       "duration": "Replay",
       "popularity": 90
     },
     {
-      "title": "Serve the Lord with Joy",
-      "date": "Mar 26, 2026",
-      "speaker": "NCC Worship Team",
-      "platform": "YouTube",
-      "url": "https://www.youtube.com/watch?v=P49emAikqo8",
-      "thumbnail": "https://i.ytimg.com/vi/P49emAikqo8/hqdefault.jpg",
-      "series": "Word and Worship",
-      "scripture": "Psalm 100:2",
-      "tags": ["worship", "joy", "service"],
-      "duration": "Replay"
-    },
-    {
-      "title": "Be Strong and Courageous",
-      "date": "Mar 24, 2026",
-      "speaker": "NCC Teaching Team",
-      "platform": "YouTube",
-      "url": "https://www.youtube.com/watch?v=CcCwM4QUFkQ",
-      "thumbnail": "https://i.ytimg.com/vi/CcCwM4QUFkQ/hqdefault.jpg",
-      "series": "Courage and Calling",
-      "scripture": "Joshua 1:9",
-      "tags": ["encouragement", "courage", "faith"],
-      "duration": "Replay"
-    },
-    {
-      "title": "Strength in the Joy of the Lord",
-      "date": "Mar 22, 2026",
-      "speaker": "NCC Teaching Team",
-      "platform": "YouTube",
-      "url": "https://www.youtube.com/watch?v=KYDTq_mkKNo",
-      "thumbnail": "https://i.ytimg.com/vi/KYDTq_mkKNo/hqdefault.jpg",
-      "series": "Courage and Calling",
-      "scripture": "Nehemiah 8:10",
-      "tags": ["joy", "strength", "message"],
-      "duration": "Replay"
-    },
-    {
-      "title": "Let Everything Be Done in Love",
-      "date": "Mar 20, 2026",
-      "speaker": "NCC Teaching Team",
-      "platform": "YouTube",
-      "url": "https://www.youtube.com/watch?v=UEz5sH39jGA",
-      "thumbnail": "https://i.ytimg.com/vi/UEz5sH39jGA/hqdefault.jpg",
-      "series": "Church in Action",
-      "scripture": "1 Corinthians 16:14",
-      "tags": ["love", "community", "teaching"],
-      "duration": "Replay"
-    },
-    {
-      "title": "Sunday Worship: God Made Her for Me",
-      "date": "Mar 18, 2026",
+      "title": "Faith That Causes Unusual Growth",
+      "date": "Stream 12",
       "speaker": "Pastor Anthony VanDyke",
       "platform": "YouTube",
-      "url": "https://www.youtube.com/watch?v=wfaPp1vYkvs&t=1024s",
-      "thumbnail": "https://i.ytimg.com/vi/wfaPp1vYkvs/hqdefault.jpg",
-      "series": "Sunday Worship",
-      "scripture": "Philippians 4:13",
-      "tags": ["pastor", "worship", "sunday"],
-      "duration": "Replay"
+      "url": "https://www.youtube.com/watch?v=XrYY2S_Bd7c",
+      "thumbnail": "https://i.ytimg.com/vi/XrYY2S_Bd7c/hqdefault.jpg",
+      "series": "Sunday Livestream",
+      "scripture": "N/A",
+      "tags": [
+        "stream",
+        "sunday",
+        "ncc"
+      ],
+      "duration": "Replay",
+      "popularity": 89
     },
     {
-      "title": "Be Still and Know",
-      "date": "Mar 16, 2026",
-      "speaker": "NCC Teaching Team",
+      "title": "The Power in You to Build the Kingdom",
+      "date": "Stream 13",
+      "speaker": "Pastor Anthony VanDyke",
       "platform": "YouTube",
-      "url": "https://www.youtube.com/watch?v=wIivsTC3owI",
-      "thumbnail": "https://i.ytimg.com/vi/wIivsTC3owI/hqdefault.jpg",
-      "series": "Midweek Focus",
-      "scripture": "Psalm 46:10",
-      "tags": ["midweek", "peace", "teaching"],
-      "duration": "Replay"
+      "url": "https://www.youtube.com/watch?v=FNisSqEaI-4",
+      "thumbnail": "https://i.ytimg.com/vi/FNisSqEaI-4/hqdefault.jpg",
+      "series": "Sunday Livestream",
+      "scripture": "N/A",
+      "tags": [
+        "stream",
+        "sunday",
+        "ncc"
+      ],
+      "duration": "Replay",
+      "popularity": 88
     },
     {
-      "title": "Renewed Strength for the Journey",
-      "date": "Mar 14, 2026",
-      "speaker": "NCC Teaching Team",
+      "title": "Are You Built to Carry the Weight (33 min)",
+      "date": "Stream 14",
+      "speaker": "Pastor Anthony VanDyke",
       "platform": "YouTube",
-      "url": "https://www.youtube.com/watch?v=NMytNDub_iI",
-      "thumbnail": "https://i.ytimg.com/vi/NMytNDub_iI/hqdefault.jpg",
-      "series": "Midweek Focus",
-      "scripture": "Isaiah 40:31",
-      "tags": ["strength", "hope", "message"],
-      "duration": "Replay"
+      "url": "https://www.youtube.com/watch?v=nSvEOj09cMc",
+      "thumbnail": "https://i.ytimg.com/vi/nSvEOj09cMc/hqdefault.jpg",
+      "series": "Sunday Livestream",
+      "scripture": "N/A",
+      "tags": [
+        "stream",
+        "sunday",
+        "ncc"
+      ],
+      "duration": "Replay",
+      "popularity": 87
+    },
+    {
+      "title": "Are You Built to Carry the Weight (49 min)",
+      "date": "Stream 15",
+      "speaker": "Pastor Anthony VanDyke",
+      "platform": "YouTube",
+      "url": "https://www.youtube.com/watch?v=roL1U8SHW1I",
+      "thumbnail": "https://i.ytimg.com/vi/roL1U8SHW1I/hqdefault.jpg",
+      "series": "Sunday Livestream",
+      "scripture": "N/A",
+      "tags": [
+        "stream",
+        "sunday",
+        "ncc"
+      ],
+      "duration": "Replay",
+      "popularity": 86
+    },
+    {
+      "title": "The Good News of Christmas (36 min)",
+      "date": "Stream 16",
+      "speaker": "Pastor Anthony VanDyke",
+      "platform": "YouTube",
+      "url": "https://www.youtube.com/watch?v=w1d_JOWf7ZA",
+      "thumbnail": "https://i.ytimg.com/vi/w1d_JOWf7ZA/hqdefault.jpg",
+      "series": "Sunday Livestream",
+      "scripture": "N/A",
+      "tags": [
+        "stream",
+        "sunday",
+        "ncc"
+      ],
+      "duration": "Replay",
+      "popularity": 85
+    },
+    {
+      "title": "The Good News of Christmas (full service)",
+      "date": "Stream 17",
+      "speaker": "Pastor Anthony VanDyke",
+      "platform": "YouTube",
+      "url": "https://www.youtube.com/watch?v=jyoDa4dZjhQ",
+      "thumbnail": "https://i.ytimg.com/vi/jyoDa4dZjhQ/hqdefault.jpg",
+      "series": "Sunday Livestream",
+      "scripture": "N/A",
+      "tags": [
+        "stream",
+        "sunday",
+        "ncc"
+      ],
+      "duration": "Replay",
+      "popularity": 84
+    },
+    {
+      "title": "God Moves Beyond (highlight)",
+      "date": "Stream 18",
+      "speaker": "Pastor Anthony VanDyke",
+      "platform": "YouTube",
+      "url": "https://www.youtube.com/watch?v=U3izwaARLXI",
+      "thumbnail": "https://i.ytimg.com/vi/U3izwaARLXI/hqdefault.jpg",
+      "series": "Sunday Livestream",
+      "scripture": "N/A",
+      "tags": [
+        "stream",
+        "sunday",
+        "ncc"
+      ],
+      "duration": "Replay",
+      "popularity": 83
+    },
+    {
+      "title": "The Good News of Christmas (38 min)",
+      "date": "Stream 19",
+      "speaker": "Pastor Anthony VanDyke",
+      "platform": "YouTube",
+      "url": "https://www.youtube.com/watch?v=8-vhRu-VZdg",
+      "thumbnail": "https://i.ytimg.com/vi/8-vhRu-VZdg/hqdefault.jpg",
+      "series": "Sunday Livestream",
+      "scripture": "N/A",
+      "tags": [
+        "stream",
+        "sunday",
+        "ncc"
+      ],
+      "duration": "Replay",
+      "popularity": 82
+    },
+    {
+      "title": "The Good News of Christmas (30 min)",
+      "date": "Stream 20",
+      "speaker": "Pastor Anthony VanDyke",
+      "platform": "YouTube",
+      "url": "https://www.youtube.com/watch?v=mM0Xq2Er-98",
+      "thumbnail": "https://i.ytimg.com/vi/mM0Xq2Er-98/hqdefault.jpg",
+      "series": "Sunday Livestream",
+      "scripture": "N/A",
+      "tags": [
+        "stream",
+        "sunday",
+        "ncc"
+      ],
+      "duration": "Replay",
+      "popularity": 81
+    },
+    {
+      "title": "The Good News of Christmas (preview)",
+      "date": "Stream 21",
+      "speaker": "Pastor Anthony VanDyke",
+      "platform": "YouTube",
+      "url": "https://www.youtube.com/watch?v=gBG_7UUgUK0",
+      "thumbnail": "https://i.ytimg.com/vi/gBG_7UUgUK0/hqdefault.jpg",
+      "series": "Sunday Livestream",
+      "scripture": "N/A",
+      "tags": [
+        "stream",
+        "sunday",
+        "ncc"
+      ],
+      "duration": "Replay",
+      "popularity": 80
+    },
+    {
+      "title": "The Humility of the King",
+      "date": "Stream 22",
+      "speaker": "Pastor Anthony VanDyke",
+      "platform": "YouTube",
+      "url": "https://www.youtube.com/watch?v=x2JUnCEdsZU",
+      "thumbnail": "https://i.ytimg.com/vi/x2JUnCEdsZU/hqdefault.jpg",
+      "series": "Sunday Livestream",
+      "scripture": "N/A",
+      "tags": [
+        "stream",
+        "sunday",
+        "ncc"
+      ],
+      "duration": "Replay",
+      "popularity": 79
+    },
+    {
+      "title": "When The Soul Needs A Surgeon",
+      "date": "Stream 23",
+      "speaker": "Pastor Anthony VanDyke",
+      "platform": "YouTube",
+      "url": "https://www.youtube.com/watch?v=MSPvJERNI7U",
+      "thumbnail": "https://i.ytimg.com/vi/MSPvJERNI7U/hqdefault.jpg",
+      "series": "Sunday Livestream",
+      "scripture": "N/A",
+      "tags": [
+        "stream",
+        "sunday",
+        "ncc"
+      ],
+      "duration": "Replay",
+      "popularity": 78
+    },
+    {
+      "title": "The Choice is Final (37 min)",
+      "date": "Stream 24",
+      "speaker": "Pastor Anthony VanDyke",
+      "platform": "YouTube",
+      "url": "https://www.youtube.com/watch?v=qv1A78pXf5Q",
+      "thumbnail": "https://i.ytimg.com/vi/qv1A78pXf5Q/hqdefault.jpg",
+      "series": "Sunday Livestream",
+      "scripture": "N/A",
+      "tags": [
+        "stream",
+        "sunday",
+        "ncc"
+      ],
+      "duration": "Replay",
+      "popularity": 77
+    },
+    {
+      "title": "The Choice is Final (preview)",
+      "date": "Stream 25",
+      "speaker": "Pastor Anthony VanDyke",
+      "platform": "YouTube",
+      "url": "https://www.youtube.com/watch?v=SJUG8oFtgTI",
+      "thumbnail": "https://i.ytimg.com/vi/SJUG8oFtgTI/hqdefault.jpg",
+      "series": "Sunday Livestream",
+      "scripture": "N/A",
+      "tags": [
+        "stream",
+        "sunday",
+        "ncc"
+      ],
+      "duration": "Replay",
+      "popularity": 76
+    },
+    {
+      "title": "Thanksgiving to God",
+      "date": "Stream 26",
+      "speaker": "Pastor Anthony VanDyke",
+      "platform": "YouTube",
+      "url": "https://www.youtube.com/watch?v=cPBJ79vvTdw",
+      "thumbnail": "https://i.ytimg.com/vi/cPBJ79vvTdw/hqdefault.jpg",
+      "series": "Sunday Livestream",
+      "scripture": "N/A",
+      "tags": [
+        "stream",
+        "sunday",
+        "ncc"
+      ],
+      "duration": "Replay",
+      "popularity": 75
     }
   ],
-  "sermonNotes": []
+  "sermonNotes": [
+    {
+      "timestamp": "00:02",
+      "point": "Opening prayer and call to worship"
+    },
+    {
+      "timestamp": "09:15",
+      "point": "Main scripture context and historical framing"
+    },
+    {
+      "timestamp": "21:40",
+      "point": "Practical application for family and work life"
+    },
+    {
+      "timestamp": "34:55",
+      "point": "Invitation to faith and community response"
+    }
+  ]
 }

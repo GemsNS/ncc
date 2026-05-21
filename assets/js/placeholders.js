@@ -30,17 +30,22 @@ async function initPlaceholders() {
     });
   }
 
-  let data = {};
-  try {
-    const response = await fetch("./assets/data/site-content.json");
-    data = await response.json();
-  } catch (error) {
-    return;
+  let placeholders = {};
+  if (typeof window.getNccPlaceholders === "function") {
+    placeholders = await window.getNccPlaceholders();
+  } else {
+    try {
+      const response = await fetch("./assets/data/site-content.json");
+      const data = await response.json();
+      placeholders = (data && data.placeholders) || {};
+    } catch (error) {
+      return;
+    }
   }
 
   document.querySelectorAll("[data-ph]").forEach((el) => {
     const keyPath = el.dataset.ph;
-    const value = getValueByPath(data.placeholders || {}, keyPath);
+    const value = getValueByPath(placeholders, keyPath);
     applyPlaceholderValue(el, value);
   });
 

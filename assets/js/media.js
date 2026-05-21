@@ -27,8 +27,33 @@ function homeFeaturedVideoMime(src) {
   return "video/mp4";
 }
 
+const EXCLUDED_YOUTUBE_VIDEO_IDS = ["8cDsePBO5RM"];
+
+function youtubeIdFromMediaUrl(url) {
+  if (typeof url !== "string") {
+    return "";
+  }
+  const match = url.match(/(?:embed\/|watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
+  return match ? match[1] : "";
+}
+
+function isExcludedYoutubeMedia(item) {
+  if (!item || typeof item !== "object") {
+    return false;
+  }
+  const id =
+    (typeof item.youtubeId === "string" && item.youtubeId.trim()) ||
+    youtubeIdFromMediaUrl(item.url) ||
+    youtubeIdFromMediaUrl(item.watchUrl) ||
+    youtubeIdFromMediaUrl(item.thumbnail);
+  return id && EXCLUDED_YOUTUBE_VIDEO_IDS.indexOf(id) !== -1;
+}
+
 function isValidYoutubeFeaturedId(id) {
   if (typeof id !== "string") {
+    return false;
+  }
+  if (EXCLUDED_YOUTUBE_VIDEO_IDS.indexOf(id.trim()) !== -1) {
     return false;
   }
   return /^[a-zA-Z0-9_-]{11}$/.test(id.trim());
@@ -251,26 +276,34 @@ async function loadMediaCards() {
     if (window.__NCC_SITE_CONFIG && Array.isArray(window.__NCC_SITE_CONFIG.mediaArchive)) {
       items = window.__NCC_SITE_CONFIG.mediaArchive;
     } else {
-      const response = await fetch("./assets/data/site-content.json", { cache: "no-store" });
-      const data = await response.json();
+      const data =
+        typeof window.getNccStaticContentFallback === "function"
+          ? await window.getNccStaticContentFallback()
+          : await fetch("./assets/data/site-content.json", { cache: "no-store" }).then(function (r) {
+              return r.ok ? r.json() : {};
+            });
       items = (data && data.mediaArchive) || [];
     }
 
-    const normalizedItems = items.map(function normalize(item) {
-      return {
-        title: item.title,
-        date: item.date,
-        speaker: item.speaker,
-        platform: item.platform,
-        url: item.url,
-        thumbnail: item.thumbnail,
-        tags: item.tags || [],
-        series: item.series || "General",
-        scripture: item.scripture || "N/A",
-        duration: item.duration || "N/A",
-        popularity: typeof item.popularity === "number" ? item.popularity : 0
-      };
-    });
+    const normalizedItems = items
+      .filter(function (item) {
+        return !isExcludedYoutubeMedia(item);
+      })
+      .map(function normalize(item) {
+        return {
+          title: item.title,
+          date: item.date,
+          speaker: item.speaker,
+          platform: item.platform,
+          url: item.url,
+          thumbnail: item.thumbnail,
+          tags: item.tags || [],
+          series: item.series || "General",
+          scripture: item.scripture || "N/A",
+          duration: item.duration || "N/A",
+          popularity: typeof item.popularity === "number" ? item.popularity : 0
+        };
+      });
 
     window.__NCC_MEDIA_ITEMS__ = normalizedItems;
     renderMediaCards(normalizedItems);
@@ -362,9 +395,13 @@ async function initSermonNotes() {
     if (window.__NCC_SITE_CONFIG && Array.isArray(window.__NCC_SITE_CONFIG.sermonNotes)) {
       notes = window.__NCC_SITE_CONFIG.sermonNotes;
     } else {
-      const response = await fetch("./assets/data/site-content.json");
-      const data = await response.json();
-      notes = data.sermonNotes || [];
+      const data =
+        typeof window.getNccStaticContentFallback === "function"
+          ? await window.getNccStaticContentFallback()
+          : await fetch("./assets/data/site-content.json", { cache: "no-store" }).then(function (r) {
+              return r.ok ? r.json() : {};
+            });
+      notes = (data && data.sermonNotes) || [];
     }
     notesList.innerHTML = notes
       .map((item) => "<li><strong>" + item.timestamp + "</strong> - " + item.point + "</li>")

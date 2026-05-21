@@ -1,4 +1,13 @@
 async function initSocialFeeds() {
+  await (window.__NCC_RUNTIME_LOADED || Promise.resolve()).catch(function () {
+    return {};
+  });
+  if (typeof window.ensureNccSitePublicConfig === "function") {
+    await window.ensureNccSitePublicConfig().catch(function () {
+      return null;
+    });
+  }
+
   const homeFacebookImage = document.querySelector("[data-facebook-feature-image]");
   const homeFacebookLink = document.querySelector("[data-facebook-feature-link]");
   const facebookHighlights = document.querySelector("[data-facebook-highlights]");
@@ -52,9 +61,14 @@ async function initSocialFeeds() {
   }
 
   try {
-    const response = await fetch("./assets/data/site-content.json");
-    const data = await response.json();
-    const social = data.socialFeeds || {};
+    let social = {};
+    if (typeof window.getNccSocialFeeds === "function") {
+      social = await window.getNccSocialFeeds();
+    } else {
+      const response = await fetch("./assets/data/site-content.json");
+      const data = await response.json();
+      social = data.socialFeeds || {};
+    }
 
     const feature = social.facebookFeatured || {};
     const fbUrl = feature.videoUrl || "https://www.facebook.com/";
@@ -162,7 +176,7 @@ async function initSocialFeeds() {
     }
 
     const anthony = social.anthonyFacebook || {};
-    const anthonyPageUrl = anthony.pageUrl || "https://www.facebook.com/anthony.vandyke.3";
+    const anthonyPageUrl = anthony.pageUrl || "https://www.facebook.com/groups/280795183113/";
     const pageEmbedUrl =
       "https://www.facebook.com/plugins/page.php?href=" +
       encodeURIComponent(anthonyPageUrl) +

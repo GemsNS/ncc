@@ -4,5 +4,5 @@
     "useBackendAi": true,
     "persistThreads": true
   },
-  "_comment": "Copy to runtime.json and set apiBase to your deployed API (e.g. https://your-test-host.example/api). Same-origin static hosting can use /api if the API is reverse-proxied behind the same host. The browser loads GET {apiBase}/public/site-config for live ticker, video iframes (data-ncc-video slots), home featured list, livestream archive, sermon notes, and optional calendar XML URL."
+  "_comment": "Copy to runtime.json and set apiBase to your deployed API (e.g. https://your-test-host.example/api). Same-origin static hosting can use /api if the API is reverse-proxied behind the same host. The browser loads GET {apiBase}/public/site-config for placeholders (all data-ph copy/links), social feeds, live ticker, video iframes (data-ncc-video slots), home featured list, livestream archive, sermon notes, and optional calendar XML URL. Edit everything in Staff admin → Site configuration."
 }

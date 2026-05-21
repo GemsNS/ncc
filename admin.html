@@ -4,19 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Staff Admin | New Community Church</title>
-    <meta name="description" content="NCC staff admin: events calendar and prayer chat inbox.">
+    <meta name="description" content="NCC staff admin: calendar events and prayer chat inbox.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./assets/css/styles.css?v=20260417">
   </head>
   <body>
-    <header class="site-header"><div class="container"><a class="brand" href="./index.html"><img src="./assets/newlogoset/ncc-mark-primary-light.png" alt="NCC logo"><div><strong data-ph="branding.shortName">NCC Family</strong><span data-ph="contact.cityState">Suffolk, Virginia</span></div></a><button class="nav-toggle" data-nav-toggle aria-expanded="false" aria-label="Toggle site menu">☰</button><nav class="main-nav" data-main-nav><ul><li><a href="./index.html">Home</a></li><li><a href="./statement-of-faith.html">Faith</a></li><li><a href="./about.html">About</a></li><li><a href="./ministries.html">Ministries</a></li><li><a href="./give.html">Give</a></li><li><a href="./events.html">Events</a></li><li><a href="./livestream.html">Livestream</a></li><li><a href="./anthony-inspiration.html">Inspiration</a></li><li><a href="./contact.html">Contact</a></li></ul></nav></div></header>
+    <header class="site-header"><div class="container"><a class="brand" href="./index.html"><img src="./assets/newlogoset/ncc-mark-primary-light.png" alt="NCC logo"><div><strong data-ph="branding.shortName">NCC Family</strong><span data-ph="contact.cityState">Suffolk, Virginia</span></div></a><button class="nav-toggle" data-nav-toggle aria-expanded="false" aria-label="Toggle site menu">☰</button><nav class="main-nav" data-main-nav><ul><li><a href="./index.html">Home</a></li><li><a href="./statement-of-faith.html">Faith</a></li><li><a href="./about.html">About</a></li><li><a href="./ministries.html">Ministries</a></li><li><a href="./give.html">Give</a></li><li><a href="./events.html" data-ph="nav.calendarEvents">Calendar Events</a></li><li><a href="./livestream.html">Livestream</a></li><li><a href="./anthony-inspiration.html">Inspiration</a></li><li><a href="./contact.html">Contact</a></li></ul></nav></div></header>
     <main class="section">
       <div class="container">
         <p class="eyebrow">Staff</p>
         <h1>Staff admin</h1>
-        <p class="muted">Events calendar and prayer chat inbox. Point the site at your API by editing <code>assets/config/runtime.json</code> (<code>apiBase</code>) for each environment—test server, staging, or production—without rebuilding static files.</p>
+        <p class="muted">Calendar events and prayer chat inbox. Point the site at your API by editing <code>assets/config/runtime.json</code> (<code>apiBase</code>) for each environment—test server, staging, or production—without rebuilding static files.</p>
 
         <section class="section" data-admin-toolbar hidden>
           <article class="card">
@@ -25,6 +25,10 @@
               <button class="button secondary" type="button" data-admin-logout>Sign out</button>
             </div>
             <p class="muted">Backend env: set <code>CORS_ORIGIN</code> and admin credentials in the server <code>.env</code> (see <code>backend/.env.example</code>). Optional OpenAI keys enable richer prayer replies.</p>
+            <div class="admin-resource-links">
+              <a class="button secondary" href="./brand.html">Brand guide</a>
+              <a class="button secondary" href="./colors.html">Brand hub (colors + assets)</a>
+            </div>
           </article>
         </section>
 
@@ -41,6 +45,7 @@
               <button class="button primary" type="submit">Sign in</button>
             </form>
             <p class="muted" data-admin-auth-status>Not signed in.</p>
+            <p class="muted" data-admin-brand-hint hidden>Brand guide and brand hub open after you sign in (staff only).</p>
             <div style="margin-top: 0.75rem;">
               <button class="button secondary" type="button" data-admin-demo-enable>Use demo mode (GitHub Pages)</button>
             </div>
@@ -50,7 +55,7 @@
         <section class="section" data-admin-events-shell hidden>
           <div class="grid-2">
             <article class="card">
-              <h2>Create Event</h2>
+              <h2>Create Calendar Event</h2>
               <form class="form-grid" data-admin-event-form>
                 <label>Title
                   <input type="text" name="title" maxlength="140" required>
@@ -77,17 +82,17 @@
                 <label>Description
                   <textarea name="description" maxlength="1000" required></textarea>
                 </label>
-                <button class="button primary" type="submit">Save Event</button>
+                <button class="button primary" type="submit">Save calendar event</button>
               </form>
             </article>
             <article class="card">
               <h2>Publishing Notes</h2>
               <ul class="meta-list">
                 <li><strong>Draft:</strong> visible in admin only.</li>
-                <li><strong>Published:</strong> shown on the public events page.</li>
+                <li><strong>Published:</strong> shown on the public Calendar Events page.</li>
                 <li><strong>Archived:</strong> hidden from public and upcoming list.</li>
               </ul>
-              <p class="muted">After publishing, refresh `Events` to confirm the update appears in order by date.</p>
+              <p class="muted">After publishing, refresh the Calendar Events page to confirm the update appears in order by date.</p>
             </article>
           </div>
         </section>
@@ -95,7 +100,7 @@
         <section class="section" data-admin-events-shell hidden>
           <article class="card">
             <div class="section-title-row">
-              <h2>Manage Events</h2>
+              <h2>Manage Calendar Events</h2>
               <span class="pill" data-admin-event-count>0 records</span>
             </div>
             <div class="table-wrap">
@@ -120,15 +125,30 @@
 
         <section class="section" data-admin-site-shell hidden>
           <article class="card">
-            <h2>Site, videos, ticker &amp; calendar feed</h2>
-            <p class="muted">Edit the JSON below, then Save. Keys include <code>live</code> (ticker, manual vs scheduled status, service timeline lines, YouTube/Zoom links), <code>videoSlots</code> (each <code>data-ncc-video</code> slot: <code>embedUrl</code>, <code>title</code>, <code>overlay</code> of <code>auto</code> | <code>force-online</code> | <code>force-offline</code>, optional offline title/message), <code>homeFeaturedVideos</code> (same shape as the home page inline JSON), <code>mediaArchive</code> and <code>sermonNotes</code> for the Livestream archive grid and notes, and <code>calendar.xmlUrl</code> for the optional XML supplement on the Events page.</p>
+            <h2>Site configuration (all public pages)</h2>
+            <p class="muted">One JSON document controls the live site when <code>assets/config/runtime.json</code> points at your API. After <strong>Save</strong>, public pages load it on refresh. Static fallbacks (<code>site-content.json</code>, <code>home-featured-videos.json</code>) are updated automatically for offline preview.</p>
+            <details class="card" style="margin: 1rem 0; padding: 0.75rem 1rem;">
+              <summary style="cursor:pointer; font-weight: 600;">What you can edit (all keys)</summary>
+              <ul class="meta-list" style="margin-top: 0.75rem;">
+                <li><strong>placeholders</strong> — All <code>data-ph</code> page copy and links (home hero, about, ministries, give Sharefaith URL, Cash App, maps, contact).</li>
+                <li><strong>church</strong> — Name, address, phone, service times (reference data).</li>
+                <li><strong>socialFeeds</strong> — Anthony Inspiration page, Facebook highlights, prayer chat live/offline URLs.</li>
+                <li><strong>live</strong> — Ticker items, manual/scheduled status, service timeline, <code>links.youtubeWatch</code> / <code>links.zoom</code>.</li>
+                <li><strong>videoSlots</strong> — Every <code>data-ncc-video</code> iframe (livestream main, men&rsquo;s ministry, legacy archives, Anthony hub). Set <code>embedUrl</code>, <code>overlay</code>: <code>auto</code> | <code>force-online</code> | <code>force-offline</code>.</li>
+                <li><strong>homeFeaturedVideos</strong> — Home carousel (<code>videos[]</code> with <code>youtubeId</code> or local <code>src</code> under <code>./assets/</code>).</li>
+                <li><strong>mediaArchive</strong> — Livestream archive grid (title, url, thumbnail, tags, speaker, etc.).</li>
+                <li><strong>sermonNotes</strong> — Optional livestream notes list (<code>timestamp</code>, <code>point</code>).</li>
+                <li><strong>calendar.xmlUrl</strong> — Optional XML feed merged on the Calendar Events page.</li>
+              </ul>
+            </details>
             <p class="muted" data-admin-site-config-status></p>
             <label class="form-grid" style="display:block;">
               <span>Configuration JSON</span>
-              <textarea data-admin-site-config-text rows="18" style="width:100%; font-family: ui-monospace, monospace; font-size: 0.82rem;" spellcheck="false"></textarea>
+              <textarea data-admin-site-config-text rows="22" style="width:100%; font-family: ui-monospace, monospace; font-size: 0.82rem;" spellcheck="false"></textarea>
             </label>
             <p style="margin-top:0.75rem;">
               <button class="button secondary" type="button" data-admin-site-config-load>Reload from server</button>
+              <button class="button secondary" type="button" data-admin-site-config-seed>Load seed from repo files</button>
               <button class="button primary" type="button" data-admin-site-config-save>Save changes</button>
             </p>
           </article>

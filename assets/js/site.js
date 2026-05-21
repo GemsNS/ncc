@@ -91,6 +91,45 @@
 
   window.__NCC_APPLY_MANAGED_EMBEDS = applyNccManagedEmbedsFromConfig;
 
+  window.getNccStaticContentFallback = function getNccStaticContentFallback() {
+    return fetch("./assets/data/site-content.json", { cache: "no-store" })
+      .then(function (res) {
+        if (!res.ok) {
+          throw new Error("site-content http");
+        }
+        return res.json();
+      })
+      .catch(function () {
+        return {};
+      });
+  };
+
+  window.getNccPlaceholders = async function getNccPlaceholders() {
+    if (typeof window.ensureNccSitePublicConfig === "function") {
+      await window.ensureNccSitePublicConfig().catch(function () {
+        return null;
+      });
+    }
+    if (window.__NCC_SITE_CONFIG && window.__NCC_SITE_CONFIG.placeholders) {
+      return window.__NCC_SITE_CONFIG.placeholders;
+    }
+    const data = await window.getNccStaticContentFallback();
+    return (data && data.placeholders) || {};
+  };
+
+  window.getNccSocialFeeds = async function getNccSocialFeeds() {
+    if (typeof window.ensureNccSitePublicConfig === "function") {
+      await window.ensureNccSitePublicConfig().catch(function () {
+        return null;
+      });
+    }
+    if (window.__NCC_SITE_CONFIG && window.__NCC_SITE_CONFIG.socialFeeds) {
+      return window.__NCC_SITE_CONFIG.socialFeeds;
+    }
+    const data = await window.getNccStaticContentFallback();
+    return (data && data.socialFeeds) || {};
+  };
+
   const lockRoute = "under-construction.html";
   const themeKey = "ncc_theme";
 
@@ -350,13 +389,14 @@
     const dock = document.createElement("aside");
     dock.className = "quick-actions";
     dock.innerHTML =
-      '<button type="button" class="qa-trigger" data-qa-trigger aria-expanded="false" aria-label="Open quick actions">+</button>' +
       '<div class="qa-menu" data-qa-menu hidden>' +
       '<a class="qa-item" href="./livestream.html" title="Livestream">Watch</a>' +
       '<a class="qa-item" href="./give.html" title="Give">Give</a>' +
       '<button type="button" class="qa-item" data-qa-top title="Scroll to top">Top</button>' +
       '<button type="button" class="qa-item" data-qa-focus title="Focus mode">Focus</button>' +
-      "</div>";
+      '<button type="button" class="qa-item qa-item--prayer" data-prayer-open title="Prayer chat">Prayer Chat</button>' +
+      "</div>" +
+      '<button type="button" class="qa-trigger" data-qa-trigger aria-expanded="false" aria-controls="ncc-qa-menu" aria-label="Open quick actions">+</button>';
     document.body.appendChild(dock);
 
     const trigger = dock.querySelector("[data-qa-trigger]");
@@ -364,26 +404,67 @@
     const topBtn = dock.querySelector("[data-qa-top]");
     const focusBtn = dock.querySelector("[data-qa-focus]");
 
+    if (menu) {
+      menu.id = "ncc-qa-menu";
+    }
+
+    function setQuickActionsOpen(open) {
+      if (!menu || !trigger) {
+        return;
+      }
+      menu.hidden = !open;
+      dock.classList.toggle("quick-actions--open", open);
+      trigger.setAttribute("aria-expanded", String(open));
+      trigger.textContent = open ? "×" : "+";
+      trigger.setAttribute("aria-label", open ? "Close quick actions" : "Open quick actions");
+    }
+
+    function closeQuickActions() {
+      setQuickActionsOpen(false);
+    }
+
     if (trigger && menu) {
-      trigger.addEventListener("click", function onToggleQa() {
-        const isOpen = !menu.hidden;
-        menu.hidden = isOpen;
-        trigger.setAttribute("aria-expanded", String(!isOpen));
-        trigger.textContent = isOpen ? "+" : "x";
+      trigger.addEventListener("click", function onToggleQa(event) {
+        event.stopPropagation();
+        setQuickActionsOpen(menu.hidden);
       });
     }
 
+    document.addEventListener("click", function onDocumentClick(event) {
+      if (!dock.classList.contains("quick-actions--open")) {
+        return;
+      }
+      if (dock.contains(event.target)) {
+        return;
+      }
+      closeQuickActions();
+    });
+
+    document.addEventListener("keydown", function onEscape(event) {
+      if (event.key === "Escape") {
+        closeQuickActions();
+      }
+    });
+
     if (topBtn) {
       topBtn.addEventListener("click", function onTop() {
+        closeQuickActions();
         window.scrollTo({ top: 0, behavior: "smooth" });
       });
     }
 
     if (focusBtn) {
       focusBtn.addEventListener("click", function onFocus() {
+        closeQuickActions();
         document.body.classList.toggle("focus-mode");
       });
     }
+
+    dock.querySelectorAll(".qa-menu a.qa-item").forEach(function (link) {
+      link.addEventListener("click", closeQuickActions);
+    });
+
+    window.__NCC_CLOSE_QUICK_ACTIONS = closeQuickActions;
   }
 
   function setupCommandPalette() {
@@ -398,9 +479,25 @@
         label: (a.textContent || "").trim() || "Page"
       };
     });
-    links.push({ href: "./brand.html", label: "Brand Guide" });
-    links.push({ href: "./colors.html", label: "Brand Hub" });
-    links.push({ href: "./admin.html", label: "Staff · Events admin" });
+    function hasStaffSession() {
+      try {
+        if (localStorage.getItem("ncc_admin_token")) {
+          return true;
+        }
+        if (sessionStorage.getItem("ncc_admin_mode") === "demo") {
+          return true;
+        }
+      } catch (err) {
+        return false;
+      }
+      return false;
+    }
+
+    if (hasStaffSession()) {
+      links.push({ href: "./brand.html", label: "Staff · Brand Guide" });
+      links.push({ href: "./colors.html", label: "Staff · Brand Hub" });
+    }
+    links.push({ href: "./admin.html", label: "Staff · Calendar Events admin" });
 
     const palette = document.createElement("div");
     palette.className = "command-palette";
@@ -471,7 +568,7 @@
   }
 
   function setupFaithWidget() {
-    if (document.querySelector(".faith-widget")) {
+    if (document.querySelector("[data-faith-widget]")) {
       return;
     }
     const verses = [
@@ -486,27 +583,79 @@
       month: "short",
       day: "numeric"
     });
+    const storageKey = "ncc_faith_widget_collapsed";
+
+    function readCollapsedPreference() {
+      try {
+        var stored = window.localStorage.getItem(storageKey);
+        if (stored === "1") {
+          return true;
+        }
+        if (stored === "0") {
+          return false;
+        }
+      } catch (err) {
+        /* ignore */
+      }
+      return window.matchMedia("(max-width: 768px)").matches;
+    }
 
     const widget = document.createElement("aside");
     widget.className = "faith-widget";
+    widget.setAttribute("data-faith-widget", "");
     widget.innerHTML =
+      '<div class="faith-widget__head">' +
       "<strong>Today at NCC</strong>" +
+      '<button type="button" class="faith-widget__toggle" data-faith-toggle aria-expanded="false" aria-controls="ncc-faith-widget-body" aria-label="Show today\u2019s verse">Show</button>' +
+      "</div>" +
+      '<div class="faith-widget__body" id="ncc-faith-widget-body" data-faith-body>' +
       '<p class="muted">' + dateText + "</p>" +
-      "<p>" + verses[dayIndex] + "</p>";
+      "<p>" + verses[dayIndex] + "</p>" +
+      "</div>";
     document.body.appendChild(widget);
+
+    const toggle = widget.querySelector("[data-faith-toggle]");
+    const body = widget.querySelector("[data-faith-body]");
+
+    function setFaithWidgetCollapsed(collapsed) {
+      widget.classList.toggle("faith-widget--collapsed", collapsed);
+      if (body) {
+        body.hidden = collapsed;
+      }
+      if (toggle) {
+        toggle.setAttribute("aria-expanded", String(!collapsed));
+        toggle.textContent = collapsed ? "Show" : "Hide";
+        toggle.setAttribute(
+          "aria-label",
+          collapsed ? "Show today's verse" : "Hide today's verse"
+        );
+      }
+      document.body.classList.toggle("faith-widget-expanded", !collapsed);
+      try {
+        window.localStorage.setItem(storageKey, collapsed ? "1" : "0");
+      } catch (err) {
+        /* ignore */
+      }
+    }
+
+    if (toggle) {
+      toggle.addEventListener("click", function onFaithToggle() {
+        setFaithWidgetCollapsed(!widget.classList.contains("faith-widget--collapsed"));
+      });
+    }
+
+    setFaithWidgetCollapsed(readCollapsedPreference());
   }
 
   function setupPrayerChat() {
-    if (document.querySelector(".prayer-chat-launcher")) {
+    if (document.querySelector(".prayer-chat-modal")) {
       return;
     }
 
-    const launcher = document.createElement("button");
-    launcher.type = "button";
-    launcher.className = "prayer-chat-launcher";
-    launcher.textContent = "Prayer Chat";
-    launcher.setAttribute("aria-label", "Open prayer chat");
-    document.body.appendChild(launcher);
+    const launcher = document.querySelector("[data-prayer-open]");
+    if (!launcher) {
+      return;
+    }
 
     const modal = document.createElement("div");
     modal.className = "prayer-chat-modal";
@@ -575,7 +724,12 @@
       modal.setAttribute("hidden", "");
     }
 
-    launcher.addEventListener("click", openModal);
+    launcher.addEventListener("click", function onPrayerOpen() {
+      if (typeof window.__NCC_CLOSE_QUICK_ACTIONS === "function") {
+        window.__NCC_CLOSE_QUICK_ACTIONS();
+      }
+      openModal();
+    });
     if (closeBtn) {
       closeBtn.addEventListener("click", closeModal);
     }
@@ -585,12 +739,13 @@
       }
     });
 
-    fetch("./assets/data/site-content.json")
-      .then(function (res) {
-        return res.json();
-      })
-      .then(function (data) {
-        const social = (data && data.socialFeeds) || {};
+    (typeof window.getNccSocialFeeds === "function"
+      ? window.getNccSocialFeeds()
+      : window.getNccStaticContentFallback().then(function (data) {
+          return (data && data.socialFeeds) || {};
+        })
+    )
+      .then(function (social) {
         const prayer = social.prayerChat || {};
         liveMode = String(prayer.status || "offline").toLowerCase() === "online";
         liveUrl = prayer.liveUrl || social.anthonyFacebook?.pageUrl || defaultUrl;

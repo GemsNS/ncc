@@ -19,6 +19,15 @@
   const prayerCount = document.querySelector("[data-admin-prayer-count]");
   const logoutBtn = document.querySelector("[data-admin-logout]");
   const demoEnableBtn = document.querySelector("[data-admin-demo-enable]");
+  const brandHint = document.querySelector("[data-admin-brand-hint]");
+
+  const staffReturn = new URLSearchParams(window.location.search).get("staff");
+  if (brandHint && staffReturn) {
+    brandHint.hidden = false;
+    const label =
+      staffReturn === "colors" ? "Brand hub (colors + assets)" : "Brand guide";
+    brandHint.textContent = "Sign in to open the " + label + " (staff only).";
+  }
 
   function getToken() {
     return localStorage.getItem(tokenKey);

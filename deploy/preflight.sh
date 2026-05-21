@@ -17,6 +17,14 @@ else
   echo "[OK] node $(node -v)"
 fi
 
+if command -v apache2 >/dev/null 2>&1; then
+  echo "[OK] apache2 present (shared-server deploy)"
+elif command -v nginx >/dev/null 2>&1; then
+  echo "[OK] nginx present"
+else
+  echo "[WARN] neither apache2 nor nginx found — install Apache per deploy-ubuntu-wearencc.md"
+fi
+
 if [ ! -f "assets/config/runtime.json" ]; then
   echo "[FAIL] missing assets/config/runtime.json (copy from runtime.production.example.json)"
   fail=1
