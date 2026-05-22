@@ -231,7 +231,19 @@
     row.appendChild(wrap);
   }
 
-  function setupInspirationNavLink() {
+  const NCC_MAIN_NAV_ITEMS = [
+    { file: "index.html", label: "Home" },
+    { file: "statement-of-faith.html", label: "Statement of Faith" },
+    { file: "about.html", label: "About" },
+    { file: "ministries.html", label: "Ministries" },
+    { file: "give.html", label: "Give" },
+    { file: "events.html", label: "Calendar Events", ph: "nav.calendarEvents" },
+    { file: "livestream.html", label: "Livestream" },
+    { file: "anthony-inspiration.html", label: "Inspiration" },
+    { file: "contact.html", label: "Contact" }
+  ];
+
+  function setupMainNav() {
     if (!nav) {
       return;
     }
@@ -240,53 +252,47 @@
       return;
     }
 
-    function ensureLink(href, label) {
-      const existing = navList.querySelector('a[href$="' + href + '"]');
-      if (existing) {
-        return;
-      }
-      const li = document.createElement("li");
-      li.innerHTML = '<a href="./' + href + '">' + label + "</a>";
-      const contactLi = navList.querySelector('a[href$="contact.html"]');
-      if (contactLi && contactLi.closest("li")) {
-        navList.insertBefore(li, contactLi.closest("li"));
-      } else {
-        navList.appendChild(li);
-      }
-    }
+    const pageFile = (window.location.pathname.split("/").pop() || "index.html").trim().toLowerCase();
+    const activeFile = pageFile || "index.html";
 
-    ensureLink("anthony-inspiration.html", "Inspiration");
-    ensureLink("statement-of-faith.html", "Statement of Faith");
+    navList.innerHTML = "";
+
+    NCC_MAIN_NAV_ITEMS.forEach(function (item) {
+      const li = document.createElement("li");
+      const anchor = document.createElement("a");
+      anchor.href = "./" + item.file;
+      anchor.textContent = item.label;
+      if (item.ph) {
+        anchor.setAttribute("data-ph", item.ph);
+      }
+      if (activeFile === item.file) {
+        anchor.setAttribute("aria-current", "page");
+      }
+      li.appendChild(anchor);
+      navList.appendChild(li);
+    });
   }
 
-  function setupWelcomeFlipCard() {
-    const card = document.querySelector("[data-flip-card]");
+  function setupWelcomeReveal() {
+    const card = document.querySelector("[data-welcome-reveal]");
     if (!card) {
       return;
     }
 
-    const defaultLabel = "Welcome to NCC. Click to see our community.";
-    const flippedLabel = "Community photo shown. Click to return to welcome.";
-
-    function setFlipped(flipped) {
-      card.classList.toggle("is-flipped", flipped);
-      card.setAttribute("aria-pressed", flipped ? "true" : "false");
-      card.setAttribute("aria-label", flipped ? flippedLabel : defaultLabel);
-      const hint = card.querySelector(".welcome-flip-card__hint");
-      if (hint) {
-        hint.textContent = flipped ? "Click to return" : "Click to reveal";
-      }
+    function setRevealed(revealed) {
+      card.classList.toggle("is-revealed", revealed);
+      card.setAttribute("aria-pressed", revealed ? "true" : "false");
     }
 
-    function toggleFlip() {
-      setFlipped(!card.classList.contains("is-flipped"));
+    function toggleReveal() {
+      setRevealed(!card.classList.contains("is-revealed"));
     }
 
-    card.addEventListener("click", toggleFlip);
-    card.addEventListener("keydown", function onFlipKeydown(event) {
+    card.addEventListener("click", toggleReveal);
+    card.addEventListener("keydown", function onRevealKeydown(event) {
       if (event.key === "Enter" || event.key === " ") {
         event.preventDefault();
-        toggleFlip();
+        toggleReveal();
       }
     });
   }
@@ -1195,10 +1201,10 @@
   setupAmbientBackground();
   setupThemeToggle();
   setupGlobalBrandAssets();
-  setupInspirationNavLink();
+  setupMainNav();
   setupAdminTree();
   setupGlobalVideoHero();
-  setupWelcomeFlipCard();
+  setupWelcomeReveal();
   setupCinematicHeader();
   setupScrollProgress();
   setupRevealAnimations();

@@ -219,10 +219,27 @@ a {
 
 .main-nav ul {
   display: flex;
-  gap: 1rem;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0;
   list-style: none;
   margin: 0;
   padding: 0;
+}
+
+.main-nav li {
+  display: flex;
+  align-items: center;
+}
+
+.main-nav li + li::before {
+  content: "";
+  display: inline-block;
+  width: 1px;
+  height: 0.9rem;
+  margin: 0 0.7rem;
+  background: rgba(248, 249, 250, 0.22);
+  flex-shrink: 0;
 }
 
 .nav-tree {
@@ -260,6 +277,8 @@ a {
   text-decoration: none;
   color: var(--muted-text);
   font-size: 0.92rem;
+  white-space: nowrap;
+  padding: 0.2rem 0;
 }
 
 .main-nav a[aria-current="page"],
@@ -591,88 +610,52 @@ a {
   border-color: rgba(248, 249, 250, 0.24);
 }
 
-.welcome-flip-card {
-  position: relative;
-  width: 100%;
-  min-height: 280px;
-  aspect-ratio: 4 / 3;
-  perspective: 1100px;
+.welcome-reveal {
   cursor: pointer;
-  border: 1px solid var(--surface-border);
-  border-radius: var(--radius);
   outline: none;
 }
 
-.welcome-flip-card:focus-visible {
+.welcome-reveal:focus-visible {
   box-shadow: 0 0 0 3px rgba(0, 245, 212, 0.45);
 }
 
-.welcome-flip-card__inner {
-  position: relative;
+.welcome-reveal img {
   width: 100%;
-  height: 100%;
-  min-height: 280px;
-  transform-style: preserve-3d;
-  transition: transform 0.65s cubic-bezier(0.4, 0.2, 0.2, 1);
-}
-
-.welcome-flip-card.is-flipped .welcome-flip-card__inner {
-  transform: rotateY(180deg);
-}
-
-.welcome-flip-card__face {
-  position: absolute;
-  inset: 0;
-  backface-visibility: hidden;
-  border-radius: var(--radius);
-  overflow: hidden;
-  background: #030813;
-}
-
-.welcome-flip-card__face--back {
-  transform: rotateY(180deg);
-}
-
-.welcome-flip-card__photo {
-  width: 100%;
-  height: 100%;
-  min-height: 280px;
+  height: 260px;
+  min-height: 260px;
   object-fit: cover;
   object-position: center center;
   display: block;
+  opacity: 1;
+  transition: filter 0.45s ease, transform 0.45s ease;
 }
 
-.welcome-flip-card__photo--blur {
-  filter: blur(12px) brightness(0.5) saturate(1.05);
-  transform: scale(1.12);
+.welcome-reveal:not(.is-revealed) img {
+  filter: blur(12px) brightness(0.55) saturate(1.05);
+  transform: scale(1.08);
 }
 
-.welcome-flip-card__front-content {
+.welcome-reveal__overlay {
   position: absolute;
   inset: 0;
-  z-index: 1;
+  z-index: 2;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 0.35rem;
   padding: 1.5rem;
   text-align: center;
+  pointer-events: none;
   background:
     radial-gradient(circle at 50% 20%, rgba(121, 221, 255, 0.22), transparent 55%),
-    linear-gradient(180deg, rgba(2, 8, 20, 0.2) 0%, rgba(2, 8, 20, 0.62) 100%);
+    linear-gradient(180deg, rgba(2, 8, 20, 0.15) 0%, rgba(2, 8, 20, 0.55) 100%);
+  transition: opacity 0.4s ease;
 }
 
-.welcome-flip-card__eyebrow {
-  margin: 0;
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--neon-cyan);
+.welcome-reveal.is-revealed .welcome-reveal__overlay {
+  opacity: 0;
 }
 
-.welcome-flip-card__title {
+.welcome-reveal__title {
   margin: 0;
   font-family: Montserrat, Inter, sans-serif;
   font-size: clamp(1.65rem, 4.5vw, 2.45rem);
@@ -686,16 +669,9 @@ a {
     0 0 40px rgba(121, 221, 255, 0.35);
 }
 
-.welcome-flip-card__hint {
-  margin-top: 0.65rem;
-  font-size: 0.76rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: rgba(248, 249, 250, 0.78);
-}
-
 @media (prefers-reduced-motion: reduce) {
-  .welcome-flip-card__inner {
+  .welcome-reveal img,
+  .welcome-reveal__overlay {
     transition-duration: 0.01ms;
   }
 }
@@ -2509,6 +2485,23 @@ body.focus-mode .ticker-shell {
 
   .main-nav ul {
     flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+  }
+
+  .main-nav li + li::before {
+    display: none;
+  }
+
+  .main-nav li + li {
+    border-top: 1px solid var(--surface-border);
+    margin-top: 0.35rem;
+    padding-top: 0.35rem;
+  }
+
+  .main-nav a {
+    display: block;
+    padding: 0.45rem 0.15rem;
   }
 
   .theme-toggle {

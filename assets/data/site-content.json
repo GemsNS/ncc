@@ -11,7 +11,8 @@
   },
   "placeholders": {
     "nav": {
-      "calendarEvents": "Calendar Events"
+      "calendarEvents": "Calendar Events",
+      "statementOfFaith": "Statement of Faith"
     },
     "branding": {
       "shortName": "NCC Family",
