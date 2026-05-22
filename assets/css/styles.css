@@ -591,6 +591,115 @@ a {
   border-color: rgba(248, 249, 250, 0.24);
 }
 
+.welcome-flip-card {
+  position: relative;
+  width: 100%;
+  min-height: 280px;
+  aspect-ratio: 4 / 3;
+  perspective: 1100px;
+  cursor: pointer;
+  border: 1px solid var(--surface-border);
+  border-radius: var(--radius);
+  outline: none;
+}
+
+.welcome-flip-card:focus-visible {
+  box-shadow: 0 0 0 3px rgba(0, 245, 212, 0.45);
+}
+
+.welcome-flip-card__inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 280px;
+  transform-style: preserve-3d;
+  transition: transform 0.65s cubic-bezier(0.4, 0.2, 0.2, 1);
+}
+
+.welcome-flip-card.is-flipped .welcome-flip-card__inner {
+  transform: rotateY(180deg);
+}
+
+.welcome-flip-card__face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: #030813;
+}
+
+.welcome-flip-card__face--back {
+  transform: rotateY(180deg);
+}
+
+.welcome-flip-card__photo {
+  width: 100%;
+  height: 100%;
+  min-height: 280px;
+  object-fit: cover;
+  object-position: center center;
+  display: block;
+}
+
+.welcome-flip-card__photo--blur {
+  filter: blur(12px) brightness(0.5) saturate(1.05);
+  transform: scale(1.12);
+}
+
+.welcome-flip-card__front-content {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  padding: 1.5rem;
+  text-align: center;
+  background:
+    radial-gradient(circle at 50% 20%, rgba(121, 221, 255, 0.22), transparent 55%),
+    linear-gradient(180deg, rgba(2, 8, 20, 0.2) 0%, rgba(2, 8, 20, 0.62) 100%);
+}
+
+.welcome-flip-card__eyebrow {
+  margin: 0;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--neon-cyan);
+}
+
+.welcome-flip-card__title {
+  margin: 0;
+  font-family: Montserrat, Inter, sans-serif;
+  font-size: clamp(1.65rem, 4.5vw, 2.45rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #f8f9fa;
+  text-shadow:
+    0 2px 18px rgba(0, 0, 0, 0.55),
+    0 0 40px rgba(121, 221, 255, 0.35);
+}
+
+.welcome-flip-card__hint {
+  margin-top: 0.65rem;
+  font-size: 0.76rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(248, 249, 250, 0.78);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .welcome-flip-card__inner {
+    transition-duration: 0.01ms;
+  }
+}
+
 .inspiration-hero-cinematic {
   position: relative;
   overflow: hidden;

@@ -259,23 +259,35 @@
     ensureLink("statement-of-faith.html", "Statement of Faith");
   }
 
-  function setupInteractiveHero() {
-    const card = document.querySelector("[data-interactive-hero]");
+  function setupWelcomeFlipCard() {
+    const card = document.querySelector("[data-flip-card]");
     if (!card) {
       return;
     }
 
-    card.addEventListener("mousemove", function onMove(event) {
-      const rect = card.getBoundingClientRect();
-      const x = (event.clientX - rect.left) / rect.width - 0.5;
-      const y = (event.clientY - rect.top) / rect.height - 0.5;
-      const rotateY = x * 12;
-      const rotateX = y * -10;
-      card.style.transform = "perspective(900px) rotateX(" + rotateX + "deg) rotateY(" + rotateY + "deg)";
-    });
+    const defaultLabel = "Welcome to NCC. Click to see our community.";
+    const flippedLabel = "Community photo shown. Click to return to welcome.";
 
-    card.addEventListener("mouseleave", function onLeave() {
-      card.style.transform = "perspective(900px) rotateX(0deg) rotateY(0deg)";
+    function setFlipped(flipped) {
+      card.classList.toggle("is-flipped", flipped);
+      card.setAttribute("aria-pressed", flipped ? "true" : "false");
+      card.setAttribute("aria-label", flipped ? flippedLabel : defaultLabel);
+      const hint = card.querySelector(".welcome-flip-card__hint");
+      if (hint) {
+        hint.textContent = flipped ? "Click to return" : "Click to reveal";
+      }
+    }
+
+    function toggleFlip() {
+      setFlipped(!card.classList.contains("is-flipped"));
+    }
+
+    card.addEventListener("click", toggleFlip);
+    card.addEventListener("keydown", function onFlipKeydown(event) {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        toggleFlip();
+      }
     });
   }
 
@@ -1186,7 +1198,7 @@
   setupInspirationNavLink();
   setupAdminTree();
   setupGlobalVideoHero();
-  setupInteractiveHero();
+  setupWelcomeFlipCard();
   setupCinematicHeader();
   setupScrollProgress();
   setupRevealAnimations();
