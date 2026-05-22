@@ -1433,7 +1433,8 @@ p {
 }
 
 .media-hero-stack .media-hero img:not(.media-hero__portrait) {
-  max-height: 420px;
+  max-height: 520px;
+  object-fit: contain;
   object-position: center center;
 }
 
