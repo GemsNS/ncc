@@ -256,7 +256,7 @@
     }
 
     ensureLink("anthony-inspiration.html", "Inspiration");
-    ensureLink("statement-of-faith.html", "Faith");
+    ensureLink("statement-of-faith.html", "Statement of Faith");
   }
 
   function setupInteractiveHero() {
