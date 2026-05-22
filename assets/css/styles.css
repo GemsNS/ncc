@@ -610,6 +610,13 @@ a {
   border-color: rgba(248, 249, 250, 0.24);
 }
 
+.interactive-hero.welcome-reveal {
+  min-height: 0;
+  width: 100%;
+  background: transparent;
+  line-height: 0;
+}
+
 .welcome-reveal {
   cursor: pointer;
   outline: none;
@@ -619,20 +626,22 @@ a {
   box-shadow: 0 0 0 3px rgba(0, 245, 212, 0.45);
 }
 
-.welcome-reveal img {
+.interactive-hero.welcome-reveal img {
   width: 100%;
-  height: 260px;
-  min-height: 260px;
-  object-fit: cover;
+  height: auto;
+  min-height: 0;
+  max-height: none;
+  object-fit: unset;
   object-position: center center;
   display: block;
   opacity: 1;
+  vertical-align: top;
   transition: filter 0.45s ease, transform 0.45s ease;
 }
 
 .welcome-reveal:not(.is-revealed) img {
   filter: blur(12px) brightness(0.55) saturate(1.05);
-  transform: scale(1.08);
+  transform: scale(1.05);
 }
 
 .welcome-reveal__overlay {
