@@ -1,8 +1,9 @@
 # Shared VM: SSL troubleshooting (Apache)
 
-**Main deploy guide (both sites, step-by-step):** [deploy-ubuntu-wearencc.md](./deploy-ubuntu-wearencc.md)
+**Main deploy guide (beginner, file-by-file, API setup):** [deploy-ubuntu-wearencc.md](./deploy-ubuntu-wearencc.md)  
+**Printable checklist:** [../deploy/CHECKLIST.md](../deploy/CHECKLIST.md)
 
-This page is a short supplement when something goes wrong with HTTPS on **34.30.208.144**.
+This page is a short supplement when something goes wrong with HTTPS on **34.30.208.144**. Follow the main guide first; use this page only if SSL steps fail.
 
 ---
 

@@ -1,7 +1,5 @@
 (function initAdminBlog() {
   const tokenKey = "ncc_admin_token";
-  const modeKey = "ncc_admin_mode";
-  const demoBlogKey = "ncc_demo_blog_posts";
 
   const shell = document.querySelector("[data-admin-blog-shell]");
   if (!shell) {
@@ -15,10 +13,6 @@
 
   function apiRoot() {
     return String(window.NCC_API_BASE || "/api").replace(/\/$/, "");
-  }
-
-  function getMode() {
-    return sessionStorage.getItem(modeKey) || "backend";
   }
 
   function getToken() {
@@ -44,64 +38,7 @@
       .slice(0, 180);
   }
 
-  function demoLoad() {
-    try {
-      return JSON.parse(localStorage.getItem(demoBlogKey) || "[]");
-    } catch (e) {
-      return [];
-    }
-  }
-
-  function demoSave(items) {
-    localStorage.setItem(demoBlogKey, JSON.stringify(items || []));
-  }
-
   async function request(path, options) {
-    if (getMode() === "demo") {
-      const method = String((options && options.method) || "GET").toUpperCase();
-      const posts = demoLoad();
-      if (path === "/blog?includeAll=true" && method === "GET") {
-        return posts;
-      }
-      if (path === "/blog" && method === "POST") {
-        const body = options && options.body ? JSON.parse(String(options.body)) : {};
-        const next = {
-          id: crypto.randomUUID ? crypto.randomUUID() : "demo-" + Date.now(),
-          title: body.title,
-          slug: body.slug,
-          author: body.author || "NCC Staff",
-          bodyMd: body.bodyMd,
-          status: body.status || "draft",
-          createdAt: new Date().toISOString(),
-          updatedAt: new Date().toISOString(),
-          publishedAt: body.status === "published" ? new Date().toISOString() : ""
-        };
-        posts.unshift(next);
-        demoSave(posts);
-        return next;
-      }
-      if (path.startsWith("/blog/") && method === "PATCH") {
-        const id = path.split("/")[2];
-        const body = options && options.body ? JSON.parse(String(options.body)) : {};
-        const idx = posts.findIndex((p) => p.id === id);
-        if (idx === -1) throw new Error("Post not found");
-        const nextStatus = body.status || posts[idx].status;
-        posts[idx] = {
-          ...posts[idx],
-          ...body,
-          status: nextStatus,
-          publishedAt:
-            nextStatus === "published"
-              ? posts[idx].publishedAt || new Date().toISOString()
-              : posts[idx].publishedAt,
-          updatedAt: new Date().toISOString()
-        };
-        demoSave(posts);
-        return posts[idx];
-      }
-      throw new Error("Demo mode: unsupported action");
-    }
-
     const token = getToken();
     const headers = {
       "Content-Type": "application/json",
@@ -176,25 +113,6 @@
     render(posts);
   }
 
-  function ensureDemoExamplePost() {
-    if (getMode() !== "demo") return;
-    const posts = demoLoad();
-    if (posts.some((p) => p && p.id === "demo-word-of-god")) return;
-    posts.unshift({
-      id: "demo-word-of-god",
-      title: "The Word of God: Stronger Than Our Feelings",
-      slug: "word-of-god-stronger-than-our-feelings",
-      author: "NCC Staff",
-      status: "published",
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
-      publishedAt: new Date().toISOString(),
-      bodyMd:
-        "## A steady anchor\n\nWhen life is loud, God's Word stays clear. Scripture doesn’t just *inform* us—it **forms** us.\n\n- Read it daily\n- Pray it honestly\n- Live it patiently\n\n> “Your word is a lamp to my feet and a light to my path.” (Psalm 119:105)\n\nAsk God today: *What is one verse You want me to carry into this week?*"
-    });
-    demoSave(posts);
-  }
-
   if (form) {
     form.addEventListener("submit", function (event) {
       event.preventDefault();
@@ -266,18 +184,14 @@
   }
 
   window.addEventListener("ncc:admin-auth", function () {
-    ensureDemoExamplePost();
     refresh().catch(function (err) {
       if (statusEl) statusEl.textContent = err.message;
     });
   });
 
-  // If already authenticated, load immediately.
   if (getToken()) {
-    ensureDemoExamplePost();
     refresh().catch(function () {
       /* ignore */
     });
   }
 })();
-

@@ -1,9 +1,6 @@
 (function initAdminEvents() {
   function main() {
   const tokenKey = "ncc_admin_token";
-  const modeKey = "ncc_admin_mode";
-  const demoEventsKey = "ncc_demo_events";
-  const demoPrayerKey = "ncc_demo_prayer_inbox";
 
   const loginForm = document.querySelector("[data-admin-login-form]");
   const authStatus = document.querySelector("[data-admin-auth-status]");
@@ -18,7 +15,6 @@
   const prayerRows = document.querySelector("[data-admin-prayer-rows]");
   const prayerCount = document.querySelector("[data-admin-prayer-count]");
   const logoutBtn = document.querySelector("[data-admin-logout]");
-  const demoEnableBtn = document.querySelector("[data-admin-demo-enable]");
   const brandHint = document.querySelector("[data-admin-brand-hint]");
 
   const staffReturn = new URLSearchParams(window.location.search).get("staff");
@@ -41,48 +37,18 @@
     localStorage.removeItem(tokenKey);
   }
 
-  function getMode() {
-    return sessionStorage.getItem(modeKey) || "backend";
-  }
-
-  function setMode(mode) {
-    sessionStorage.setItem(modeKey, mode);
-  }
-
-  function ensureDemoData() {
-    if (!localStorage.getItem(demoEventsKey)) {
-      localStorage.setItem(demoEventsKey, JSON.stringify([]));
-    }
-    if (!localStorage.getItem(demoPrayerKey)) {
-      localStorage.setItem(demoPrayerKey, JSON.stringify([]));
-    }
-  }
-
-  function demoLoadEvents() {
-    ensureDemoData();
+  function purgeLegacyDemoSession() {
     try {
-      return JSON.parse(localStorage.getItem(demoEventsKey) || "[]");
-    } catch (e) {
-      return [];
+      if (localStorage.getItem(tokenKey) === "demo-token") {
+        clearToken();
+      }
+      sessionStorage.removeItem("ncc_admin_mode");
+    } catch (err) {
+      /* ignore */
     }
   }
 
-  function demoSaveEvents(items) {
-    localStorage.setItem(demoEventsKey, JSON.stringify(items || []));
-  }
-
-  function demoLoadPrayer() {
-    ensureDemoData();
-    try {
-      return JSON.parse(localStorage.getItem(demoPrayerKey) || "[]");
-    } catch (e) {
-      return [];
-    }
-  }
-
-  function demoSavePrayer(items) {
-    localStorage.setItem(demoPrayerKey, JSON.stringify(items || []));
-  }
+  purgeLegacyDemoSession();
 
   function escapeHtml(text) {
     return String(text || "")
@@ -129,62 +95,6 @@
     }
 
   async function request(path, options) {
-    if (getMode() === "demo") {
-      // Demo mode supports: auth/me (fake), events CRUD, prayer inbox (read-only local).
-      const method = String((options && options.method) || "GET").toUpperCase();
-      if (path === "/auth/me") {
-        return { user: { id: "demo", email: "demo@ncc.local", role: "super_admin" } };
-      }
-      if (path.indexOf("/events") === 0) {
-        const events = demoLoadEvents();
-        if (method === "GET") {
-          return events;
-        }
-        if (method === "POST") {
-          const body = options && options.body ? JSON.parse(String(options.body)) : {};
-          const next = {
-            id: crypto.randomUUID ? crypto.randomUUID() : "demo-" + Date.now(),
-            ...body,
-            createdAt: new Date().toISOString(),
-            updatedAt: new Date().toISOString(),
-            createdBy: "demo@ncc.local"
-          };
-          events.unshift(next);
-          demoSaveEvents(events);
-          return next;
-        }
-        // PATCH /events/:id
-        if (method === "PATCH") {
-          const id = path.split("/")[2];
-          const body = options && options.body ? JSON.parse(String(options.body)) : {};
-          const idx = events.findIndex((e) => e.id === id);
-          if (idx === -1) throw new Error("Event not found");
-          events[idx] = { ...events[idx], ...body, updatedAt: new Date().toISOString() };
-          demoSaveEvents(events);
-          return events[idx];
-        }
-        if (method === "DELETE") {
-          const id = path.split("/")[2];
-          demoSaveEvents(events.filter((e) => e.id !== id));
-          return { ok: true };
-        }
-      }
-      if (path.indexOf("/prayer/admin/inbox") === 0) {
-        if (method === "GET") return demoLoadPrayer();
-        if (method === "PATCH") {
-          const id = path.split("/").pop();
-          const items = demoLoadPrayer();
-          const idx = items.findIndex((p) => p.id === id);
-          if (idx === -1) throw new Error("Entry not found");
-          const body = options && options.body ? JSON.parse(String(options.body)) : {};
-          items[idx] = { ...items[idx], ...body, updatedAt: new Date().toISOString() };
-          demoSavePrayer(items);
-          return items[idx];
-        }
-      }
-      throw new Error("Demo mode: unsupported action");
-    }
-
     const token = getToken();
     const headers = {
       ...(options && options.headers ? options.headers : {})
@@ -310,18 +220,6 @@
       event.preventDefault();
       const data = new FormData(loginForm);
       try {
-        if (getMode() === "demo") {
-          ensureDemoData();
-          setToken("demo-token");
-          if (authStatus) {
-            authStatus.textContent = "Authenticated as demo@ncc.local (demo)";
-          }
-          setShellVisibility(true);
-          await refreshEvents();
-          await refreshPrayerInbox();
-          window.dispatchEvent(new CustomEvent("ncc:admin-auth"));
-          return;
-        }
         const payload = await request("/auth/login", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -525,7 +423,6 @@
   if (logoutBtn) {
     logoutBtn.addEventListener("click", function onLogout() {
       clearToken();
-      setMode("backend");
       setShellVisibility(false);
       if (authStatus) {
         authStatus.textContent = "Signed out.";
@@ -536,29 +433,11 @@
     });
   }
 
-  if (demoEnableBtn) {
-    demoEnableBtn.addEventListener("click", async function onEnableDemo() {
-      setMode("demo");
-      setToken("demo-token");
-      ensureDemoData();
-      if (authStatus) {
-        authStatus.textContent = "Authenticated as demo@ncc.local (demo)";
-      }
-      setShellVisibility(true);
-      await refreshEvents();
-      await refreshPrayerInbox();
-      window.dispatchEvent(new CustomEvent("ncc:admin-auth"));
-    });
-  }
-
   if (getToken()) {
     request("/auth/me")
       .then(function (payload) {
         if (authStatus) {
-          authStatus.textContent =
-            getMode() === "demo"
-              ? "Authenticated as demo@ncc.local (demo)"
-              : "Authenticated as " + payload.user.email;
+          authStatus.textContent = "Authenticated as " + payload.user.email;
         }
         setShellVisibility(true);
         window.dispatchEvent(new CustomEvent("ncc:admin-auth"));
@@ -568,7 +447,6 @@
       })
       .catch(function () {
         clearToken();
-        setMode("backend");
         setShellVisibility(false);
       });
   } else {

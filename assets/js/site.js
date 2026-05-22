@@ -130,8 +130,13 @@
     return (data && data.socialFeeds) || {};
   };
 
-  const lockRoute = "under-construction.html";
   const themeKey = "ncc_theme";
+
+  try {
+    localStorage.removeItem("ncc_site_unlocked");
+  } catch (err) {
+    /* ignore */
+  }
 
   const navToggle = document.querySelector("[data-nav-toggle]");
   const nav = document.querySelector("[data-main-nav]");
@@ -298,9 +303,7 @@
   }
 
   function setupAmbientBackground() {
-    const currentPath = window.location.pathname || "";
-    const isConstruction = currentPath.toLowerCase().endsWith("/" + lockRoute) || currentPath.toLowerCase().endsWith(lockRoute);
-    if (isConstruction || document.querySelector(".site-ambient")) {
+    if (document.querySelector(".site-ambient")) {
       return;
     }
 
@@ -481,16 +484,11 @@
     });
     function hasStaffSession() {
       try {
-        if (localStorage.getItem("ncc_admin_token")) {
-          return true;
-        }
-        if (sessionStorage.getItem("ncc_admin_mode") === "demo") {
-          return true;
-        }
+        const token = localStorage.getItem("ncc_admin_token");
+        return !!(token && token !== "demo-token");
       } catch (err) {
         return false;
       }
-      return false;
     }
 
     if (hasStaffSession()) {
@@ -1083,9 +1081,7 @@
   }
 
   function setupGlobalVideoHero() {
-    const currentPath = window.location.pathname || "";
-    const isConstruction = currentPath.toLowerCase().endsWith("/" + lockRoute) || currentPath.toLowerCase().endsWith(lockRoute);
-    if (isConstruction || document.querySelector(".global-video-hero")) {
+    if (document.querySelector(".global-video-hero")) {
       return;
     }
 

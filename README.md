@@ -80,7 +80,7 @@ The project now includes a custom Node.js backend in `backend/` for:
 
 ### Production deployment (wearencc.org / Ubuntu)
 
-See **`docs/deploy-ubuntu-wearencc.md`** — nginx + Node + PM2 step-by-step.
+See **`docs/deploy-ubuntu-wearencc.md`** — full beginner-friendly guide (which files go where, Apache + Node API + PM2 + SSL). Printable checklist: **`deploy/CHECKLIST.md`**.
 
 ### cPanel deployment
 

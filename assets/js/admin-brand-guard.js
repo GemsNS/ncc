@@ -1,19 +1,13 @@
 (function guardAdminBrandPages() {
   var tokenKey = "ncc_admin_token";
-  var modeKey = "ncc_admin_mode";
 
   function hasStaffAccess() {
     try {
-      if (localStorage.getItem(tokenKey)) {
-        return true;
-      }
-      if (sessionStorage.getItem(modeKey) === "demo") {
-        return true;
-      }
+      const token = localStorage.getItem(tokenKey);
+      return !!(token && token !== "demo-token");
     } catch (err) {
       return false;
     }
-    return false;
   }
 
   if (!hasStaffAccess()) {

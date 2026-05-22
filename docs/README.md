@@ -2,7 +2,8 @@
 
 | Guide | Use when |
 |-------|----------|
-| [deploy-ubuntu-wearencc.md](./deploy-ubuntu-wearencc.md) | **Production (start here)** — both sites on one VM: Pinnacle (Apache, live) + NCC (`/var/www/wearencc`) + SSL for each |
+| [deploy-ubuntu-wearencc.md](./deploy-ubuntu-wearencc.md) | **Production (start here)** — step-by-step for zero experience: file map, upload order, API `.env`, Apache, SSL, admin setup |
+| [../deploy/CHECKLIST.md](../deploy/CHECKLIST.md) | Printable phase checklist (same deploy, one page) |
 | [deploy-shared-server-ssl.md](./deploy-shared-server-ssl.md) | HTTPS troubleshooting supplement (Apache, not nginx) |
 | [deploy-cpanel.md](./deploy-cpanel.md) | Shared hosting with cPanel and reverse proxy to Node |
 | [placeholder-keys.md](./placeholder-keys.md) | `data-ph` placeholder keys and site-config fields |

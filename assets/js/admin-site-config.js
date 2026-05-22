@@ -1,13 +1,11 @@
 (function initAdminSiteConfig() {
   const tokenKey = "ncc_admin_token";
-  const modeKey = "ncc_admin_mode";
   const textarea = document.querySelector("[data-admin-site-config-text]");
   const statusEl = document.querySelector("[data-admin-site-config-status]");
   const loadBtn = document.querySelector("[data-admin-site-config-load]");
   const seedBtn = document.querySelector("[data-admin-site-config-seed]");
   const saveBtn = document.querySelector("[data-admin-site-config-save]");
   var authListenerAttached = false;
-  const demoSiteKey = "ncc_demo_site_config";
 
   function apiRoot() {
     return String(window.NCC_API_BASE || "/api").replace(/\/$/, "");
@@ -85,89 +83,7 @@
     return localStorage.getItem(tokenKey);
   }
 
-  function getMode() {
-    return sessionStorage.getItem(modeKey) || "backend";
-  }
-
-  function demoGetConfig() {
-    try {
-      const raw = localStorage.getItem(demoSiteKey);
-      if (raw) {
-        return JSON.parse(raw);
-      }
-    } catch (err) {
-      /* ignore */
-    }
-    return null;
-  }
-
-  function demoSaveConfig(value) {
-    localStorage.setItem(demoSiteKey, JSON.stringify(value, null, 2));
-  }
-
-  async function buildDemoSeedFromRepoFiles() {
-    const sc = await fetch("./assets/data/site-content.json", { cache: "no-store" }).then(function (r) {
-      return r.ok ? r.json() : {};
-    });
-    const homeFeatured = await fetch("./assets/data/home-featured-videos.json", { cache: "no-store" })
-      .then(function (r) {
-        return r.ok ? r.json() : { videos: [] };
-      })
-      .catch(function () {
-        return { videos: [] };
-      });
-    const live = sc.live || {};
-    const ph = (sc.placeholders && sc.placeholders.links) || {};
-    return {
-      version: 1,
-      updatedAt: new Date().toISOString(),
-      church: sc.church || {},
-      placeholders: sc.placeholders || {},
-      socialFeeds: sc.socialFeeds || {},
-      live: {
-        statusSource: "manual",
-        manualStatus: live.status || "offline",
-        tickerItems: Array.isArray(live.tickerItems) ? live.tickerItems : [],
-        serviceTimeline: { live: [], starting_soon: [], offline: [] },
-        links: {
-          youtubeWatch: ph.youtube || "https://www.youtube.com/@NCCSUFFOLK/streams",
-          zoom: ph.zoom || "https://zoom.us/"
-        }
-      },
-      videoSlots: {
-        "livestream-main": {
-          embedUrl: live.youtubeEmbedUrl || "https://www.youtube.com/embed/qmKZ6A8h0BE",
-          title: "NCC live feed player",
-          overlay: "auto"
-        }
-      },
-      homeFeaturedVideos: homeFeatured,
-      mediaArchive: Array.isArray(sc.mediaArchive) ? sc.mediaArchive : [],
-      sermonNotes: Array.isArray(sc.sermonNotes) ? sc.sermonNotes : [],
-      calendar: { xmlUrl: "./assets/data/events.xml" }
-    };
-  }
-
   async function request(path, options) {
-    if (getMode() === "demo") {
-      if (path === "/admin/site-config/seed") {
-        return buildDemoSeedFromRepoFiles();
-      }
-      if (path === "/admin/site-config" && (!options || !options.method || options.method === "GET")) {
-        const existing = demoGetConfig();
-        if (existing) {
-          return existing;
-        }
-        return buildDemoSeedFromRepoFiles();
-      }
-      if (path === "/admin/site-config" && options && String(options.method || "").toUpperCase() === "PUT") {
-        const body = options.body ? JSON.parse(String(options.body)) : {};
-        demoSaveConfig(body);
-        return body;
-      }
-      throw new Error("Demo mode: unsupported action");
-    }
-
     const token = getToken();
     const headers = {
       "Content-Type": "application/json",
@@ -296,7 +212,7 @@
       return;
     }
     wire();
-    if (getToken() || getMode() === "demo") {
+    if (getToken()) {
       loadConfig().catch(function (err) {
         if (statusEl) {
           statusEl.textContent = err.message;
