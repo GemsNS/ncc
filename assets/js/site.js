@@ -279,6 +279,24 @@
       return;
     }
 
+    const frame = card.querySelector(".welcome-reveal__frame");
+    const img = card.querySelector(".welcome-reveal__frame img");
+
+    function syncWelcomeRevealAspect() {
+      if (!frame || !img || !img.naturalWidth || !img.naturalHeight) {
+        return;
+      }
+      frame.style.aspectRatio = img.naturalWidth + " / " + img.naturalHeight;
+    }
+
+    if (img) {
+      if (img.complete) {
+        syncWelcomeRevealAspect();
+      } else {
+        img.addEventListener("load", syncWelcomeRevealAspect, { once: true });
+      }
+    }
+
     function setRevealed(revealed) {
       card.classList.toggle("is-revealed", revealed);
       card.setAttribute("aria-pressed", revealed ? "true" : "false");
