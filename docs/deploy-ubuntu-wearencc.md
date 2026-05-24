@@ -790,6 +790,7 @@ Upload each file to **`/var/www/wearencc/`** with the **same filename**. Visitor
 | `anthony-inspiration.html` | https://wearencc.org/anthony-inspiration.html |
 | `legacy-content.html` | https://wearencc.org/legacy-content.html |
 | `admin.html` | https://wearencc.org/admin.html (staff login) |
+| `status.html` | https://wearencc.org/status.html (service health / uptime) |
 | `brand.html`, `colors.html`, `header-preview.html` | Staff/brand tools (linked from admin after login) |
 
 **`assets/` folder** — upload the whole directory to `/var/www/wearencc/assets/` (CSS, JS, images, `assets/data/events.xml`, etc.). Do not skip subfolders.

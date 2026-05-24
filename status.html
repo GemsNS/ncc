@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service Health | New Community Church</title>
+    <meta name="description" content="Live uptime and service health for the New Community Church website and API.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/css/styles.css?v=20260522">
+    <link rel="icon" href="./assets/newlogoset/ncc-mark-primary-light.png" type="image/png">
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container">
+        <a class="brand" href="./index.html">
+          <img src="./assets/newlogoset/ncc-mark-primary-light.png" alt="NCC logo">
+          <div>
+            <strong data-ph="branding.shortName">NCC Family</strong>
+            <span data-ph="contact.cityState">Suffolk, Virginia</span>
+          </div>
+        </a>
+        <button class="nav-toggle" data-nav-toggle aria-expanded="false" aria-label="Toggle site menu">☰</button>
+        <nav class="main-nav" data-main-nav>
+          <ul>
+            <li><a href="./index.html">Home</a></li>
+            <li><a href="./statement-of-faith.html">Statement of Faith</a></li>
+            <li><a href="./about.html">About</a></li>
+            <li><a href="./ministries.html">Ministries</a></li>
+            <li><a href="./give.html">Give</a></li>
+            <li><a href="./events.html" data-ph="nav.calendarEvents">Calendar Events</a></li>
+            <li><a href="./livestream.html">Livestream</a></li>
+            <li><a href="./anthony-inspiration.html">Inspiration</a></li>
+            <li><a href="./contact.html">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main class="section status-page" data-status-page>
+      <div class="container">
+        <p class="eyebrow">Transparency</p>
+        <h1>Service health &amp; uptime</h1>
+        <p class="status-page-lead muted">
+          Live checks for the public website, API, and supporting services. This page refreshes automatically every 30 seconds.
+        </p>
+
+        <div class="status-summary card">
+          <div class="status-summary__top">
+            <span class="status-badge status-badge--checking" data-status-overall>Checking…</span>
+            <button type="button" class="button secondary status-refresh-btn" data-status-refresh>Refresh now</button>
+          </div>
+          <p class="status-summary__meta muted" data-status-updated>Last checked —</p>
+          <p class="status-summary__uptime" data-status-uptime hidden></p>
+        </div>
+
+        <div class="metric-grid status-metrics" data-status-metrics></div>
+
+        <section class="status-services section--compact">
+          <div class="section-title-row section-title-row--balanced">
+            <h2>Component status</h2>
+            <span class="pill" data-status-poll-label>Auto-refresh: 30s</span>
+          </div>
+          <div class="status-table-wrap card">
+            <table class="status-table">
+              <thead>
+                <tr>
+                  <th scope="col">Service</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Response</th>
+                  <th scope="col">Details</th>
+                </tr>
+              </thead>
+              <tbody data-status-tbody>
+                <tr>
+                  <td colspan="4" class="muted">Running checks…</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="status-history section--compact-bottom">
+          <h2>Recent checks</h2>
+          <p class="muted">Rolling log from this browser session (last 12 samples).</p>
+          <ul class="status-history-list" data-status-history></ul>
+        </section>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container row">
+        <p class="muted">
+          <span data-ph="branding.fullName">New Community Church</span>,
+          <span data-ph="contact.cityState">Suffolk VA</span>
+        </p>
+        <p class="muted">Copyright <span data-year></span> NCC Family</p>
+      </div>
+    </footer>
+
+    <script src="./assets/js/site.js?v=20260522"></script>
+    <script src="./assets/js/placeholders.js"></script>
+    <script src="./assets/js/status-page.js?v=20260522"></script>
+  </body>
+</html>

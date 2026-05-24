@@ -86,7 +86,18 @@ app.use(express.json({ limit: "2mb" }));
 app.use("/uploads", express.static(uploadsDir));
 
 app.get("/api/health", (req, res) => {
-  res.json({ status: "ok", service: "ncc-admin-backend" });
+  const { collectStatus } = require("./lib/status");
+  try {
+    const snapshot = collectStatus();
+    res.json({
+      status: snapshot.status === "operational" ? "ok" : snapshot.status,
+      service: "ncc-admin-backend",
+      uptimeSeconds: snapshot.uptimeSeconds,
+      checkedAt: snapshot.checkedAt
+    });
+  } catch (error) {
+    res.status(503).json({ status: "outage", service: "ncc-admin-backend" });
+  }
 });
 
 app.use("/api/public", publicRoutes);

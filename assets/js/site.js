@@ -198,6 +198,45 @@
     return;
   }
 
+  function setupServiceStatusFooterLink() {
+    if (document.querySelector("[data-service-status-link]")) {
+      return;
+    }
+    const pageFile = (window.location.pathname.split("/").pop() || "").trim().toLowerCase();
+    if (pageFile === "status.html") {
+      return;
+    }
+    const row = document.querySelector(".site-footer .container.row");
+    if (!row) {
+      return;
+    }
+
+    const wrap = document.createElement("p");
+    wrap.className = "muted";
+    const anchor = document.createElement("a");
+    anchor.href = "./status.html";
+    anchor.setAttribute("data-service-status-link", "");
+    anchor.textContent = "Service health";
+    wrap.appendChild(anchor);
+
+    const staffLink = row.querySelector("[data-staff-admin-link]");
+    if (staffLink && staffLink.closest("p") && staffLink.closest("p").parentNode) {
+      staffLink.closest("p").parentNode.insertBefore(wrap, staffLink.closest("p"));
+      return;
+    }
+
+    const paragraphs = Array.from(row.querySelectorAll("p"));
+    const copyrightP = paragraphs.find(function (p) {
+      return /Copyright/i.test(p.textContent || "");
+    });
+    if (copyrightP && copyrightP.parentNode) {
+      copyrightP.parentNode.insertBefore(wrap, copyrightP);
+      return;
+    }
+
+    row.appendChild(wrap);
+  }
+
   function setupStaffPortalFooterLink() {
     if (document.querySelector("[data-staff-admin-link]")) {
       return;
@@ -1244,5 +1283,6 @@
       setupEmbedReliability();
       setupPrayerChat();
     });
+  setupServiceStatusFooterLink();
   setupStaffPortalFooterLink();
 })();
