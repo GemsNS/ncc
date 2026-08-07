@@ -1,0 +1,434 @@
+NCC PROJECT — FILE LIST & DIRECTORY TREE
+Generated for production deploy to VM instance-20260502-213133
+Production live: https://wearencc.org/ (May 2026)
+Runtime notes: docs/production-runtime.md
+================================================================================
+
+SERVER LAYOUT (this VM)
+-----------------------
+/var/www/wearencc.org/
+├── public_html/          ← Apache DocumentRoot (HTML, assets, public files)
+├── backend/              ← Node API (NOT web-accessible)
+└── deploy/               ← Helper scripts & Apache templates
+
+/var/www/pinnaclepublishinggroup.net/   ← Pinnacle only — do not touch
+
+
+DEPLOY MAPPING (repo path → server path)
+---------------------------------------
+REPO                              SERVER
+----                              ------
+*.html (repo root)                /var/www/wearencc.org/public_html/
+robots.txt                        /var/www/wearencc.org/public_html/
+sitemap.xml                       /var/www/wearencc.org/public_html/
+assets/                           /var/www/wearencc.org/public_html/assets/
+backend/                          /var/www/wearencc.org/backend/
+deploy/                           /var/www/wearencc.org/deploy/
+
+docs/                             (do not upload — local reference only)
+README.md, CHANGELOG.md           (optional — not required on server)
+.github/                          (do not upload)
+
+
+DO NOT UPLOAD
+-------------
+.git/
+backend/node_modules/
+backend/.env
+backend/data/*.json             (except .gitkeep — server creates data)
+backend/uploads/*               (except .gitkeep)
+assets/config/runtime.json      (create on server from example)
+
+
+CREATE ON SERVER ONLY
+---------------------
+public_html/assets/config/runtime.json   ← copy from runtime.production.example.json
+backend/.env                             ← copy from backend/.env.example
+backend/data/*.json                      ← created by API / import script
+backend/uploads/                         ← created when staff uploads
+
+
+================================================================================
+DIRECTORY TREE (excludes .git, node_modules, backend/data secrets)
+================================================================================
+
+ncc/
+|-- .github/
+|   `-- workflows/
+|       `-- deploy-gh-pages.yml
+|-- about.html
+|-- admin.html
+|-- anthony-inspiration.html
+|-- blog.html
+|-- brand.html
+|-- CHANGELOG.md
+|-- colors.html
+|-- contact.html
+|-- events.html
+|-- give.html
+|-- header-preview.html
+|-- index.html
+|-- legacy-content.html
+|-- livestream.html
+|-- mens-ministry.html
+|-- messages.html
+|-- ministries.html
+|-- README.md
+|-- robots.txt
+|-- sitemap.xml
+|-- statement-of-faith.html
+|-- status.html
+|-- youth-ministry.html
+|-- assets/
+|   |-- css/
+|   |   `-- styles.css
+|   |-- config/
+|   |   |-- runtime.example.json
+|   |   `-- runtime.production.example.json
+|   |-- data/
+|   |   |-- events.xml
+|   |   |-- home-featured-videos.json
+|   |   |-- site-content.json
+|   |   `-- _media-archive-built.json
+|   |-- headersrc/
+|   |   |-- manifest.json
+|   |   |-- page-headers.json
+|   |   |-- luma-header-prompts.md
+|   |   |-- hero2.mp4
+|   |   |-- newhero.mp4
+|   |   |-- newhero.mov
+|   |   |-- copy_300D1CBD-CF16-421A-B69B-3A34BCD7ED97.mov
+|   |   |-- CelestialLivestreamHD_PRV.mp4
+|   |   |-- CelestialOfferingHD_PRV.mp4
+|   |   |-- CelestialWelcomeHD_PRV.mp4
+|   |   |-- DigitalWavesAnnouncementsHD_PRV.mp4
+|   |   |-- DigitalWavesOfferingHD_PRV.mp4
+|   |   |-- DigitalWavesSummerSunsetHD_PRV.mp4
+|   |   |-- DigitalWavesSummerWelcomeHD_PRV.mp4
+|   |   |-- Church_Website_Artwork_A_closed_leather-bound_book_with_a_cross_emblem_Kw7QJW77.mp4
+|   |   |-- Church_Website_Artwork_A_person_walks_through_a_foggy_forest_with_St9Ixjp2.mp4
+|   |   |-- Church_Website_Artwork_A_stage_is_set_with_a_wooden_podium_illuminated_zlzl-1OS.mp4
+|   |   |-- Church_Website_Artwork_A_stage_is_set_with_a_wooden_podium_illuminated_zlzl-1OS (1).mp4
+|   |   |-- Church_Website_Artwork_In_a_cinematic_style_a_man_a_woman_and_a_lwkVGBHP.mp4
+|   |   `-- Church_Website_Artwork_In_a_cinematic_style_the_camera_slowly_pans_to_LwqMn9aU.mp4
+|   |-- images/
+|   |   |-- churchlogo.svg
+|   |   |-- churchlogoblackbackground.svg
+|   |   |-- logo-mark.svg
+|   |   |-- logo-wordmark.svg
+|   |   |-- artwork/
+|   |   |   |-- church-exterior-real.png
+|   |   |   |-- church-watercolor-glow-cross.png
+|   |   |   |-- church-watercolor-light.png
+|   |   |   |-- community-diverse-group.png
+|   |   |   |-- community-fellowship-dance.png
+|   |   |   |-- community-welcome-ncc.png
+|   |   |   |-- faith-book-closed.png
+|   |   |   |-- faith-book-open.png
+|   |   |   |-- faith-book-pulpit-light.png
+|   |   |   |-- hands-circle-alt.png
+|   |   |   |-- hands-circle-main.png
+|   |   |   `-- hands-cupped.png
+|   |   |-- give/
+|   |   |   `-- cash-app-qr-nccsuffolkva.png
+|   |   |-- outreach/
+|   |   |   |-- feeding-the-homeless.png
+|   |   |   |-- football-team-meal.png
+|   |   |   `-- national-night-out.png
+|   |   `-- pastor/
+|   |       |-- pastor-and-faith-vandyke.png
+|   |       |-- pastor-headshot.png
+|   |       |-- pastor-stage-close.png
+|   |       |-- pastor-stage-point.png
+|   |       `-- pastor-stage-wide.png
+|   |-- js/
+|   |   |-- admin-blog.js
+|   |   |-- admin-brand-guard.js
+|   |   |-- admin-events.js
+|   |   |-- admin-site-config.js
+|   |   |-- admin.js
+|   |   |-- blog.js
+|   |   |-- events-calendar.js
+|   |   |-- events-tools.js
+|   |   |-- give-tools.js
+|   |   |-- live-control.js
+|   |   |-- media.js
+|   |   |-- notifications.js
+|   |   |-- placeholders.js
+|   |   |-- site.js
+|   |   |-- social-feed.js
+|   |   `-- status-page.js
+|   `-- newlogoset/
+|       |-- 001_A_logo_for_NCC_New_Community_Church_Suffolk_VA_6nZsPeAi.png
+|       |-- 002_The_logo_features_the_text_NCCI_in_dark_blue_5bcPRuBc.png
+|       |-- 003_In_a_modern_minimalist_style_the_logo_features_VnC9Qfzv.png
+|       |-- 004_In_a_minimalist_logo_style_the_emblem_features_zAIQkKHc.png
+|       |-- 005_In_a_modern_abstract_style_the_text_NCC_is_R5AmSEqX.png
+|       |-- 006_In_a_modern_graphic_design_style_a_circular_6-oQsd89.png
+|       |-- 007_In_a_modern_logo_style_the_emblem_features_the_v1XjDnBR.png
+|       |-- 008_The_logo_features_the_text_NCC_in_a_bold_PMssIDdk.png
+|       |-- 009_This_logo_features_the_text_NCCI_in_bold_dark_PqYvGw9j.png
+|       |-- 010_In_a_modern_emblem_style_the_logo_features_the_qakEmesp.png
+|       |-- crest no back.png
+|       |-- home-hero-logo-panel.png
+|       |-- ncc-lockup-horizontal-dark.png
+|       |-- ncc-logo-full-transparent.png
+|       |-- ncc-mark-primary-light.png
+|       |-- ncc-mark-transparent.png
+|       `-- ncc-mark-white-dark.png
+|-- backend/
+|   |-- .env.example
+|   |-- package.json
+|   |-- package-lock.json
+|   |-- data/
+|   |   `-- .gitkeep
+|   |-- uploads/
+|   |   `-- .gitkeep
+|   |-- scripts/
+|   |   |-- apply-media-archive.js
+|   |   |-- build-media-archive.js
+|   |   |-- diff-video-ids.js
+|   |   |-- fetch-youtube-streams.js
+|   |   |-- find-channel-id.js
+|   |   |-- find-thumbnail-id.js
+|   |   |-- find-title-id.js
+|   |   |-- find-watch-near-title.js
+|   |   |-- import-events-xml.js
+|   |   |-- oembed-batch.js
+|   |   |-- parse-lockup-streams.js
+|   |   |-- parse-youtube-renderers.js
+|   |   |-- search-youtube-video.js
+|   |   `-- title-youtube-ids.js
+|   `-- src/
+|       |-- server.js
+|       |-- lib/
+|       |   |-- audit.js
+|       |   |-- auth.js
+|       |   |-- db.js
+|       |   |-- prayer-ai.js
+|       |   |-- siteConfig.js
+|       |   `-- status.js
+|       |-- middleware/
+|       |   `-- auth.js
+|       `-- routes/
+|           |-- admin-site-config.js
+|           |-- admin.js
+|           |-- auth.js
+|           |-- blog.js
+|           |-- events.js
+|           |-- media.js
+|           |-- prayer.js
+|           `-- public.js
+|-- deploy/
+|   |-- CHECKLIST.md
+|   |-- README.md
+|   |-- audit-server.sh
+|   |-- ecosystem.config.cjs
+|   |-- preflight.sh
+|   |-- apache/
+|   |   `-- wearencc.org.conf
+|   |-- nginx/
+|   |   |-- pinnaclepublishinggroup.net.conf
+|   |   `-- wearencc.org.conf
+|   `-- systemd/
+|       `-- ncc-backend.service
+`-- docs/
+    |-- README.md
+    |-- admin-phase2-plan.md
+    |-- content-audit.md
+    |-- deploy-cpanel.md
+    |-- deploy-ubuntu-wearencc.md
+    `-- placeholder-keys.md
+
+
+================================================================================
+FLAT FILE LIST — PUBLIC (upload to public_html/)
+================================================================================
+
+about.html
+admin.html
+anthony-inspiration.html
+blog.html
+brand.html
+colors.html
+contact.html
+events.html
+give.html
+header-preview.html
+index.html
+legacy-content.html
+livestream.html
+mens-ministry.html
+messages.html
+ministries.html
+robots.txt
+sitemap.xml
+statement-of-faith.html
+status.html
+youth-ministry.html
+
+assets/css/styles.css
+
+assets/config/runtime.example.json
+assets/config/runtime.production.example.json
+
+assets/data/events.xml
+assets/data/home-featured-videos.json
+assets/data/site-content.json
+assets/data/_media-archive-built.json
+
+assets/js/admin-blog.js
+assets/js/admin-brand-guard.js
+assets/js/admin-events.js
+assets/js/admin-site-config.js
+assets/js/admin.js
+assets/js/blog.js
+assets/js/events-calendar.js
+assets/js/events-tools.js
+assets/js/give-tools.js
+assets/js/live-control.js
+assets/js/media.js
+assets/js/notifications.js
+assets/js/placeholders.js
+assets/js/site.js
+assets/js/social-feed.js
+assets/js/status-page.js
+
+assets/images/churchlogo.svg
+assets/images/churchlogoblackbackground.svg
+assets/images/logo-mark.svg
+assets/images/logo-wordmark.svg
+assets/images/artwork/church-exterior-real.png
+assets/images/artwork/church-watercolor-glow-cross.png
+assets/images/artwork/church-watercolor-light.png
+assets/images/artwork/community-diverse-group.png
+assets/images/artwork/community-fellowship-dance.png
+assets/images/artwork/community-welcome-ncc.png
+assets/images/artwork/faith-book-closed.png
+assets/images/artwork/faith-book-open.png
+assets/images/artwork/faith-book-pulpit-light.png
+assets/images/artwork/hands-circle-alt.png
+assets/images/artwork/hands-circle-main.png
+assets/images/artwork/hands-cupped.png
+assets/images/give/cash-app-qr-nccsuffolkva.png
+assets/images/outreach/feeding-the-homeless.png
+assets/images/outreach/football-team-meal.png
+assets/images/outreach/national-night-out.png
+assets/images/pastor/pastor-and-faith-vandyke.png
+assets/images/pastor/pastor-headshot.png
+assets/images/pastor/pastor-stage-close.png
+assets/images/pastor/pastor-stage-point.png
+assets/images/pastor/pastor-stage-wide.png
+
+assets/newlogoset/001_A_logo_for_NCC_New_Community_Church_Suffolk_VA_6nZsPeAi.png
+assets/newlogoset/002_The_logo_features_the_text_NCCI_in_dark_blue_5bcPRuBc.png
+assets/newlogoset/003_In_a_modern_minimalist_style_the_logo_features_VnC9Qfzv.png
+assets/newlogoset/004_In_a_minimalist_logo_style_the_emblem_features_zAIQkKHc.png
+assets/newlogoset/005_In_a_modern_abstract_style_the_text_NCC_is_R5AmSEqX.png
+assets/newlogoset/006_In_a_modern_graphic_design_style_a_circular_6-oQsd89.png
+assets/newlogoset/007_In_a_modern_logo_style_the_emblem_features_the_v1XjDnBR.png
+assets/newlogoset/008_The_logo_features_the_text_NCC_in_a_bold_PMssIDdk.png
+assets/newlogoset/009_This_logo_features_the_text_NCCI_in_bold_dark_PqYvGw9j.png
+assets/newlogoset/010_In_a_modern_emblem_style_the_logo_features_the_qakEmesp.png
+assets/newlogoset/crest no back.png
+assets/newlogoset/home-hero-logo-panel.png
+assets/newlogoset/ncc-lockup-horizontal-dark.png
+assets/newlogoset/ncc-logo-full-transparent.png
+assets/newlogoset/ncc-mark-primary-light.png
+assets/newlogoset/ncc-mark-transparent.png
+assets/newlogoset/ncc-mark-white-dark.png
+
+assets/headersrc/manifest.json
+assets/headersrc/page-headers.json
+assets/headersrc/luma-header-prompts.md
+assets/headersrc/hero2.mp4
+assets/headersrc/newhero.mp4
+assets/headersrc/newhero.mov
+assets/headersrc/copy_300D1CBD-CF16-421A-B69B-3A34BCD7ED97.mov
+assets/headersrc/CelestialLivestreamHD_PRV.mp4
+assets/headersrc/CelestialOfferingHD_PRV.mp4
+assets/headersrc/CelestialWelcomeHD_PRV.mp4
+assets/headersrc/DigitalWavesAnnouncementsHD_PRV.mp4
+assets/headersrc/DigitalWavesOfferingHD_PRV.mp4
+assets/headersrc/DigitalWavesSummerSunsetHD_PRV.mp4
+assets/headersrc/DigitalWavesSummerWelcomeHD_PRV.mp4
+assets/headersrc/Church_Website_Artwork_A_closed_leather-bound_book_with_a_cross_emblem_Kw7QJW77.mp4
+assets/headersrc/Church_Website_Artwork_A_person_walks_through_a_foggy_forest_with_St9Ixjp2.mp4
+assets/headersrc/Church_Website_Artwork_A_stage_is_set_with_a_wooden_podium_illuminated_zlzl-1OS.mp4
+assets/headersrc/Church_Website_Artwork_A_stage_is_set_with_a_wooden_podium_illuminated_zlzl-1OS (1).mp4
+assets/headersrc/Church_Website_Artwork_In_a_cinematic_style_a_man_a_woman_and_a_lwkVGBHP.mp4
+assets/headersrc/Church_Website_Artwork_In_a_cinematic_style_the_camera_slowly_pans_to_LwqMn9aU.mp4
+
+
+================================================================================
+FLAT FILE LIST — BACKEND (upload to backend/)
+================================================================================
+
+backend/.env.example
+backend/package.json
+backend/package-lock.json
+backend/data/.gitkeep
+backend/uploads/.gitkeep
+
+backend/scripts/apply-media-archive.js
+backend/scripts/build-media-archive.js
+backend/scripts/diff-video-ids.js
+backend/scripts/fetch-youtube-streams.js
+backend/scripts/find-channel-id.js
+backend/scripts/find-thumbnail-id.js
+backend/scripts/find-title-id.js
+backend/scripts/find-watch-near-title.js
+backend/scripts/import-events-xml.js
+backend/scripts/oembed-batch.js
+backend/scripts/parse-lockup-streams.js
+backend/scripts/parse-youtube-renderers.js
+backend/scripts/search-youtube-video.js
+backend/scripts/title-youtube-ids.js
+
+backend/src/server.js
+backend/src/lib/audit.js
+backend/src/lib/auth.js
+backend/src/lib/db.js
+backend/src/lib/prayer-ai.js
+backend/src/lib/siteConfig.js
+backend/src/lib/status.js
+backend/src/middleware/auth.js
+backend/src/routes/admin-site-config.js
+backend/src/routes/admin.js
+backend/src/routes/auth.js
+backend/src/routes/blog.js
+backend/src/routes/events.js
+backend/src/routes/media.js
+backend/src/routes/prayer.js
+backend/src/routes/public.js
+
+
+================================================================================
+FLAT FILE LIST — DEPLOY (upload to deploy/)
+================================================================================
+
+deploy/CHECKLIST.md
+deploy/README.md
+deploy/FILELIST.txt
+deploy/audit-server.sh
+deploy/ecosystem.config.cjs
+deploy/preflight.sh
+deploy/apache/wearencc.org.conf
+deploy/nginx/pinnaclepublishinggroup.net.conf
+deploy/nginx/wearencc.org.conf
+deploy/systemd/ncc-backend.service
+
+
+================================================================================
+COUNTS (approximate)
+================================================================================
+
+Public (public_html):     21 HTML + robots + sitemap + ~120 asset files  ≈ 143 files
+Backend:                  35 files (+ node_modules after npm install)
+Deploy:                   11 files
+Do not upload:            docs/, .github/, .git/, backend/node_modules/, secrets
+
+Note: assets/headersrc/*.mp4 and *.mov are large. Upload all for full cinematic
+headers, or omit if bandwidth/time is limited (site still works without them).
+
+================================================================================

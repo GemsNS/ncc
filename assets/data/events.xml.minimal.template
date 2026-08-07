@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Minimal placeholder for production status probe and calendar fallback.
+  Copy to public_html/assets/data/events.xml if the full calendar is not yet deployed.
+  The repo's assets/data/events.xml is the authoritative calendar for normal deploys.
+-->
+<calendar>
+  <event>
+    <title>Sunday Worship Service</title>
+    <time>11:00 AM</time>
+  </event>
+</calendar>

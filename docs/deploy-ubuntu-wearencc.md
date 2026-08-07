@@ -1,5 +1,7 @@
 # Complete deployment guide (beginner-friendly)
 
+**Production status (May 2026):** **https://wearencc.org/** is live on VM `instance-20260502-213133`. This guide remains the reference for redeploys, new servers, and disaster recovery. Runtime details (NVM, GLIBC, verified endpoints): **[production-runtime.md](./production-runtime.md)**.
+
 Follow this document **in order** from top to bottom. You do not need prior Linux or server experience.
 
 **Your server today**
@@ -8,9 +10,10 @@ Follow this document **in order** from top to bottom. You do not need prior Linu
 |------|--------|
 | Google Cloud VM name | `instance-20260502-213133` |
 | Public IP | `34.30.208.144` |
-| NCC website folder on server | `/var/www/wearencc` |
-| Pinnacle (booksales) | Already on **Apache** — do not delete its files |
-| NCC API (Node.js) | Runs on `127.0.0.1:4000` (not public; Apache proxies `/api`) |
+| NCC website folder on server | **`/var/www/wearencc.org/public_html`** (web) + **`/var/www/wearencc.org/backend`** (API) |
+| Pinnacle (booksales) | **`/var/www/pinnaclepublishinggroup.net`** — do not delete or move |
+| NCC API (Node.js) | Runs on `127.0.0.1:4000` via **NVM Node 24.16.0** + **PM2** (not `apt` Node) |
+| TLS / SSL | **Already configured** via **Certbot + Apache** (`certbot --apache`) for both domains — skip initial cert steps during NCC deploy |
 
 **What you are building**
 
@@ -19,7 +22,7 @@ flowchart TB
   visitor[Visitor browser]
   apache[Apache ports 80 and 443]
   pinnacle[Pinnacle files existing DocumentRoot]
-  nccHtml[NCC HTML CSS JS in /var/www/wearencc]
+  nccHtml[NCC HTML in public_html]
   node[NCC API Node port 4000]
   data[backend/data JSON files]
 
@@ -40,19 +43,15 @@ flowchart TB
 4. [Phase A — DNS and Google Cloud firewall](#phase-a--dns-and-google-cloud-firewall)
 5. [Phase B — Log into the server (SSH)](#phase-b--log-into-the-server-ssh)
 6. [Phase C — Install required software](#phase-c--install-required-software)
-7. [Phase D — Pinnacle HTTPS only (do not move booksales files)](#phase-d--pinnacle-https-only-do-not-move-booksales-files)
-8. [Phase E — Upload the NCC project to the server](#phase-e--upload-the-ncc-project-to-the-server)
-9. [Phase F — Create config files on the server (not in Git)](#phase-f--create-config-files-on-the-server-not-in-git)
-10. [Phase G — Install and start the NCC API (backend)](#phase-g--install-and-start-the-ncc-api-backend)
-11. [Phase H — Tell Apache about wearencc.org](#phase-h--tell-apache-about-wearenccorg)
-12. [Phase I — HTTPS certificates (both domains)](#phase-i--https-certificates-both-domains)
-13. [Phase J — Final tests in the browser](#phase-j--final-tests-in-the-browser)
-14. [Phase K — First admin login and site settings](#phase-k--first-admin-login-and-site-settings)
-15. [Phase L — Updating the site later (redeploy)](#phase-l--updating-the-site-later-redeploy)
-16. [Troubleshooting](#troubleshooting)
-17. [Quick reference tables](#quick-reference-tables)
-
-SSL troubleshooting supplement: [deploy-shared-server-ssl.md](./deploy-shared-server-ssl.md)
+7. [Phase D — Upload the NCC project to the server](#phase-d--upload-the-ncc-project-to-the-server)
+8. [Phase E — Create config files on the server (not in Git)](#phase-e--create-config-files-on-the-server-not-in-git)
+9. [Phase F — Install and start the NCC API (backend)](#phase-f--install-and-start-the-ncc-api-backend)
+10. [Phase G — Tell Apache about wearencc.org](#phase-g--tell-apache-about-wearenccorg)
+11. [Phase H — Final tests in the browser](#phase-h--final-tests-in-the-browser)
+12. [Phase I — First admin login and site settings](#phase-i--first-admin-login-and-site-settings)
+13. [Phase J — Updating the site later (redeploy)](#phase-j--updating-the-site-later-redeploy)
+14. [Troubleshooting](#troubleshooting)
+15. [Quick reference tables](#quick-reference-tables)
 
 ---
 
@@ -66,9 +65,10 @@ SSL troubleshooting supplement: [deploy-shared-server-ssl.md](./deploy-shared-se
 | **Apache** | Web server that sends out your HTML pages and HTTPS. |
 | **Node / API / backend** | Program that powers admin login, calendar API, prayer chat, uploads. |
 | **PM2** | Keeps the Node API running after you close SSH. |
-| **DocumentRoot** | Folder Apache serves as the website (for NCC: `/var/www/wearencc`). |
+| **NVM** | Node Version Manager — installs Node in your home directory (required on Ubuntu 18.04; do not use `apt install nodejs`). |
+| **DocumentRoot** | Public web folder Apache serves (here: `/var/www/wearencc.org/public_html`). |
 | **Virtual host (vhost)** | Apache config for one domain name. |
-| **Certbot** | Free tool for HTTPS certificates (Let’s Encrypt). |
+| **Certbot** | Let’s Encrypt client used with Apache (`certbot --apache`) to issue and renew HTTPS certificates. |
 | **ProxyPass** | Apache forwards `/api` requests to Node on port 4000. |
 
 ---
@@ -77,27 +77,35 @@ SSL troubleshooting supplement: [deploy-shared-server-ssl.md](./deploy-shared-se
 
 ### 2.1 On the server after a full NCC deploy
 
-Everything under **`/var/www/wearencc/`** is the NCC project. Apache serves files from that folder for `wearencc.org`.
+This VM uses a **split layout** (Apache `DocumentRoot` = `public_html`; API outside the web root):
+
+```
+/var/www/wearencc.org/
+├── public_html/          ← Apache serves this (HTML, CSS, JS)
+│   ├── index.html
+│   ├── assets/
+│   └── *.html
+├── backend/              ← Node API (not public)
+└── deploy/               ← scripts from repo
+```
 
 | What visitors use | Server path | Comes from |
 |-------------------|-------------|------------|
-| Home page | `/var/www/wearencc/index.html` | Your Git repo |
-| All public pages | `/var/www/wearencc/*.html` | Your Git repo |
-| Styles / scripts | `/var/www/wearencc/assets/` | Your Git repo |
-| Calendar XML (fallback) | `/var/www/wearencc/assets/data/events.xml` | Your Git repo |
-| **Browser API address** | `/var/www/wearencc/assets/config/runtime.json` | **You create on server** (copy from example) |
-| Staff admin page | `/var/www/wearencc/admin.html` | Your Git repo |
+| Home page | `/var/www/wearencc.org/public_html/index.html` | Your Git repo |
+| All public pages | `/var/www/wearencc.org/public_html/*.html` | Your Git repo |
+| Styles / scripts | `/var/www/wearencc.org/public_html/assets/` | Your Git repo |
+| Calendar XML (fallback) | `/var/www/wearencc.org/public_html/assets/data/events.xml` | Your Git repo |
+| **Browser API address** | `/var/www/wearencc.org/public_html/assets/config/runtime.json` | **You create on server** |
+| Staff admin page | `/var/www/wearencc.org/public_html/admin.html` | Your Git repo |
 
 | What the API uses | Server path | Comes from |
 |-------------------|-------------|------------|
-| API program | `/var/www/wearencc/backend/src/server.js` | Your Git repo |
-| Dependencies | `/var/www/wearencc/backend/node_modules/` | Created by `npm install` on server |
-| **Secrets & admin password** | `/var/www/wearencc/backend/.env` | **You create on server** (never commit to Git) |
-| Events database | `/var/www/wearencc/backend/data/events.json` | Created by API / import script |
-| Site config (admin edits) | `/var/www/wearencc/backend/data/site-config.json` | Created on first API start / admin save |
-| Admin users | `/var/www/wearencc/backend/data/users.json` | Created on first API start |
-| Prayer inbox | `/var/www/wearencc/backend/data/prayer-inbox.json` | Created when used |
-| Uploaded files | `/var/www/wearencc/backend/uploads/` | Created when staff uploads |
+| API program | `/var/www/wearencc.org/backend/src/server.js` | Your Git repo |
+| Dependencies | `/var/www/wearencc.org/backend/node_modules/` | `npm install` on server |
+| **Secrets & admin password** | `/var/www/wearencc.org/backend/.env` | **You create on server** |
+| Events database | `/var/www/wearencc.org/backend/data/events.json` | API / import script |
+| Site config | `/var/www/wearencc.org/backend/data/site-config.json` | Admin save |
+| Uploaded files | `/var/www/wearencc.org/backend/uploads/` | Staff uploads |
 
 | Apache system files (copied from repo once) | Server path | Repo source file |
 |---------------------------------------------|-------------|------------------|
@@ -109,12 +117,14 @@ Everything under **`/var/www/wearencc/`** is the NCC project. Apache serves file
 
 ### 2.2 Pinnacle (booksales) — leave as-is
 
-Pinnacle files stay in **their existing** Apache `DocumentRoot` (often `/var/www/html` or a custom path). **Do not** put Pinnacle inside `/var/www/wearencc`.
+Pinnacle files stay in **`/var/www/pinnaclepublishinggroup.net`**. **Do not** put Pinnacle inside `/var/www/wearencc.org`.
 
-Find Pinnacle’s path:
+Find live vhost paths:
 
 ```bash
-sudo apache2ctl -S | grep -i pinnacle
+sudo apache2ctl -S
+grep -E 'DocumentRoot|ProxyPass' /etc/apache2/sites-enabled/wearencc.org*.conf
+grep -E 'DocumentRoot' /etc/apache2/sites-enabled/pinnaclepublishinggroup.net*.conf
 ```
 
 ### 2.3 Files you do **not** upload to the server
@@ -135,11 +145,87 @@ sudo apache2ctl -S | grep -i pinnacle
 - [ ] You can log into [Google Cloud Console](https://console.cloud.google.com/).
 - [ ] VM **instance-20260502-213133** is running and IP is **34.30.208.144**.
 - [ ] You have the NCC project on your computer (Git clone or ZIP).
-- [ ] Domain **wearencc.org** (and **www**) DNS will point to **34.30.208.144**.
+- [ ] Domain **wearencc.org** (and **www**) DNS points to **34.30.208.144** (done if propagation is complete).
 - [ ] You chose a **strong admin password** (you will type it into `backend/.env` on the server).
-- [ ] You have an email for Let’s Encrypt expiry notices.
+- [ ] You ran the **server audit** (below) and know which deploy phases are already complete.
 
-**Estimated time:** 2–4 hours first time (mostly waiting on DNS and certificates).
+**Estimated time:** 1–2 hours first time (less if Apache, Node, PM2, and TLS are already on the VM).
+
+**Already done on this VM:** HTTPS for **wearencc.org** and **pinnaclepublishinggroup.net** was issued with **Let’s Encrypt via Certbot** (`sudo certbot --apache`) and lives in each site’s Apache config under `/etc/apache2/sites-available/`. This guide does not repeat those steps.
+
+**If you only renew or replace certs later:** `sudo certbot renew --dry-run` then `sudo certbot renew` (Certbot auto-renew is usually enabled by the package).
+
+### Verified state on this VM (production — May 2026)
+
+| Item | Status on `instance-20260502-213133` |
+|------|--------------------------------------|
+| DNS | Done (both domains → this server) |
+| Apache | **2.4.29** — ports **80** and **443** listening |
+| Certbot | **0.27.0** — one cert for all four hostnames |
+| Pinnacle files | **`/var/www/pinnaclepublishinggroup.net`** |
+| NCC web root | **`/var/www/wearencc.org/public_html`** — deployed |
+| NCC API folder | **`/var/www/wearencc.org/backend`** — deployed |
+| Apache `ProxyPass /api` | **Configured** on HTTP + HTTPS vhosts |
+| Node.js | **v24.16.0** via **NVM** (Ubuntu 18.04 — do not use `apt install nodejs`) |
+| PM2 | **`ncc-backend` online** |
+| NCC API (:4000) | **Running** — `curl https://wearencc.org/api/health` → `{"status":"ok"}` |
+| Public status | **`/api/public/status`** → `{"status":"operational"}` |
+
+**Redeploys:** use [Phase J](#phase-j--updating-the-site-later-redeploy). **New server:** start at Phase C (NVM + PM2), skip Certbot if certs exist.
+
+### Pre-overhaul audit snapshot (2026-05-30 — historical)
+
+Before the May 2026 system overhaul, the VM had Apache + TLS but no Node/PM2/API proxy. That gap drove the NVM + GLIBC + code fixes documented in [production-runtime.md](./production-runtime.md) and [CHANGELOG.md](../CHANGELOG.md).
+
+### Server audit (run first — no guessing)
+
+SSH into the VM, then use **one** of these:
+
+**Option A — NCC repo already on the server** (`/var/www/wearencc.org`):
+
+```bash
+cd /var/www/wearencc.org
+bash deploy/audit-server.sh | tee ~/ncc-server-audit.txt
+```
+
+**Option B — repo not uploaded yet** (copy-paste this whole block into SSH):
+
+```bash
+curl -fsSL -o /tmp/ncc-audit.sh "https://raw.githubusercontent.com/YOUR_ORG/YOUR_REPO/main/deploy/audit-server.sh" \
+  && bash /tmp/ncc-audit.sh | tee ~/ncc-server-audit.txt
+```
+
+Replace the URL with your real Git raw file, **or** upload `deploy/audit-server.sh` with WinSCP first, then:
+
+```bash
+bash /path/to/audit-server.sh | tee ~/ncc-server-audit.txt
+```
+
+**Option C — quick one-liner without the script file:**
+
+```bash
+{
+  echo "=== $(date -Is) $(hostname) ==="
+  apache2 -v 2>/dev/null; node -v 2>/dev/null; pm2 -v 2>/dev/null; certbot --version 2>/dev/null
+  echo "--- apache2ctl -S ---"; sudo apache2ctl -S
+  echo "--- certbot certificates ---"; sudo certbot certificates
+  echo "--- pm2 list ---"; pm2 list 2>/dev/null
+  echo "--- /var/www ---"; ls -la /var/www
+  echo "--- NCC paths ---"; ls -la /var/www/wearencc.org 2>/dev/null | head
+  echo "--- ports ---"; sudo ss -tlnp | grep -E ':80|:443|:4000'
+  curl -sS -m 5 http://127.0.0.1:4000/api/health 2>/dev/null
+} | tee ~/ncc-server-audit.txt
+```
+
+Download `~/ncc-server-audit.txt` (WinSCP / `gcloud compute scp`) and tick off what is already `[present]` / `[installed]` vs `[missing]`. **Skip deploy phases** that the audit shows are done; start at the first phase with gaps.
+
+| Audit shows | You can skip | Start at |
+|-------------|--------------|----------|
+| DNS + Apache + Certbot certs for both domains | Phase A, TLS reference | **Phase C** (Node + PM2) |
+| Node + PM2 installed, empty or stale `/var/www/wearencc.org` | A, C (partial) | **Phase D** (upload) |
+| Files uploaded, no `.env` / PM2 | D | Phase E |
+| `.env` + PM2 running, no wearencc vhost | E, F | Phase G |
+| Everything green in preflight | Through G | Phase H (browser tests) |
 
 ---
 
@@ -156,7 +242,7 @@ Add **A records**:
 | A | `@` (or blank) | `34.30.208.144` | 300–3600 |
 | A | `www` | `34.30.208.144` | 300–3600 |
 
-If Pinnacle is not on HTTPS yet, also ensure **pinnaclepublishinggroup.net** and **www** point to **34.30.208.144**.
+Pinnacle (**pinnaclepublishinggroup.net**) already uses this server with HTTPS (Certbot/Apache). Do not change its vhost or re-run Certbot for Pinnacle during NCC deploy.
 
 **Wait 5–60 minutes**, then on your PC:
 
@@ -208,35 +294,50 @@ You should see a prompt like `username@instance-20260502-213133:~$`. All followi
 
 Run these on the VM **once** (safe to run again if unsure).
 
+### C.1 Base packages (Apache, build tools)
+
 ```bash
 sudo apt update
-sudo apt install -y apache2 git curl ufw ca-certificates certbot \
-  python3-certbot-apache build-essential
+sudo apt install -y apache2 git curl ufw ca-certificates build-essential
 ```
 
-Install **Node.js 20** (required for the API):
-
-```bash
-curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
-sudo apt install -y nodejs
-node -v
-```
-
-You should see `v20.x.x`.
-
-Install **PM2** (keeps API running):
-
-```bash
-sudo npm install -g pm2
-pm2 -v
-```
-
-Enable Apache modules for NCC (proxy + SSL):
+Enable Apache modules for NCC (proxy):
 
 ```bash
 sudo a2enmod proxy proxy_http headers ssl rewrite
 sudo systemctl reload apache2
 ```
+
+### C.2 Node.js via NVM (required — do **not** use `apt install nodejs`)
+
+**This VM runs Ubuntu 18.04.** The `apt` Node packages require `libc6 >= 2.28`, which conflicts with the system GLIBC 2.27 and can break package management. Production uses **NVM** in user space instead.
+
+```bash
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
+source ~/.nvm/nvm.sh
+nvm install 24.16.0
+nvm alias default 24.16.0
+node -v    # expect v24.16.0
+npm -v
+```
+
+Add to `~/.bashrc` so new SSH sessions load NVM:
+
+```bash
+echo 'export NVM_DIR="$HOME/.nvm"' >> ~/.bashrc
+echo '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"' >> ~/.bashrc
+```
+
+Install **PM2** under NVM Node:
+
+```bash
+npm install -g pm2
+pm2 -v
+```
+
+**GLIBC note:** If you ever see `GLIBC_2.28 not found` when running binaries, see [production-runtime.md](./production-runtime.md) for the user-local GLIBC 2.28 build procedure used during the May 2026 overhaul. NVM Node 24 resolved this for the live API.
+
+### C.3 Optional checks
 
 If **nginx** was installed and might conflict:
 
@@ -253,119 +354,71 @@ sudo ss -tlnp | grep ':80'
 
 ---
 
-## Phase D — Pinnacle HTTPS only (do not move booksales files)
-
-Pinnacle is **already live** on HTTP via Apache. **Do not** copy booksales files into `/var/www/wearencc`.
-
-### D.1 Confirm Pinnacle works on HTTP
-
-```bash
-curl -I http://pinnaclepublishinggroup.net/
-```
-
-Expect `HTTP/1.1 200` and `Server: Apache`.
-
-### D.2 Open firewall on the VM for HTTPS
-
-```bash
-sudo ufw allow OpenSSH
-sudo ufw allow 'Apache Full'
-sudo ufw enable
-sudo ufw status
-```
-
-### D.3 HTTPS for Pinnacle
-
-Use **Apache** Certbot (not nginx):
-
-```bash
-sudo certbot --apache \
-  -d pinnaclepublishinggroup.net -d www.pinnaclepublishinggroup.net \
-  --agree-tos -m YOUR_EMAIL@example.com --redirect
-```
-
-Replace the email. Answer prompts if asked interactively.
-
-Test:
-
-```bash
-curl -I https://pinnaclepublishinggroup.net/
-```
-
----
-
-## Phase E — Upload the NCC project to the server
+## Phase D — Upload the NCC project to the server
 
 **When:** After Phase C (software installed), **before** creating `.env` or starting the API.
 
-**Goal:** Copy the whole NCC repo into `/var/www/wearencc` on the VM.
+**Goal:** Put **public** files in `public_html/` and **backend** + **deploy** beside it (matches Apache `DocumentRoot` on this VM).
 
-### E.1 Create folder and permissions
+### D.1 Folders and permissions
 
-On the VM:
-
-```bash
-sudo mkdir -p /var/www/wearencc
-sudo chown -R $USER:$USER /var/www/wearencc
-cd /var/www/wearencc
-```
-
-### E.2 Option 1 — Git (if repo is on GitHub/GitLab)
+`public_html` already exists. Create sibling folders:
 
 ```bash
-cd /var/www/wearencc
-git clone https://YOUR_GIT_HOST/YOUR_USER/YOUR_REPO.git .
+sudo mkdir -p /var/www/wearencc.org/public_html /var/www/wearencc.org/backend /var/www/wearencc.org/deploy
+sudo chown -R $USER:$USER /var/www/wearencc.org
 ```
 
-### E.3 Option 2 — Upload from Windows (no Git on server)
+### D.2 Option 1 — Git clone, then split layout
 
-On your **Windows PC**, open PowerShell in the NCC project folder (where `index.html` lives).
+```bash
+git clone https://YOUR_GIT_HOST/YOUR_USER/YOUR_REPO.git /tmp/ncc-build
+rsync -av /tmp/ncc-build/*.html /tmp/ncc-build/assets/ /var/www/wearencc.org/public_html/
+rsync -av /tmp/ncc-build/backend/ /var/www/wearencc.org/backend/ --exclude node_modules
+rsync -av /tmp/ncc-build/deploy/ /var/www/wearencc.org/deploy/
+rm -rf /tmp/ncc-build
+```
 
-Install [rsync via WSL](https://learn.microsoft.com/en-us/windows/wsl/) or use **WinSCP** / **FileZilla** (SFTP to `34.30.208.144`, user = your SSH username).
+### D.3 Option 2 — Upload from Windows (WinSCP / FileZilla)
 
-**Rsync example** (adjust username):
+| On your PC (repo) | Drop on server |
+|-------------------|---------------|
+| `index.html`, all other `*.html` | `/var/www/wearencc.org/public_html/` |
+| `assets/` folder | `/var/www/wearencc.org/public_html/assets/` |
+| `backend/` (no `node_modules`, no `.env`) | `/var/www/wearencc.org/backend/` |
+| `deploy/` folder | `/var/www/wearencc.org/deploy/` |
+
+**Rsync from Windows (WSL)** — two targets:
 
 ```powershell
 cd C:\path\to\ncc
-rsync -avz --exclude node_modules --exclude backend/node_modules --exclude .git `
-  --exclude backend/data/*.json --exclude assets/config/runtime.json `
-  --exclude backend/.env `
-  ./ YOUR_LINUX_USER@34.30.208.144:/var/www/wearencc/
+rsync -avz --exclude node_modules --exclude backend --exclude deploy --exclude .git `
+  ./ YOUR_USER@34.30.208.144:/var/www/wearencc.org/public_html/
+rsync -avz --exclude node_modules --exclude .env --exclude data/*.json `
+  ./backend/ YOUR_USER@34.30.208.144:/var/www/wearencc.org/backend/
+rsync -avz ./deploy/ YOUR_USER@34.30.208.144:/var/www/wearencc.org/deploy/
 ```
 
-**WinSCP / FileZilla mapping**
-
-| On your PC (local) | Drop on server (remote) |
-|--------------------|-------------------------|
-| Entire project **contents** (all files inside repo) | `/var/www/wearencc/` |
-| `index.html` | `/var/www/wearencc/index.html` |
-| `assets/` folder | `/var/www/wearencc/assets/` |
-| `backend/` folder (no `node_modules`, no `.env`) | `/var/www/wearencc/backend/` |
-| `deploy/` folder | `/var/www/wearencc/deploy/` |
-| All other `.html` pages | `/var/www/wearencc/` |
-
-After upload, on the VM:
+After upload:
 
 ```bash
-ls -la /var/www/wearencc/index.html
-ls -la /var/www/wearencc/backend/package.json
-ls -la /var/www/wearencc/deploy/apache/wearencc.org.conf
+ls -la /var/www/wearencc.org/public_html/index.html
+ls -la /var/www/wearencc.org/backend/package.json
+ls -la /var/www/wearencc.org/deploy/apache/wearencc.org.conf
 ```
-
-All three should exist.
 
 ---
 
-## Phase F — Create config files on the server (not in Git)
+## Phase E — Create config files on the server (not in Git)
 
-**When:** Right after Phase E (files uploaded), **before** `npm install` and PM2.
+**When:** Right after Phase D (files uploaded), **before** `npm install` and PM2.
 
 These files are **created only on the server**. They are listed in `.gitignore` and must not be committed.
 
-### F.1 Frontend: `runtime.json` (connects website to API)
+### E.1 Frontend: `runtime.json` (connects website to API)
 
 ```bash
-cd /var/www/wearencc
+cd /var/www/wearencc.org/public_html
 cp assets/config/runtime.production.example.json assets/config/runtime.json
 nano assets/config/runtime.json
 ```
@@ -383,20 +436,20 @@ It must look like this (paths matter):
 ```
 
 - `"apiBase": "/api"` means the browser calls `https://wearencc.org/api/...` on the **same domain**.
-- Apache will forward `/api` to Node (Phase H).
+- Apache will forward `/api` to Node (Phase G).
 
 Save and exit (`Ctrl+O`, Enter, `Ctrl+X` in nano).
 
 **Verify:**
 
 ```bash
-cat /var/www/wearencc/assets/config/runtime.json
+cat /var/www/wearencc.org/public_html/assets/config/runtime.json
 ```
 
-### F.2 Backend: `.env` (API secrets and admin login)
+### E.2 Backend: `.env` (API secrets and admin login)
 
 ```bash
-cd /var/www/wearencc/backend
+cd /var/www/wearencc.org/backend
 cp .env.example .env
 ```
 
@@ -409,7 +462,7 @@ openssl rand -base64 48
 Copy the output. Edit `.env`:
 
 ```bash
-nano /var/www/wearencc/backend/.env
+nano /var/www/wearencc.org/backend/.env
 ```
 
 Example (replace placeholders):
@@ -434,50 +487,61 @@ OPENAI_MODEL=gpt-4o-mini
 | `HOST=127.0.0.1` | API only listens locally (safer). Apache exposes it via `/api`. |
 | `JWT_SECRET` | Signs admin login tokens. Must be long and random. |
 | `ADMIN_EMAIL` / `ADMIN_PASSWORD` | **First** staff login at `/admin.html`. |
-| `CORS_ORIGIN` | Must use **https://** after SSL is enabled. |
+| `CORS_ORIGIN` | Must match your live site URLs (`https://wearencc.org`, `https://www.wearencc.org`). |
 | `OPENAI_API_KEY` | Optional; leave empty for simple prayer replies. |
 
 Lock the file:
 
 ```bash
-chmod 600 /var/www/wearencc/backend/.env
+chmod 600 /var/www/wearencc.org/backend/.env
 ```
 
-### F.3 Data and upload folders
+### E.3 Data and upload folders
 
 ```bash
-mkdir -p /var/www/wearencc/backend/data /var/www/wearencc/backend/uploads
-chown -R $USER:$USER /var/www/wearencc/backend/data /var/www/wearencc/backend/uploads
+mkdir -p /var/www/wearencc.org/backend/data /var/www/wearencc.org/backend/uploads
+chown -R $USER:$USER /var/www/wearencc.org/backend/data /var/www/wearencc.org/backend/uploads
 ```
 
 ---
 
-## Phase G — Install and start the NCC API (backend)
+## Phase F — Install and start the NCC API (backend)
 
-**When:** After Phase F.
+**When:** After Phase E.
 
-### G.1 Install Node packages
+### F.1 Install Node packages
 
 ```bash
-cd /var/www/wearencc/backend
+source ~/.nvm/nvm.sh
+cd /var/www/wearencc.org/backend
 npm install --omit=dev
 ```
 
-This creates `/var/www/wearencc/backend/node_modules/`. Wait until it finishes (1–3 minutes).
-
-### G.2 Import calendar events from XML (one-time, recommended)
+If a previous deploy left a broken tree and FTP cannot delete `node_modules`:
 
 ```bash
-cd /var/www/wearencc/backend
+cd /var/www/wearencc.org/backend
+sudo rm -rf node_modules
+npm install --omit=dev
+```
+
+This creates `/var/www/wearencc.org/backend/node_modules/`. Wait until it finishes (1–3 minutes).
+
+### F.2 Import calendar events from XML (one-time, recommended)
+
+```bash
+cd /var/www/wearencc.org/backend
 npm run import-events-xml
 ```
 
-This reads `/var/www/wearencc/assets/data/events.xml` and writes `backend/data/events.json`.
+This reads `public_html/assets/data/events.xml` (production) or `assets/data/events.xml` (local dev) and writes `backend/data/events.json`.
 
-### G.3 Test API manually (then stop)
+Ensure `public_html/assets/data/events.xml` exists and is non-empty before starting the API — the status probe treats a missing file as an outage.
+
+### F.3 Test API manually (then stop)
 
 ```bash
-cd /var/www/wearencc/backend
+cd /var/www/wearencc.org/backend
 node src/server.js
 ```
 
@@ -497,10 +561,11 @@ In the first session press **Ctrl+C** to stop the test server.
 
 If you see an error about `ADMIN_PASSWORD` or `JWT_SECRET`, fix `.env` and try again.
 
-### G.4 Start API with PM2 (production)
+### F.4 Start API with PM2 (production)
 
 ```bash
-cd /var/www/wearencc/backend
+source ~/.nvm/nvm.sh
+cd /var/www/wearencc.org/backend
 pm2 start ../deploy/ecosystem.config.cjs
 pm2 status
 ```
@@ -520,108 +585,80 @@ pm2 startup
 
 Copy the **`sudo env ...`** command that `pm2 startup` prints, paste it, press Enter.
 
-### G.5 Preflight script
+### F.5 Preflight script
 
 ```bash
-cd /var/www/wearencc
+cd /var/www/wearencc.org
 bash deploy/preflight.sh
 ```
 
 Fix any `[FAIL]` lines before continuing.
 
-**At this point:** API works on the server, but the **public website** may not load `wearencc.org` until Phase H (Apache).
+**At this point:** API works on the server, but the **public website** may not load `wearencc.org` until Phase G (Apache).
 
 ---
 
-## Phase H — Tell Apache about wearencc.org
+## Phase G — Apache API proxy (required on this VM)
 
-**When:** After Phase G (API running on 4000), **after** DNS for wearencc points to this VM.
+**When:** After Phase F (API running on 4000).
 
-**What this does:** Copies the vhost template from the repo into Apache’s config folder and enables the site.
+**Production (May 2026):** `DocumentRoot` is **`/var/www/wearencc.org/public_html`**. **`ProxyPass` is configured** on both HTTP and HTTPS vhosts. Use this section when setting up a new server or if proxy lines are missing after a Certbot edit.
 
-### H.1 Copy vhost file (repo → system)
-
-```bash
-sudo cp /var/www/wearencc/deploy/apache/wearencc.org.conf \
-  /etc/apache2/sites-available/wearencc.org.conf
-```
-
-| Repo file | Server file |
-|-----------|-------------|
-| `deploy/apache/wearencc.org.conf` | `/etc/apache2/sites-available/wearencc.org.conf` |
-
-### H.2 Enable site and reload Apache
+### G.1 Enable proxy modules (if not already)
 
 ```bash
-sudo a2ensite wearencc.org.conf
-sudo apache2ctl configtest
-```
-
-Must say **Syntax OK**.
-
-```bash
+sudo a2enmod proxy proxy_http headers ssl rewrite
 sudo systemctl reload apache2
 ```
 
-### H.3 Confirm both sites appear
+### G.2 Add proxy lines to **both** vhost files
+
+Edit **each** file:
 
 ```bash
-sudo apache2ctl -S
+sudo nano /etc/apache2/sites-enabled/wearencc.org.conf
+sudo nano /etc/apache2/sites-enabled/wearencc.org-le-ssl.conf
 ```
 
-You should see entries for **wearencc.org** and Pinnacle’s hostname.
+Inside the `<VirtualHost>` block (before `</VirtualHost>`), add:
 
-### H.4 Test HTTP (before SSL)
+```apache
+    ProxyPreserveHost On
+    ProxyPass /api/ http://127.0.0.1:4000/api/
+    ProxyPassReverse /api/ http://127.0.0.1:4000/api/
+    ProxyPass /uploads/ http://127.0.0.1:4000/uploads/
+    ProxyPassReverse /uploads/ http://127.0.0.1:4000/uploads/
+```
+
+Do **not** change `DocumentRoot` — keep `/var/www/wearencc.org/public_html`.
+
+Then:
 
 ```bash
-curl -I http://wearencc.org/
-curl -s http://wearencc.org/api/health
+sudo apache2ctl configtest
+sudo systemctl reload apache2
+grep -E 'DocumentRoot|ProxyPass' /etc/apache2/sites-enabled/wearencc.org*.conf
+```
+
+Expect `DocumentRoot .../public_html` and four `ProxyPass` lines on **both** HTTP and HTTPS configs.
+
+### G.3 Test the site
+
+```bash
+curl -I https://wearencc.org/
+curl -s https://wearencc.org/api/health
 ```
 
 - First command: `200` or `301`.
 - Second: JSON health response (proves Apache → Node proxy works).
 
-If you see Pinnacle’s content on `wearencc.org`, DNS or vhost is wrong — fix before SSL.
+If you see Pinnacle’s content on `wearencc.org`, DNS or vhost is wrong — fix before continuing.
 
 **Home page:** Apache must use `index.html` as default (already in the vhost template: `DirectoryIndex index.html`). Do **not** set `under-construction.html` as the site index.
 
 ---
 
-## Phase I — HTTPS certificates (both domains)
-
-**When:** HTTP works for each domain (Phases D and H).
-
-### I.1 NCC certificate
-
-```bash
-sudo certbot --apache \
-  -d wearencc.org -d www.wearencc.org \
-  --agree-tos -m admin@wearencc.org --redirect
-```
-
-### I.2 Restart API (CORS must match https)
-
-```bash
-pm2 restart ncc-backend
-```
-
-### I.3 Test HTTPS
-
-```bash
-curl -I https://wearencc.org/
-curl -s https://wearencc.org/api/health
-curl -s https://wearencc.org/assets/config/runtime.json
-```
-
-### I.4 Auto-renewal test
-
-```bash
-sudo certbot renew --dry-run
-```
-
----
-
-## Phase J — Final tests in the browser
+## Phase H — Final tests in the browser
 
 Open these URLs on your phone or PC:
 
@@ -631,15 +668,18 @@ Open these URLs on your phone or PC:
 | 2 | https://wearencc.org/livestream.html | Livestream page |
 | 3 | https://wearencc.org/events.html | Calendar |
 | 4 | https://wearencc.org/admin.html | Admin login form |
-| 5 | https://pinnaclepublishinggroup.net/ | Pinnacle site (unchanged) |
+| 5 | https://wearencc.org/status.html | Service health page (all green) |
+| 5 | https://wearencc.org/api/health | JSON `{"status":"ok"}` |
+| 6 | https://wearencc.org/api/public/status | JSON `{"status":"operational"}` |
+| 7 | https://pinnaclepublishinggroup.net/ | Pinnacle site (unchanged) |
 
 **API test in browser:** open DevTools → Network → visit admin and sign in; requests should go to `https://wearencc.org/api/...` not another host.
 
 ---
 
-## Phase K — First admin login and site settings
+## Phase I — First admin login and site settings
 
-**When:** Phase J passes.
+**When:** Phase H passes.
 
 1. Go to **https://wearencc.org/admin.html**
 2. Email: value of `ADMIN_EMAIL` from `.env`
@@ -647,7 +687,7 @@ Open these URLs on your phone or PC:
 4. After login, open **Site configuration**
 5. Click **Reload from server** → review JSON → **Save changes**
 
-That writes `/var/www/wearencc/backend/data/site-config.json` and syncs fallbacks under `assets/data/`.
+That writes `/var/www/wearencc.org/backend/data/site-config.json` and syncs fallbacks under `assets/data/`.
 
 **Change admin password later:** editing `.env` alone does **not** update the password after first run. You must reset via `users.json` or a future admin tool.
 
@@ -655,11 +695,11 @@ That writes `/var/www/wearencc/backend/data/site-config.json` and syncs fallback
 
 ---
 
-## Phase L — Updating the site later (redeploy)
+## Phase J — Updating the site later (redeploy)
 
 **When:** You changed HTML/CSS/JS or backend code in Git.
 
-### L.1 What to upload again
+### J.1 What to upload again
 
 | Upload (overwrite) | Do not overwrite |
 |--------------------|------------------|
@@ -668,12 +708,13 @@ That writes `/var/www/wearencc/backend/data/site-config.json` and syncs fallback
 | | `backend/data/*.json` |
 | | `backend/uploads/*` |
 
-### L.2 Commands on server
+### J.2 Commands on server
 
 ```bash
-cd /var/www/wearencc
+source ~/.nvm/nvm.sh
+cd /var/www/wearencc.org
 git pull
-# OR rsync from PC again with same excludes as Phase E
+# OR rsync from PC again with same excludes as Phase D
 
 cd backend
 npm install --omit=dev
@@ -683,7 +724,7 @@ pm2 restart ncc-backend
 If Apache template changed:
 
 ```bash
-sudo cp /var/www/wearencc/deploy/apache/wearencc.org.conf \
+sudo cp /var/www/wearencc.org/deploy/apache/wearencc.org.conf \
   /etc/apache2/sites-available/wearencc.org.conf
 sudo apache2ctl configtest && sudo systemctl reload apache2
 ```
@@ -694,15 +735,19 @@ sudo apache2ctl configtest && sudo systemctl reload apache2
 
 | Problem | What to check | What to do |
 |---------|---------------|------------|
+| `apt install nodejs` broken packages | Ubuntu 18.04 GLIBC | Use **NVM** (Phase C.2), not apt Node — see [production-runtime.md](./production-runtime.md) |
+| `GLIBC_2.28 not found` | Old binary / loader | Use NVM Node 24; see GLIBC section in production-runtime doc |
+| FTP cannot delete `node_modules` | Deep nested dirs | SSH: `sudo rm -rf node_modules` then `npm install --omit=dev` |
+| Status page stuck on "Running checks…" | JS parse error | Redeploy `assets/js/status-page.js` |
+| `/api/public/status` shows outage | Missing `events.xml` | Ensure `public_html/assets/data/events.xml` exists and is non-empty |
 | `wearencc.org` shows wrong site | DNS, `apache2ctl -S` | Fix A records; enable `wearencc.org.conf` |
-| Blank page | `index.html` exists? | `ls /var/www/wearencc/index.html` |
+| Blank page | `index.html` exists? | `ls /var/www/wearencc.org/public_html/index.html` |
 | Admin login fails | API running? | `pm2 status`; `curl -s http://127.0.0.1:4000/api/health` |
 | Admin login fails | Wrong password | Use `.env` values from **first** API start |
 | `/api/health` 502 | Node down | `pm2 logs ncc-backend`; fix `.env` |
 | CORS error in browser | HTTP vs HTTPS | `CORS_ORIGIN=https://wearencc.org,...`; `pm2 restart` |
-| `runtime.json` 404 | File missing | Phase F.1 |
-| Pinnacle HTTPS broken | Use Apache certbot | [deploy-shared-server-ssl.md](./deploy-shared-server-ssl.md) |
-| Port 443 closed | GCP firewall + ufw | Phase D.2, `Apache Full` |
+| `runtime.json` 404 | File missing | Phase E.1 |
+| Site not loading | Firewall | GCP rules for tcp 80/443; `sudo ufw allow 'Apache Full'` if ufw is enabled |
 
 **Useful commands**
 
@@ -725,14 +770,12 @@ curl -s https://wearencc.org/api/health
 |-------|-------|---------|
 | 1 | A | DNS + GCP firewall |
 | 2 | B | SSH login |
-| 3 | C | Install Apache, Node, PM2, Certbot |
-| 4 | D | Pinnacle HTTPS (optional if already done) |
-| 5 | E | Upload repo → `/var/www/wearencc` |
-| 6 | F | Create `runtime.json` + `.env` on server |
-| 7 | G | `npm install`, import events, PM2 start API |
-| 8 | H | Copy Apache vhost, enable site, test HTTP |
-| 9 | I | Certbot HTTPS for wearencc |
-| 10 | J–K | Browser tests + admin login |
+| 3 | C | Install Apache; **NVM Node 24** + PM2 |
+| 4 | D | Upload repo → `/var/www/wearencc.org` |
+| 5 | E | Create `runtime.json` + `.env` on server |
+| 6 | F | `npm install`, import events, PM2 start API |
+| 7 | G | Copy Apache vhost, enable site, test HTTPS |
+| 8 | H–I | Browser tests + admin login |
 
 ### How the API connects to the website
 
@@ -757,6 +800,31 @@ Admin routes require `Authorization: Bearer <token>` from login.
 
 ---
 
+## Reference — TLS (Certbot, already on this VM)
+
+Both domains use **Apache + Certbot** (not nginx Certbot). Initial setup is **done**; only use these if you are **renewing** or **adding a new hostname**:
+
+```bash
+sudo certbot certificates
+sudo certbot renew --dry-run
+```
+
+Pinnacle (already issued):
+
+```bash
+sudo certbot --apache -d pinnaclepublishinggroup.net -d www.pinnaclepublishinggroup.net
+```
+
+NCC (already issued):
+
+```bash
+sudo certbot --apache -d wearencc.org -d www.wearencc.org --redirect
+```
+
+After any Certbot change that edits Apache vhosts, reload Apache: `sudo systemctl reload apache2`.
+
+---
+
 ## Optional: systemd instead of PM2
 
 File: `deploy/systemd/ncc-backend.service` — copy to `/etc/systemd/system/`, edit paths, then:
@@ -771,7 +839,7 @@ Use **either** PM2 **or** systemd, not both.
 
 ## Appendix — Every public HTML page (PC → server)
 
-Upload each file to **`/var/www/wearencc/`** with the **same filename**. Visitors open `https://wearencc.org/FILENAME`.
+Upload each file to **`/var/www/wearencc.org/`** with the **same filename**. Visitors open `https://wearencc.org/FILENAME`.
 
 | File in your repo | URL after deploy |
 |-------------------|------------------|
@@ -793,10 +861,10 @@ Upload each file to **`/var/www/wearencc/`** with the **same filename**. Visitor
 | `status.html` | https://wearencc.org/status.html (service health / uptime) |
 | `brand.html`, `colors.html`, `header-preview.html` | Staff/brand tools (linked from admin after login) |
 
-**`assets/` folder** — upload the whole directory to `/var/www/wearencc/assets/` (CSS, JS, images, `assets/data/events.xml`, etc.). Do not skip subfolders.
+**`assets/` folder** — upload the whole directory to `/var/www/wearencc.org/assets/` (CSS, JS, images, `assets/data/events.xml`, etc.). Do not skip subfolders.
 
 ---
 
 ## Optional: nginx-only deploy
 
-This VM uses **Apache** for Pinnacle and NCC. The files under `deploy/nginx/` are for a different hosting layout only. Do not enable nginx on ports 80/443 unless you plan a full migration ([deploy-shared-server-ssl.md](./deploy-shared-server-ssl.md)).
+This VM uses **Apache** for Pinnacle and NCC. The files under `deploy/nginx/` are for a different hosting layout only. Do not enable nginx on ports 80/443 unless you plan a full migration.

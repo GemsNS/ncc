@@ -9,7 +9,20 @@ const pkg = require("../../package.json");
 
 const dataDir = path.join(__dirname, "..", "..", "data");
 const uploadsDir = path.join(__dirname, "..", "..", "uploads");
-const staticEventsXml = path.join(__dirname, "..", "..", "..", "assets", "data", "events.xml");
+const repoRoot = path.join(__dirname, "..", "..", "..");
+const staticEventsXmlCandidates = [
+  path.join(repoRoot, "public_html", "assets", "data", "events.xml"),
+  path.join(repoRoot, "assets", "data", "events.xml")
+];
+
+function resolveStaticEventsXmlPath() {
+  for (let i = 0; i < staticEventsXmlCandidates.length; i += 1) {
+    if (fs.existsSync(staticEventsXmlCandidates[i])) {
+      return staticEventsXmlCandidates[i];
+    }
+  }
+  return staticEventsXmlCandidates[staticEventsXmlCandidates.length - 1];
+}
 
 function probe(name, id, fn) {
   const start = Date.now();
@@ -77,8 +90,9 @@ function collectStatus() {
       return "Writable";
     }),
     probe("Events XML fallback", "events-xml", function () {
+      const staticEventsXml = resolveStaticEventsXmlPath();
       if (!fs.existsSync(staticEventsXml)) {
-        throw new Error("events.xml missing");
+        throw new Error("events.xml missing at " + staticEventsXml);
       }
       const stat = fs.statSync(staticEventsXml);
       if (!stat.size) {

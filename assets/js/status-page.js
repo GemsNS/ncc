@@ -263,7 +263,7 @@
     metricsEl.innerHTML =
       '<article class="card metric-card">' +
       "<h3>Components</h3>" +
-      "<p class='metric-value'>" + operational + "/" + total + "</p>" +
+      "<p class='metric-value'>" + operational + "</p>" +
       "<p class='muted'>Operational right now</p>" +
       "</article>" +
       '<article class="card metric-card">' +
@@ -271,7 +271,7 @@
       "<p class='metric-value'>" + avgLatency + " ms</p>" +
       "<p class='muted'>Across visible checks</p>" +
       "</article>" +
-      '<article class="card metric-card'>" +
+      '<article class="card metric-card">' +
       "<h3>API</h3>" +
       "<p class='metric-value'>" + (snapshot.apiReachable ? "Online" : "Offline") + "</p>" +
       "<p class='muted'>" + escapeHtml(snapshot.environment || "—") + "</p>" +

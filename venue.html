@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NCC Spaces - Venue & Event Rentals | New Community Church</title>
+    <meta name="description" content="Host weddings, banquets, meetings, and community events at New Community Church in Suffolk, Virginia.">
+    
+    <!-- Google Fonts for Premium Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS with custom theme styling matching NCC aesthetic -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Lato', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    colors: {
+                        brand: {
+                            light: '#f5f7f5',
+                            DEFAULT: '#7a8c7a',
+                            dark: '#1e2b1e',
+                            accent: '#dfb76c',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #f1f3f1;
+        }
+        .page-container {
+            box-shadow: 0 15px 50px rgba(0,0,0,0.06);
+        }
+        .text-glow {
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        @media print {
+            @page {
+                margin: 0.6in 0.75in 0.6in 0.75in;
+                size: letter portrait;
+            }
+            body {
+                background-color: white !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .page-container {
+                box-shadow: none !important;
+                max-width: 100% !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            .no-print {
+                display: none !important;
+            }
+            .avoid-break {
+                page-break-inside: avoid;
+                break-inside: avoid;
+            }
+            .page-break-before {
+                page-break-before: always;
+            }
+            .print-grid-2 {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body class="text-gray-800 antialiased py-0 md:py-10 font-sans">
+
+    <div class="fixed top-4 right-4 z-50 no-print">
+        <button onclick="window.print()" class="bg-brand-dark text-white px-6 py-2.5 rounded-full shadow-xl hover:bg-brand-dark/95 active:scale-95 transition-all duration-200 flex items-center gap-2 text-sm font-semibold tracking-wide">
+            <svg class="w-4 h-4 text-brand-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path>
+            </svg>
+            Print or Save as PDF
+        </button>
+    </div>
+
+    <main class="page-container max-w-4xl mx-auto bg-white md:rounded-2xl overflow-hidden relative">
+        
+        <header class="text-center pt-20 pb-12 px-8 bg-gradient-to-b from-brand-light to-white relative">
+            <div class="absolute inset-x-0 top-0 h-1.5 bg-brand"></div>
+            <p class="text-brand uppercase tracking-widest text-xs font-bold mb-3">Welcome to</p>
+            <h1 class="font-serif text-5xl md:text-6xl font-bold text-brand-dark mb-4">NCC Spaces</h1>
+            <p class="text-xs uppercase tracking-widest text-brand font-semibold mb-4">wearencc.org &bull; New Community Church</p>
+            <p class="text-lg text-gray-500 italic font-serif max-w-2xl mx-auto">Discover beautiful, adaptable indoor and outdoor spaces designed to host your most memorable moments in Suffolk, Virginia.</p>
+        </header>
+
+        <div class="w-full h-[420px] overflow-hidden relative">
+            <img src="https://images.unsplash.com/photo-1469371670807-013ccf25f16a?auto=format&fit=crop&w=1600&q=80" alt="Beautiful Outdoor Banquet Setup at NCC" class="w-full h-full object-cover object-center">
+            <div class="absolute bottom-4 right-4 bg-black/50 backdrop-blur-sm text-white px-3 py-1 rounded text-xs tracking-wider uppercase font-semibold">
+                Beautifully Landscaped Outdoors
+            </div>
+        </div>
+
+        <div class="px-8 md:px-16 py-14 avoid-break">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 print-grid-2">
+                
+                <div>
+                    <h2 class="font-serif text-3xl text-brand-dark border-b border-brand-light pb-3 mb-6">About Our Spaces</h2>
+                    <p class="text-gray-600 leading-relaxed mb-4">
+                        Conveniently located in Suffolk, Virginia, <strong>New Community Church (NCC)</strong> has served the Hampton Roads area since 1997. Our campus is available for wedding ceremonies, receptions, banquets, memorials, meetings, and community gatherings.
+                    </p>
+                    <p class="text-gray-600 leading-relaxed mb-4">
+                        Our facilities feature well-maintained indoor spaces and welcoming grounds at <strong>5112 Godwin Blvd</strong>, offering a comfortable, elegant environment for events of many sizes.
+                    </p>
+                    <p class="text-gray-600 leading-relaxed font-serif italic text-brand-dark">
+                        Experience flexible layouts, clear acoustics, and a stage area well suited for worship celebrations, presentations, and photography.
+                    </p>
+                </div>
+
+                <div class="bg-brand-light/50 p-6 rounded-xl border border-brand-light/70">
+                    <h2 class="font-serif text-2xl text-brand-dark border-b border-brand-light pb-3 mb-5">Premium Amenities</h2>
+                    <ul class="space-y-3.5 text-sm">
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-brand mt-0.5 mr-3 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                            <span class="text-gray-700 font-medium">Sanctuary seating for large worship and special events</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-brand mt-0.5 mr-3 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                            <span class="text-gray-700 font-medium">Hospitality areas for families and wedding parties</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-brand mt-0.5 mr-3 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                            <span class="text-gray-700 font-medium">Kitchen facilities for catering and fellowship meals</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-brand mt-0.5 mr-3 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                            <span class="text-gray-700 font-medium">Sound, projection, and livestream-capable media systems</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-brand mt-0.5 mr-3 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                            <span class="text-gray-700 font-medium">Ample paved, well-lit on-site parking</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-brand mt-0.5 mr-3 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                            <span class="text-gray-700 font-medium">Outdoor areas for community events (seasonal)</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="px-8 md:px-16 pb-14 avoid-break">
+            <h2 class="font-serif text-3xl text-brand-dark border-b border-gray-200 pb-3 mb-6 text-center">Our Spaces & Venues</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 print-grid-2">
+                <div class="overflow-hidden rounded-xl border border-gray-200 bg-white">
+                    <img src="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=600&q=80" alt="Sanctuary gathering space" class="w-full h-44 object-cover">
+                    <div class="p-4">
+                        <h4 class="font-serif text-lg font-bold text-brand-dark mb-1">Sanctuary</h4>
+                        <p class="text-xs text-gray-500 leading-relaxed">Spacious worship auditorium with stage seating, clear sight lines, and AV support for services, weddings, and large gatherings.</p>
+                    </div>
+                </div>
+                <div class="overflow-hidden rounded-xl border border-gray-200 bg-white">
+                    <img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=600&q=80" alt="Banquet setup" class="w-full h-44 object-cover">
+                    <div class="p-4">
+                        <h4 class="font-serif text-lg font-bold text-brand-dark mb-1">Fellowship Hall</h4>
+                        <p class="text-xs text-gray-500 leading-relaxed">Flexible banquet layout with round tables, fellowship meals, showers, and ministry meetings — with kitchen access for catering.</p>
+                    </div>
+                </div>
+                <div class="overflow-hidden rounded-xl border border-gray-200 bg-white col-span-1 md:col-span-1">
+                    <img src="https://images.unsplash.com/photo-1541976844346-f18aeac57b06?auto=format&fit=crop&w=600&q=80" alt="Outdoor lawn" class="w-full h-44 object-cover">
+                    <div class="p-4">
+                        <h4 class="font-serif text-lg font-bold text-brand-dark mb-1">Church Grounds</h4>
+                        <p class="text-xs text-gray-500 leading-relaxed">Outdoor lawn and campus areas for community events, subject to season and church schedule.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="page-break-before"></div>
+
+        <div class="bg-brand-light px-8 md:px-16 py-14 border-t border-b border-brand-light/80 avoid-break">
+            <div class="text-center mb-10">
+                <h2 class="font-serif text-4xl text-brand-dark mb-3">Rental Investment Guides</h2>
+                <p class="text-gray-600 max-w-xl mx-auto">Professional, straightforward facility rentals for the Suffolk and greater Hampton Roads community.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 print-grid-2">
+                <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm flex flex-col h-full avoid-break">
+                    <h3 class="font-serif text-xl text-brand-dark font-bold mb-1">Weekday Rentals</h3>
+                    <p class="text-xs text-brand uppercase tracking-wider font-semibold mb-4">Mon - Thurs Bookings</p>
+                    <div class="text-3xl font-bold text-gray-800 mb-4">$1,200 <span class="text-sm font-normal text-gray-500">/ day</span></div>
+                    <ul class="text-xs text-gray-600 space-y-2.5 mb-6 flex-grow">
+                        <li>&bull; Up to 12 hours of total building access</li>
+                        <li>&bull; Perfect for banquets, keynotes, or non-profit seminars</li>
+                        <li>&bull; Classic round tables and seating configurations</li>
+                        <li>&bull; AV support available upon request</li>
+                    </ul>
+                </div>
+
+                <div class="bg-brand-dark p-6 rounded-xl border border-brand shadow-md flex flex-col h-full transform md:-translate-y-2 avoid-break relative">
+                    <div class="absolute top-0 right-0 bg-brand-accent text-brand-dark text-[10px] tracking-widest font-bold px-3 py-1 rounded-bl-lg rounded-tr-xl">PREMIUM</div>
+                    <h3 class="font-serif text-xl text-white font-bold mb-1">Weekend Wedding</h3>
+                    <p class="text-xs text-brand-accent uppercase tracking-wider font-semibold mb-4">Fri, Sat, or Sun Packages</p>
+                    <div class="text-3xl font-bold text-white mb-4">$3,500 <span class="text-sm font-normal text-gray-300">/ day</span></div>
+                    <ul class="text-xs text-gray-200 space-y-2.5 mb-6 flex-grow">
+                        <li>&bull; Extended site access for ceremony and reception</li>
+                        <li>&bull; Use of sanctuary and fellowship areas</li>
+                        <li>&bull; Kitchen amenities for catering setup</li>
+                        <li>&bull; Includes rehearsal time when scheduled in advance</li>
+                    </ul>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm flex flex-col h-full avoid-break">
+                    <h3 class="font-serif text-xl text-brand-dark font-bold mb-1">Micro & Custom</h3>
+                    <p class="text-xs text-brand uppercase tracking-wider font-semibold mb-4">Custom Hourly Blocks</p>
+                    <div class="text-3xl font-bold text-gray-800 mb-4">$200 <span class="text-sm font-normal text-gray-500">/ hr</span></div>
+                    <ul class="text-xs text-gray-600 space-y-2.5 mb-6 flex-grow">
+                        <li>&bull; Ideal for showers, conferences, and intimate memorials</li>
+                        <li>&bull; 4-hour minimum scheduling requirement</li>
+                        <li>&bull; Standard layout assistance included</li>
+                        <li>&bull; Custom packages available on request</li>
+                    </ul>
+                </div>
+            </div>
+            <p class="text-center text-xs text-gray-500 mt-8 italic">* A reservation deposit may be required to hold your date. Setup, custodial, and teardown services are available. Special rates may apply for NCC members.</p>
+        </div>
+
+        <div class="px-8 md:px-16 py-14 avoid-break">
+            <div class="flex flex-col md:flex-row gap-12 items-center print-grid-2">
+                
+                <div class="flex-1">
+                    <h2 class="font-serif text-3xl text-brand-dark mb-4">Schedule a Visit</h2>
+                    <p class="text-gray-600 mb-6">
+                        Interested in a walk-through? We would love to schedule a personal tour of our sanctuary, fellowship hall, and campus so you can see how the space fits your event.
+                    </p>
+                    <div class="space-y-4 text-sm text-gray-700">
+                        <p class="flex items-center gap-3">
+                            <svg class="w-5 h-5 text-brand shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                            <strong>Email:</strong> <a href="mailto:info@nccfamily.us" class="text-brand hover:underline">info@nccfamily.us</a>
+                        </p>
+                        <p class="flex items-center gap-3">
+                            <svg class="w-5 h-5 text-brand shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                            <strong>Phone:</strong> <a href="tel:+17574346231" class="text-brand hover:underline">(757) 434-6231</a>
+                        </p>
+                        <div class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-brand mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                            <div class="text-xs text-gray-600 leading-relaxed">
+                                <strong class="text-gray-700 text-sm block">Location:</strong>
+                                <span class="block"><strong>New Community Church:</strong> 5112 Godwin Blvd, Suffolk, VA 23434</span>
+                            </div>
+                        </div>
+                        <p class="text-xs text-gray-500">Sunday worship 11:00 AM · Wednesday Bible study 7:00 PM</p>
+                    </div>
+                </div>
+
+                <div class="flex-1 bg-brand-light p-8 rounded-xl border border-brand/20 text-center no-print">
+                    <h3 class="font-serif text-2xl text-brand-dark mb-3">Request a Date</h3>
+                    <p class="text-sm text-gray-500 mb-6">Want to check availability? Send an inquiry and our team will respond within 24–48 business hours.</p>
+                    <a href="mailto:info@nccfamily.us?subject=NCC Spaces Facility Inquiry" class="inline-block bg-brand-dark hover:bg-brand text-white font-bold py-3.5 px-8 rounded-full transition w-full shadow-md text-sm uppercase tracking-wider">
+                        Inquire Online
+                    </a>
+                    <a href="https://wearencc.org/" class="inline-block text-xs text-brand hover:underline mt-4">Visit our website &bull; wearencc.org</a>
+                </div>
+            </div>
+        </div>
+        
+        <footer class="bg-brand-dark text-white/90 text-center py-8 text-xs relative">
+            <div class="absolute inset-x-0 bottom-0 h-1 bg-brand-accent"></div>
+            <p class="font-medium mb-1">&copy; 2026 New Community Church. All rights reserved.</p>
+            <p class="text-white/50">Serving Suffolk, Virginia with worship, fellowship, and community since 1997.</p>
+        </footer>
+
+    </main>
+</body>
+</html>

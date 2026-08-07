@@ -1,5 +1,6 @@
 /**
- * PM2 process file. From repo root:
+ * PM2 process file. From repo root (production: load NVM first):
+ *   source ~/.nvm/nvm.sh
  *   cd backend && npm install --omit=dev
  *   pm2 start ../deploy/ecosystem.config.cjs
  *   pm2 save

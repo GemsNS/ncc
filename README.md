@@ -80,7 +80,12 @@ The project now includes a custom Node.js backend in `backend/` for:
 
 ### Production deployment (wearencc.org / Ubuntu)
 
-See **`docs/deploy-ubuntu-wearencc.md`** — full beginner-friendly guide (which files go where, Apache + Node API + PM2 + SSL). Printable checklist: **`deploy/CHECKLIST.md`**.
+**Live:** https://wearencc.org/ on Google Cloud VM `instance-20260502-213133` (Apache + NVM Node 24 + PM2).
+
+See **`docs/deploy-ubuntu-wearencc.md`** — full beginner-friendly guide (which files go where, Apache + Node API + PM2).  
+Runtime details (NVM, GLIBC, verified endpoints): **`docs/production-runtime.md`**.  
+Printable checklist: **`deploy/CHECKLIST.md`**.  
+File inventory: **`deploy/FILELIST.txt`**.
 
 ### cPanel deployment
 
@@ -214,7 +219,8 @@ This changelog summarizes all major implementation work completed for the NCC re
 
 ### Current Status
 
-- Frontend: GitHub Pages-ready static deployment.
-- Backend: Available for dedicated hosting environments.
-- Admin: Demo mode + backend mode supported.
-- Social/Media: Multi-layer fallback strategy implemented.
+- **Production:** https://wearencc.org/ — Ubuntu 18.04, Apache, NVM Node 24.16.0, PM2, same-origin `/api`.
+- **Frontend:** Static HTML/CSS/JS in `public_html/` layout on server; GitHub Pages demo still available.
+- **Backend:** Node API at `backend/` with admin, events, prayer, media, and public status routes.
+- **Monitoring:** `status.html` + `/api/public/status` + `/api/health`.
+- **Admin:** Backend-authenticated staff portal at `/admin.html`.

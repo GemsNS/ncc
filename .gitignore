@@ -1,6 +1,7 @@
 backend/node_modules/
 backend/uploads/*
 !backend/uploads/.gitkeep
+_server-sync/
 backend/data/users.json
 backend/data/media.json
 backend/data/audit.json

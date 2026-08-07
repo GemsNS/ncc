@@ -7,7 +7,11 @@ const path = require("path");
 const crypto = require("crypto");
 
 const repoRoot = path.join(__dirname, "..", "..");
-const xmlPath = path.join(repoRoot, "assets", "data", "events.xml");
+const xmlCandidates = [
+  path.join(repoRoot, "public_html", "assets", "data", "events.xml"),
+  path.join(repoRoot, "assets", "data", "events.xml")
+];
+const xmlPath = xmlCandidates.find((p) => fs.existsSync(p)) || xmlCandidates[1];
 const outPath = path.join(__dirname, "..", "data", "events.json");
 
 function parseXmlEvents(xmlText) {

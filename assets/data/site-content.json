@@ -11,8 +11,7 @@
   },
   "placeholders": {
     "nav": {
-      "calendarEvents": "Calendar Events",
-      "statementOfFaith": "Statement of Faith"
+      "calendarEvents": "Calendar Events"
     },
     "branding": {
       "shortName": "NCC Family",
@@ -40,8 +39,8 @@
       "heroTimes": "Join us on Sunday at 11:00 AM and Wednesday at 7:00 PM.",
       "ctaWatch": "Watch Latest Message",
       "ctaVisit": "Plan Your Visit",
-      "heroImage": "./assets/images/artwork/community-welcome-ncc.png",
-      "heroImageLabel": "Welcome community photo (flip card)",
+      "heroImage": "./assets/newlogoset/home-hero-logo-panel.png",
+      "heroImageLabel": "Final Approved Logo Panel",
       "ministryTitle": "Ministry Priorities",
       "teachingTitle": "Biblical Teaching",
       "teachingCopy": "Teaching rooted in scripture, practical for everyday life, and centered on Jesus.",
@@ -61,6 +60,7 @@
     "events": {
       "eyebrow": "Calendar Events",
       "pageTitle": "Upcoming Church Gatherings",
+      "pageIntro": "Join us for worship, fellowship, and ministry throughout the month.",
       "sundayTitle": "Sunday Worship",
       "sundayTime": "Every Sunday at 11:00 AM",
       "sundayCopy": "Primary gathering with in-person participation.",
@@ -106,76 +106,6 @@
     "adminPage": {
       "title": "Secure Media Management Panel",
       "intro": "Use the custom backend service to authenticate staff and manage gallery/message media."
-    }
-  },
-  "live": {
-    "youtubeEmbedUrl": "https://www.youtube.com/embed/qmKZ6A8h0BE",
-    "zoomUrl": "https://zoom.us/",
-    "status": "starting_soon",
-    "tickerItems": [
-      {
-        "type": "status",
-        "label": "Service",
-        "value": "Starting Soon"
-      },
-      {
-        "type": "schedule",
-        "label": "Sunday Worship",
-        "value": "11:00 AM"
-      },
-      {
-        "type": "schedule",
-        "label": "Wednesday Midweek",
-        "value": "7:00 PM"
-      },
-      {
-        "type": "announcement",
-        "label": "This Week",
-        "value": "Prayer Gathering Friday 7:30 PM"
-      },
-      {
-        "type": "announcement",
-        "label": "Community",
-        "value": "New members welcome after service"
-      },
-      {
-        "type": "ministry",
-        "label": "Digital Campus",
-        "value": "YouTube live"
-      },
-      {
-        "type": "giving",
-        "label": "Giving",
-        "value": "Support outreach and media ministry"
-      },
-      {
-        "type": "prayer",
-        "label": "Prayer Line",
-        "value": "Open this week for requests"
-      }
-    ],
-    "statusSource": "manual",
-    "manualStatus": "starting_soon",
-    "serviceTimeline": {
-      "live": [
-        "Now: Worship + Opening Prayer",
-        "Next: Teaching Segment",
-        "Then: Community Prayer + Invitation"
-      ],
-      "starting_soon": [
-        "Now: Countdown + Welcome Loop",
-        "Next: Host Greeting",
-        "Then: Worship Start"
-      ],
-      "offline": [
-        "Now: Off-Air Replay Loop",
-        "Next: Next Service Countdown",
-        "Then: Community Announcements"
-      ]
-    },
-    "links": {
-      "youtubeWatch": "https://www.youtube.com/@NCCSUFFOLK",
-      "zoom": "https://zoom.us/"
     }
   },
   "socialFeeds": {
@@ -733,5 +663,73 @@
       "timestamp": "34:55",
       "point": "Invitation to faith and community response"
     }
-  ]
+  ],
+  "live": {
+    "statusSource": "manual",
+    "manualStatus": "starting_soon",
+    "tickerItems": [
+      {
+        "type": "status",
+        "label": "Service",
+        "value": "Starting Soon"
+      },
+      {
+        "type": "schedule",
+        "label": "Sunday Worship",
+        "value": "11:00 AM"
+      },
+      {
+        "type": "schedule",
+        "label": "Wednesday Midweek",
+        "value": "7:00 PM"
+      },
+      {
+        "type": "announcement",
+        "label": "This Week",
+        "value": "Prayer Gathering Friday 7:30 PM"
+      },
+      {
+        "type": "announcement",
+        "label": "Community",
+        "value": "New members welcome after service"
+      },
+      {
+        "type": "ministry",
+        "label": "Digital Campus",
+        "value": "YouTube live"
+      },
+      {
+        "type": "giving",
+        "label": "Giving",
+        "value": "Support outreach and media ministry"
+      },
+      {
+        "type": "prayer",
+        "label": "Prayer Line",
+        "value": "Open this week for requests"
+      }
+    ],
+    "serviceTimeline": {
+      "live": [
+        "Now: Worship + Opening Prayer",
+        "Next: Teaching Segment",
+        "Then: Community Prayer + Invitation"
+      ],
+      "starting_soon": [
+        "Now: Countdown + Welcome Loop",
+        "Next: Host Greeting",
+        "Then: Worship Start"
+      ],
+      "offline": [
+        "Now: Off-Air Replay Loop",
+        "Next: Next Service Countdown",
+        "Then: Community Announcements"
+      ]
+    },
+    "links": {
+      "youtubeWatch": "https://www.youtube.com/@NCCSUFFOLK",
+      "zoom": "https://zoom.us/"
+    },
+    "youtubeEmbedUrl": "https://www.youtube.com/embed/qmKZ6A8h0BE"
+  }
 }
